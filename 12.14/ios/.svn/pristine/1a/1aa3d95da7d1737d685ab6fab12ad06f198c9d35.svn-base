@@ -1,0 +1,300 @@
+/*
+ Localizable.strings
+ Muse
+ 
+ Created by 博云智慧 on 16/10/11.
+ Copyright © 2016年 Muse. All rights reserved.
+ */
+
+
+"quitAccount" = "Exit";
+"Power saving mode" = "Power saving mode";
+"Turn off vibration" = "Turn off vibration";
+"Using help" = "Using help";
+"Feedback Message" = "Feedback Message";
+"User Agreement and Privacy Policy" = "User Agreement and Privacy Policy";
+"About MuseHeart" = "About MuseHeart";
+
+"Heart rate" = "Heart rate";
+"Anti lost" = "Anti lost";
+"Alarming vibration for Health value" = "Health value";
+"Alarming vibration for Care" = "Care";
+
+"Problem description" = "Problem description";
+"Your Contacts" = "Contacts";
+"Feedback Content" = "Please clarify the problem you find, we will deal with it";
+"Your Contacts Detail" = "Phone ,email or QQ";
+"Send" = "Send";
+"Exit login" = "Exit login ?";
+"Ok" = "Ok";
+"Cancel" = "Cancel";
+"User Agreement" = "User Agreement";
+"Network Error" = "Network Error";
+"feedback didsend" = "Thanks!";
+"feedback failed" = "Failed, try again";
+
+"user_help_item1_title" = "1. What are the functions of MuseHeart?";
+"user_help_item2_title" = "2. Does the wearer of MuseHeart have to keep Bluetooth on?";
+"user_help_item3_title" = "3. What should I do if the system says no smart device is found?";
+"user_help_item4_title" = "4. How to synchronize data? What should I do if fails in data synchronization?";
+"user_help_item5_title" = "5. If I have enabled Call Reminder, how soon will MuseHeartremind me by vibrating after receiving calls.";
+"user_help_item6_title" = "6.Can I change the number of vibrations for Call Reminder? How many times does it vibrate at most?";
+"user_help_item7_title" = "7.Could you tell me why the device doesn’t remind me after a call comes in even though Call Reminder is enabled?";
+"user_help_item8_title" = "8. Why does heart rate test fail?";
+"user_help_item9_title" = "9. What are the factors affecting heart rate test?";
+"user_help_item10_title" = "10.Could you tell me the battery capacity of smart jewelry? How long can it work after it is fully charged?";
+"user_help_item11_title" = "11. Can MuseHeartbe charged with moveable power supply?";
+"user_help_item12_title" = "12. Why is the indicator light of MuseHeartoff even after it is connected to casket for charging?";
+"user_help_item13_title" = "13. How can I view the charging status of smart jewelry?";
+"user_help_item1_content" = "Heart rate test, one-key codewords, one-key SOS, device anti-lost, call reminder, remote care, Morse code";
+"user_help_item2_content" = "Yes, it has to keep connected with mobile.";
+"user_help_item3_content" = "First, please check whether MuseHeartis charged?Second, make MuseHeartbe close to the mobile;If problem remains unsolved, please turn off Bluetooth then turn on again or restart the mobile.";
+"user_help_item4_content" = "1）The data will be synchronized automatically after MuseHeart is on.\n2）If synchronization fails, please try the following procedures: First, restart MuseHeart; If problem remains unsolved, please turn off Bluetooth then turn on again or restart the mobile. (You can remove the Bluetooth information in mobile settings before restarting the mobilephone).\n Tips: if you are using iPhone, please find the device “MuseHeart” in Bluetooth list, click “ignore this device”";
+"user_help_item5_content" = "In default state, the system will remind you immediately after any call comes in if you have enabled Call Reminder. Users may switch on or off Call Reminder function at their own option.";
+"user_help_item6_content" = "NO, you can’t In default，when a call comes in, the device will vibrate to remind you till the call is answered or hung up; or you can press the key in MuseHeartto stop the vibration during call reminding.";
+"user_help_item7_content" = "1）First, please make sure MuseHeartis connected with mobilephone；\n2）Second, check whether MuseHeart is working (check background working)\n3）If problem remains unsolved, please reset Call Reminder function or turn off Bluetooth and turn it on again.";
+"user_help_item8_content" = "When you test resting heart rate (RHR), make sure you stay still, and keep the bottom of MuseHearttouched with your fingers well without obvious gap. Don’t walk or swing arms during test.";
+"user_help_item9_content" = "Improper wearing may affect the test of heart rate, e.g.: light leak, arm swing, minor movement of MuseHearton skin due to poor fitness. Too firm wearing, raising arms, all those may interfere with heart rate signals therefore affecting the test results. To test heart rate properly, please let your arms rest still, relaxed and calm down, with MuseHearttouching well with your fingers.";
+"user_help_item10_content" = "Battery capacity: 15mAh；In general, a MuseHeartcan continually work for 3-4 days after it is fully charged.(it depends on how frequently you use it).";
+"user_help_item11_content" = "Can not. We equip each MuseHeartwith casket which can serve as a charger, the device can be directly charged by casket.";
+"user_help_item12_content" = "1）First, please attempt to reconnect smart jewelry.\n2）Second, make sure nothing is wrong with the USB power supply (PC or any other power source). Please replace USB cable of smart jewelry, or change USB port of power source.\n3）Third, please check whether charging indicator appears in main menu of MuseHeart.";
+"user_help_item13_content" = "Please check whether the indicator of MuseHeartis normally on.";
+
+
+
+"layout_xinlv_title1" = "Resting heart rate";
+"layout_xinlv_tip1" = "Resting heartbeat per minute is generally 60-100 beats / min in normal state";
+"layout_xinlv_title2" = "Exercise heart rate";
+"layout_xinlv_tip2" = "Refer to the following figure for different heart rate intervals then adjust your execise plan";
+"layout_xinlv_statustip1" = "Slight movement";
+"layout_xinlv_statustip2" = "Aerobic exercise";
+"layout_xinlv_statustip3" = "Strenuous exercise";
+"layout_xinlv_title3" = "Alarm value settings";
+"layout_xinlv_settip1" = "Click the input block to change the alarm value";
+"layout_xinlv_settip2" = "Your MuseHeart  will light up red and send a reminder to your friends";
+"layout_xinlv_settip3" = "when the heart rate detection value exceeds the alarm value you set";
+
+
+
+
+"unit_disk_heartrate" = "unit_disk_heartrate_en";
+"word_loading_people" = "word_loading_people_en";
+"cartoon_homepage_bluetooth_" = "cartoon_homepage_bluetooth_en";
+
+
+
+
+"tel_notice" = "Call alert";
+"tel_notice2" = "If MuseHeart device is connected to the mobile and the 'Call alert' function is on, the device will vibrate and the green light will twinkle when receive a call.";
+"noresult" = "No result";
+
+
+"string_of_sos" = "One key for help";
+"string_of_sos2" = "The wearer need to add call for help contact and edit the custom help information in this interface firstly before using the function.\n In emergency，The wearer press the side key for 2 ~ 8s, The system will send default help information and the location to the phone of “Call for help” contact by SMS.\n In Receiving【SOS for help】SMS from “call for help” contacts, If the contact also wears MuseHeart ，MuseHeart  will vibrate intervally three times and flash red light SOS add that tip: add emergency contact must be in the area, plus the national mobile phone number (Code: for example 86)";
+
+
+"phone_tracker" = "Phone anti-lost";
+"phone_tracker2" = "The MuseHeart will vibrate and flash a red light to remind that the phone is out of a certain range of the MuseHeart \n\n Click to enable/disable the anti-lost function.";
+
+"mosi_text_name" = "Morse code";
+"mosi_text" = "Morse code function, when the wearer wants to send the code, click the corresponding code to send. The indicator light of your MuseHeart  will flashing colorful lights to inform others";
+"mosi_text_code1" = "I love you";
+"mosi_text_code2" = "Single";
+"mosi_text_code3" = "Party";
+"mosi_text_code4" = "High";
+
+"one_key_sweet_title" = "M you";
+"one_key_sweet_text" = "M you function, the wearer need to add Secret language contact and EdMuseHeart  the custom Secret language message in this interface firstly before using this function.\nThe wearer just short press the MuseHeart  button in the non-APP camera interface , then the system will send Customised sweet information and the location to the phone of Secret language contact by SMS.\nSecret language contact will receive 【M you】SMS, If the secret language contacts also wear MuseHeart , The MuseHeart  will vibrate once and flash the color (blue / green) indicator.\nUsers can customize the message.";
+"mbtn1" = "Add M you message";
+"mbtn2" = "Add M you contacts";
+"inputMax200" = "Max 200 words";
+
+
+"ble_not_supported" = "Bluetooth version is too low";
+"ble_scan_nodevice" = "MuseHeart not found";
+"ble_nopermission" = "MuseHeart no permission";
+"ble_poweroff" = "Bluetooth is off";
+
+"MsgBox" = "Message";
+"clear" = "Clear";
+
+"turnOn" = "ON";
+"turnOff" = "OFF";
+
+"sosbtn1" = "Add SOS message";
+"sosbtn2" = "Add 1~3 SOS contacts";
+
+"morseConbtn" = "Add 1~3 Muse user";
+
+"refreshContact" = "Refresh";
+
+
+"no friend" = "No friend";
+
+"Pull down to refresh" = "Pull down to refresh";
+"Release to refresh" = "Release to refresh";
+"Loading ..." = "Loading ...";
+
+"homepage_healthContent_title1" = "Friends healthy status";
+"homepage_healthContent_title2" = "Friends apply notification";
+
+"searchcontact" = "Search for contacts";
+
+
+//=====================================
+
+"deviceNoCamera" = "No camera";
+"cameraNoPermission" = "No camera permission";
+"flashOnBtn" = "ON";
+"flashOffBtn" = "OFF";
+"cameraDirection" = "Direction";
+
+//=============================
+
+"publicnumberbtn" = "Enter website";
+
+
+"ProductListTitle" = "Selecte a MuseRing";
+"No Any Muse Device" = "No Any MuseRing";
+"searchButConF" = "Ring Connect Failed";
+"Friends Status" = "Friends Status";
+
+"only3person" = "Max 3 Person";
+
+"Login Succeed" = "Login Succeed";
+"Login Failed" = "Login Failed";
+
+"getContact" = "Get Contact...";
+
+"quiting" = "Quit...";
+
+"sos didsend" = "SOS Did Send";
+"sosnouser" = "No SOS contact";
+
+"friendRequestSucceed" = "Send Succeed";
+"wantbeyourfriend" = "Want to be your friend";
+"addfriendlater" = "Later";
+"addfriendnow" = "Yes";
+"takePhotoDetail" = "Click Button To Take Photo";
+
+"photosaved" = "Photo Saved";
+"flashOff" = "OFF";
+"flashOn" = "ON";
+"flash" = "Flash";
+
+"noConMuse" = "No connected";
+
+"morseSended" = "Morse Sended";
+
+"ringisbusy" = "Please Wait";
+
+"morseSending" = "Sending...";
+
+"watchHeart" = "Measure";
+"pleaseSetNormalCount" = "40 > Heartrate value >225";
+
+
+"isTestingHeart" = "Busy Now";
+
+"friend" = "Friend";
+"heartrateoverproof" = "heartrate overproof";
+
+"Notification" = "Notification";
+"M  you" = "M you";
+"Anti-lost" = "Anti-lost";
+"Help" = "Help";
+"Morse" = "Morse";
+"Settings" = "Settings";
+
+"HeartRate is MeaSure" = "HeartRate is MeaSure";
+
+"locationLbl" = "Send Location";
+
+"Key function" = "Key function";
+"Vibration mode" = "Vibration mode";
+"Indicator light" = "Indicator light";
+"verferPlace" = "CheckCode";
+"phonePlace" = "Phone number";
+
+"guanaiyifasong" = "Care has been sent";
+"sosyifasong" = "SOS has been sent";
+"miyuyifasong" = "M has been sent";
+"miSendS" = "M you sent successfully";
+"miSendF" = "M you sent failed";
+
+
+"enterPhoneNumber" = "Enter phone number";
+"phoneNumberLim" = "Phone number is null";
+"smsCodeHadSend" = "CheckCode has been sent";
+"smsCodeHadSendF" = "CheckCode get failed";
+"pleaseEnterSMSCode" = "please enter SMS code";
+"loginFailn" = "Login failed";
+
+"agree" = "Agree";
+"disagree" = "Disagree";
+
+"tbvDelete" = "Delete";
+
+"wanttobeyourfriend" = "Want to be your friend";
+
+"No friend Apply" = "No friend apply";
+
+"PleaseSelectAreaCode" = "Please select areaCode";
+"Sec Retry" = "Sec retry";
+
+"Time/Min" = "/CPM";
+
+"heartHis" = "Record data";
+
+"write Data Failed" = "Write data failed";
+
+"enterPhoneNumBtn" = "Phone number";
+"getVerferBtn" = "Send verfication code";
+"pwdBtn" = "Enter code";
+"loginBtn" = "Login";
+"checkCodeError" = "CheckCode Error";
+
+
+"Please hand flat" = "Please hand flat";
+
+"ble_scan_nodevice" = "No Find Device";
+"device_connect_tip1" = "Searching Device...";
+"device_connect_tip2" = "Please put the device near the Phone";
+"device_connect_tip3" = "Wait...";
+"device_connected_success" = "Connected";
+"device_connected_failed" = "Connect Failed";
+"device_connected_reconnect" = "ReConnect";
+"device_connected_skip" = "Skip";
+
+"measureHeartate" = "Measure";
+
+
+"youDeveiceNotInstallQQ"="Your Device Not Install QQ";
+"youDeveiceNotInstallWechat"="Your Device Not Install WeChat";
+
+
+"feedback lim3word" = "> 10 Words";
+"feedback youcontact" = "Input your contact";
+
+"sos_max15word" = "word must < 15";
+
+
+"friendDelete" = "Deleted";
+
+
+
+"customSosContent" = "Edit Your SOS Message";
+"customMiContent" = "Edit Your Mi Message";
+
+
+"long" = "longitude";
+"la" = "latitude";
+"address" = "Address";
+
+"Honey, Come on!" = "Honey, Come on!";
+
+
+"I Need Help" = "SOS! I need help!";
+
+"Ver" = "Ver: ";
+"RingVer" = "RingVer: ";

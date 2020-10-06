@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AntiLostViewController">
+            <connections>
+                <outlet property="disableButton" destination="BLi-Xb-Cbu" id="Pcl-a3-b6b"/>
+                <outlet property="enableButton" destination="ae9-Fy-rm8" id="lEp-cc-ZCo"/>
+                <outlet property="promptLabel" destination="XGj-ga-taI" id="zLz-Df-nWq"/>
+                <outlet property="titleLbl" destination="KgD-V4-zpj" id="N0O-Yd-Ae0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HEy-DJ-5w1">
+                    <rect key="frame" x="0.0" y="108" width="375" height="66"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="66" id="saN-9n-6Zg"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机防丢" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgD-V4-zpj">
+                    <rect key="frame" x="27" y="129" width="82" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGj-ga-taI">
+                    <rect key="frame" x="27" y="192" width="321" height="19"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLi-Xb-Cbu">
+                    <rect key="frame" x="52" y="533" width="271" height="38"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="关闭" backgroundImage="btn_homepage2_1">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <state key="disabled" backgroundImage="btn_homepage2_1_press">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <state key="selected">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="changeAntiLostSetting:" destination="-1" eventType="touchUpInside" id="J3l-oh-yLH"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ae9-Fy-rm8">
+                    <rect key="frame" x="52" y="483" width="271" height="38"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="开启" backgroundImage="btn_homepage2_1">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <state key="disabled" backgroundImage="btn_homepage2_1_press">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="changeAntiLostSetting:" destination="-1" eventType="touchUpInside" id="lgX-MQ-bXA"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AfY-ls-vI5">
+                    <rect key="frame" x="0.0" y="174" width="375" height="1"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="r4S-K3-Zu0"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="HEy-DJ-5w1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="01H-aj-xdb"/>
+                <constraint firstItem="ae9-Fy-rm8" firstAttribute="centerX" secondItem="BLi-Xb-Cbu" secondAttribute="centerX" id="2dF-Xh-Vls"/>
+                <constraint firstItem="AfY-ls-vI5" firstAttribute="top" secondItem="HEy-DJ-5w1" secondAttribute="bottom" id="6YQ-oJ-CRu"/>
+                <constraint firstItem="BLi-Xb-Cbu" firstAttribute="top" secondItem="ae9-Fy-rm8" secondAttribute="bottom" constant="12" id="86q-y8-UaT"/>
+                <constraint firstItem="HEy-DJ-5w1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="108" id="8OH-aj-dqi"/>
+                <constraint firstItem="KgD-V4-zpj" firstAttribute="centerY" secondItem="HEy-DJ-5w1" secondAttribute="centerY" id="8PS-yo-gLS"/>
+                <constraint firstItem="BLi-Xb-Cbu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Aes-R8-KW8"/>
+                <constraint firstItem="XGj-ga-taI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="27" id="ESy-IS-ABq"/>
+                <constraint firstAttribute="bottom" secondItem="BLi-Xb-Cbu" secondAttribute="bottom" constant="96" id="UBc-wX-AbT"/>
+                <constraint firstAttribute="trailing" secondItem="AfY-ls-vI5" secondAttribute="trailing" id="btd-5P-ZDW"/>
+                <constraint firstAttribute="trailing" secondItem="HEy-DJ-5w1" secondAttribute="trailing" id="gzC-hm-MZa"/>
+                <constraint firstItem="XGj-ga-taI" firstAttribute="top" secondItem="HEy-DJ-5w1" secondAttribute="bottom" constant="18" id="o7v-4b-JXz"/>
+                <constraint firstItem="AfY-ls-vI5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="o9J-TI-xlK"/>
+                <constraint firstAttribute="trailing" secondItem="XGj-ga-taI" secondAttribute="trailing" constant="27" id="q6c-rN-Gxn"/>
+                <constraint firstItem="KgD-V4-zpj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="27" id="y0T-fK-ohh"/>
+            </constraints>
+            <point key="canvasLocation" x="26.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_homepage2_1" width="271" height="38"/>
+        <image name="btn_homepage2_1_press" width="271" height="38"/>
+    </resources>
+</document>

@@ -1,0 +1,301 @@
+/* 
+  Localizable.strings
+  Muse
+
+  Created by 博云智慧 on 16/10/11.
+  Copyright © 2016年 Muse. All rights reserved.
+*/
+
+
+
+"quitAccount" = "退出登录";
+"Power saving mode" = "省电模式";
+"Turn off vibration" = "关闭震动";
+"Using help" = "使用帮助";
+"Feedback Message" = "反馈意见";
+"User Agreement and Privacy Policy" = "用户协议及隐私政策";
+"About MuseHeart" = "关于 MuseHeart";
+
+"Heart rate" = "心率";
+"Anti lost" = "防丢";
+"Alarming vibration for Health value" = "健康值超标震动";
+"Alarming vibration for Care" = "被关爱提醒震动";
+
+"Problem description" = "问题详情";
+"Your Contacts" = "联系方式";
+"Feedback Content" = "请描述您遇到的问题, 我们会仔细聆听";
+"Your Contacts Detail" = "预留您的电子邮箱, 手机号或 QQ 号";
+"Send" = "发送";
+"Exit login" = "退出登录 ?";
+"Ok" = "确定";
+"Cancel" = "取消";
+"User Agreement" = "用户协议";
+"Network Error" = "网络错误";
+"feedback didsend" = "您的反馈已收到";
+"feedback failed" = "提交失败, 请重试";
+
+"no friend" = "暂未关联亲友";
+
+"Pull down to refresh" = "下拉即可刷新";
+"Release to refresh" = "松开即可刷新";
+"Loading ..." = "刷新中";
+
+"user_help_item1_title" = "1. 缪斯戒指有哪些功能 ?";
+"user_help_item2_title" = "2. 佩戴缪斯戒指，手机蓝牙需要一直打开吗 ?";
+"user_help_item3_title" = "3. 连接手机时提示搜索不到戒指怎么办 ?";
+"user_help_item4_title" = "4. 如何同步数据？同步数据时提示连接失败怎么办 ?";
+"user_help_item5_title" = "5. 设置了来电提醒，来电多长时间戒指会振动提醒 ?";
+"user_help_item6_title" = "6. 来电提醒的振动次数可以修改吗？最多振动多少次 ?";
+"user_help_item7_title" = "7. 为什么设置了来电提醒，但有来电却不提醒 ?";
+"user_help_item8_title" = "8. 为什么我心率测试失败 ?";
+"user_help_item9_title" = "9. 哪些因素会影响心率的测试结果 ?";
+"user_help_item10_title" = "10. 缪斯智能戒指电池容量多大? 充满电后能使用多长时间 ?";
+"user_help_item11_title" = "11. 缪斯智能戒指能不能使用移动电源充电 ?";
+"user_help_item12_title" = "12. 为什么我的缪斯智能戒指已接充上电，但戒指信号灯不显示 ?";
+"user_help_item13_title" = "13. 如何查看戒指充电进度 ?";
+"user_help_item1_content" = "心率检测，一键蜜语，一键呼救，设备防丢，摩斯密码，拍照，来电提醒，关爱家人。";
+"user_help_item2_content" = "需要一直打开蓝牙。";
+"user_help_item3_content" = "首先，请检查戒指是否充电？请按主体上的触控键查看提示灯能否点亮；\n\
+其次，请讲戒指靠近手机，越近越好；\n\
+若以上操作后还是不行，请尝试开关一次手机蓝牙或重启手机。";
+"user_help_item4_content" = "1）打开MuseHeart时会自动同步。\n\
+2）若同步时提示连接失败，请尝试一下方法:\n\
+首先可以结束MuseHeart,在重新进入；如果还是不行请开关一次手机蓝牙或重启手机。（在重启手机之前也可以尝试在手机设置中清除蓝牙共享信息）\n\
+提示: 苹果用户，请在手机设置蓝牙列表中查看“Muse Heart”设备，点击并忽略此设备，然后再重新开关一下手机蓝牙或重启手机。";
+"user_help_item5_content" = "设置来电提醒后，默认来电后即刻提醒。在Muse\n\
+Heart中可根据个人需求开关来电提醒功能。";
+"user_help_item6_content" = "来电提醒的振动次数不能修改。来电按默认时间振动提醒，直到接通或挂断；振动提醒过程中按戒指功能键也可以停止振动。";
+"user_help_item7_content" = "1）首先请确认戒指与手机是否处于连接状态；\n\
+2）其次请检查MuseHeart是否运行着；（后台运行即可）\n\
+3）若还是无法提醒，建议重新设置一下来电提醒功能试试或将手机蓝牙重新开关一次。";
+"user_help_item8_content" = "测试静止心率时，注意保持人处于静止状态，并将戒指的底部贴紧手指不留明显缝隙，测量期间不要走动，不要晃动手臂。";
+"user_help_item9_content" = "不标准的佩戴方式会影响心率信号的测量，比如不完全贴合导致的漏光、手臂的摆动以及戒指在皮肤上的轻微移动等，戒指佩戴的过紧、手臂抬高等会影响心率信号，从而影响检测结果,正确的测量方式将手臂平放，放松并保持静止，同时保证戒指紧贴手指。\n\
+注意: 佩戴正确情况下，皮肤颜色、毛发、纹身以及伤疤等个体差异也可能影响到心率信号，影响检测结果。";
+"user_help_item10_content" = "电池容量 15mAh";
+"user_help_item11_content" = "不能。\n\
+由于移动电源的主要对象手机，其充电电流较大，当手机充满电的时候，进入涓流充电状态，充电电流会变的很小，这时部分移动电源就会关断充电，以节省电量。而戒指的充电电流是25ma的小电流充电，这就会使得部分移动电源误以为是手机已经充满，从而关断充电。\n\
+注: 部分支持小电流充电的移动电源除外。";
+"user_help_item12_content" = "1）首先请多插拔几次戒指；\n\
+2）其次请确保USB接口（PC或其它供电设备）正常供电的情况下，更换缪斯智能戒指的USB充电线试试。或者更换供电设备的USB接口试试；\n\
+3）再次请在MuseHeart中“主界面”界面中是否有充电提示。";
+"user_help_item13_content" = "请查看戒指信号灯是不是不保持常亮。";
+
+
+"layout_xinlv_title1" = "静息心率";
+"layout_xinlv_tip1" = "Resting heartbeat per minute is generally 60-100 beats / min in normal state";
+"layout_xinlv_title2" = "运动心率";
+"layout_xinlv_tip2" = "Refer to the following figure for different heart rate intervals then adjust your execise plan";
+"layout_xinlv_statustip1" = "Slight movement";
+"layout_xinlv_statustip2" = "Aerobic exercise";
+"layout_xinlv_statustip3" = "Strenuous exercise";
+"layout_xinlv_title3" = "警报参数设置";
+"layout_xinlv_settip1" = "单击设置/更改数据";
+"layout_xinlv_settip2" = "当参数达到所设置的警示值";
+"layout_xinlv_settip3" = "戒指将亮起红灯, 并向亲友发送提醒";
+
+
+"noresult" = "无结果";
+
+"unit_disk_heartrate" = "unit_disk_heartrate";
+"word_loading_people" = "word_loading_people";
+"cartoon_homepage_bluetooth_" = "cartoon_homepage_bluetooth";
+
+
+"tel_notice" = "来电提醒";
+"tel_notice2" = "戒指与手机处于连接状态，开启”来电提醒“功能，戒指会震动且闪绿色指示灯";
+
+"string_of_sos" = "一键呼救";
+"string_of_sos2" = "一键呼救功能，佩戴者在使用该功能之前需要次界面添加呼救联系人并编辑自定义求救信息。\n\n在紧急情况下，佩戴者长按戒指按钮2~8s，系统会将自定义呼救消息以及所在方位以短信形式发送至呼救联系人手机。\n\n呼救联系人会收到【SOS呼救】短信，若呼救联系人同样佩戴缪斯智能戒指，戒指将发出3次间隔震动且闪红色指示灯。SOS添加说明提示:添加紧急联系人时必须在手机号码前加上国家地区号（区号：例如＋86）";
+
+
+"phone_tracker" = "手机防丢";
+"phone_tracker2" = "手机离开戒指一定范围，戒指与手机之间的连接将自动断开，戒指将发出一次震动后闪烁红灯提醒\n\n点击 开启／关闭 防丢功能。";
+
+"mosi_text_name" = "摩斯密码";
+"mosi_text" = "摩斯密码功能，佩戴者要发送密码时，点击对应密码按钮进行发送。您戒指的指示灯会发出长短不一的闪灯来告知他人。";
+"mosi_text_code1" = "我爱你";
+"mosi_text_code2" = "单身中";
+"mosi_text_code3" = "约个会吧";
+"mosi_text_code4" = "嗨起来";
+
+"one_key_sweet_title" = "M你";
+"one_key_sweet_text" = "M你功能，佩戴者在使用该功能之前需在此界面添加密语联系人并编辑自定义密语消息。\n\n佩戴者只需在非APP拍照界面短按戒指按键，系统就会将自定义的甜蜜信息以及所在方位以短信形式发送至密语联系人手机。\n\n密语联系人会收到【M你】短信，若密语联系人同样佩戴缪斯智能戒指，戒指将发出一次震动且闪动彩色（蓝/绿）指示灯。\n\n用户可以自定义密语消息。";
+"mbtn1" = "点击编辑自定义密语消息";
+"mbtn2" = "点击添加密语对象";
+"inputMax200" = "最大输入200个字符";
+
+
+"ble_not_supported" = "蓝牙版本过低";
+"ble_scan_nodevice" = "未找到 Muse 设备";
+"ble_nopermission" = "MuseHeart 未获得蓝牙授权，请到设置中开启";
+"ble_poweroff" = "蓝牙未打开!";
+
+"MsgBox" = "消息提醒";
+"clear" = "清 空";
+
+"turnOn" = "开启";
+"turnOff" = "关闭";
+
+"sosbtn1" = "点击自定义呼救短信";
+"sosbtn2" = "点击添加1~3位紧急联系人";
+"morseConbtn" = "点击添加1~3位Muse用户";
+
+"refreshContact" = "刷新";
+
+
+"homepage_healthContent_title1" = "亲友健康状态";
+"homepage_healthContent_title2" = "亲友申请通知";
+
+"searchcontact" = "搜索联系人";
+
+//=============================
+
+"deviceNoCamera" = "此设备不支持拍照";
+"cameraNoPermission" = "请您设置允许APP访问您的相机\n设置 > 隐私 > 相机";
+"flashOnBtn" = "开启";
+"flashOffBtn" = "关闭";
+"cameraDirection" = "更改方向";
+"flash" = "补光灯";
+
+
+//=============================
+
+"publicnumberbtn" = "进入官方网站";
+
+"ProductListTitle" = "选择一个 Muse 进行连接";
+"No Any Muse Device" = "没有找到任何 Muse 产品";
+"searchButConF" = "警告: 戒指连接失败";
+"Friends Status" = "亲友健康状态";
+
+"only3person" = "最多添加3位紧急联系人";
+
+"Login Succeed" = "登录成功";
+"Login Failed" = "登录失败";
+
+"getContact" = "获取通讯录...";
+
+
+"quiting" = "退出中";
+
+"sos didsend" = "SOS 消息已发送";
+"sosnouser" = "没有要发送 SOS 的对象";
+
+"friendRequestSucceed" = "发送成功";
+"wantbeyourfriend" = "想加您为亲友";
+"addfriendlater" = "以后再说";
+"addfriendnow" = "接受";
+"takePhotoDetail" = "请保持戒指的连接, 调整好拍摄角度, 请按戒指即可拍照";
+
+"photosaved" = "照片已保存";
+
+"morseSended" = "已发送摩斯码";
+
+"flashOff" = "关闭了补光灯";
+"flashOn" = "开启了补光灯";
+
+"ringisbusy" = "设备正忙...请稍后";
+
+"morseSending" = "正在闪烁...";
+
+"watchHeart" = "观心";
+"pleaseSetNormalCount" = "心率设置应大于 40 且小于 225";
+
+"isTestingHeart" = "正在测量...请稍后";
+
+"write Data Failed" = "发送指令失败";
+
+"noConMuse" = "未连接智能珠宝";
+
+"friend" = "亲友";
+"heartrateoverproof" = "心率超标";
+"heartHis" = "历史记录";
+"Notification" = "通知";
+"M  you" = "M你";
+"Anti-lost" = "防丢";
+"Help" = "呼救";
+"Morse" = "摩斯";
+"Settings" = "设置";
+
+"HeartRate is MeaSure" = "当前正在测量中";
+
+"locationLbl" = "位置信息";
+
+"Key function" = "一键功能";
+"Vibration mode" = "震动模式";
+"Indicator light" = "指示灯";
+
+"guanaiyifasong" = "关爱已发送";
+"sosyifasong" = "SOS求救信息已发送";
+"miyuyifasong" = "蜜语已发送";
+"miSendS" = "蜜语已发送";
+"miSendF" = "蜜语发送失败";
+"agree" = "同意";
+"disagree" = "拒绝";
+
+"tbvDelete" = "删除";
+
+"wanttobeyourfriend" = "想成为您的亲友";
+"No friend Apply" = "暂无亲友申请";
+
+"enterPhoneNumber" = "请输入手机号";
+"phoneNumberLim" = "手机号码不能为空";
+"smsCodeHadSend" = "验证码已发送，请输入收到的验证码登录";
+"smsCodeHadSendF" = "验证码发送失败";
+"pleaseEnterSMSCode" = "请输入验证码";
+"loginFailn" = "登录失败，请稍后重试";
+
+
+"Please hand flat" = "戴紧戒指,把手放平";
+
+
+"PleaseSelectAreaCode" = "请先获取区号";
+"Sec Retry" = "秒后重试";
+"Time/Min" = "次/分";
+"enterPhoneNumBtn" = "请输入手机号";
+"getVerferBtn" = "获取验证码";
+"verferPlace" = "验证码";
+"phonePlace" = "手机号";
+"pwdBtn" = "输入验证码";
+"loginBtn" = "登录";
+"checkCodeError" = "验证码错误";
+
+"ble_scan_nodevice" = "未找到缪斯之心";
+"device_connect_tip1" = "搜索信号";
+"device_connect_tip2" = "请将缪斯之心靠近手机";
+"device_connect_tip3" = "等待连接...";
+"device_connected_success" = "缪斯之心连接成功";
+"device_connected_failed" = "缪斯之心连接失败";
+"device_connected_reconnect" = "重新连接";
+"device_connected_skip" = "跳过";
+
+"measureHeartate" = "观心";
+"youDeveiceNotInstallQQ" = "您的设备没有安装QQ";
+"youDeveiceNotInstallWechat"="您的设备没有安装微信";
+
+
+"feedback lim3word" = "反馈内容需 > 10 个字";
+"feedback youcontact" = "输入您的联系方式";
+
+"sos_max15word" = "请输入 15 个字以内";
+
+"friendDelete" = "删除中";
+
+
+
+
+"customSosContent" = "点击自定义呼救短信";
+"customMiContent" = "点击自定义蜜语消息";
+
+
+"long" = "经度";
+"la" = "纬度";
+"address" = "地址";
+
+
+"Honey, Come on!" = "亲爱的, 快来找我";
+
+"I Need Help" = "SOS! 我需要帮助!";
+
+"Ver" = "软件版本: ";
+"RingVer" = "戒指版本: ";
+

@@ -1,0 +1,39 @@
+//
+//  MusePrefixHeader.pch
+//  Muse
+//
+//  Created by pg on 16/5/16.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#ifndef MusePrefixHeader_pch
+#define MusePrefixHeader_pch
+
+#ifdef __OBJC__
+
+#import "MSConstantDefines.h"
+#import "TPKeyboardAvoidingScrollView.h"
+#import "MBProgressHUD+Simple.h"
+
+#import <UIKit/UIKit.h>
+
+#import <Masonry/Masonry.h>
+
+#import <SMS_SDK/SMSSDK.h>
+#import <SMS_SDK/Extend/SMSSDK+AddressBookMethods.h>
+#import <CloudPushSDK/CloudPushSDK.h>
+
+#pragma mark --<LJW add something>
+#import "AllRequest.h"
+#import "AllCategory.h"
+#import "custom.h"
+#import "MuseUser.h"
+#import "DBManager.h"
+#import "MJRefresh.h"
+
+#endif
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* MusePrefixHeader_pch */

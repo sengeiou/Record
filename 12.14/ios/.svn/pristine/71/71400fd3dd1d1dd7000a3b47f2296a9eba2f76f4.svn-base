@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SleepPopHelpView">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NFZ-2M-If7">
+                    <frame key="frameInset" width="600" height="600"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <action selector="bgAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="c5c-qU-Mcu"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="img_homepage_test" translatesAutoresizingMaskIntoConstraints="NO" id="9Ti-Kx-fa3">
+                    <frame key="frameInset" minX="569" minY="41" width="7" height="7"/>
+                </imageView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="99" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="YOD-rV-wsE">
+                    <frame key="frameInset" minX="24" minY="48" width="552" height="470"/>
+                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="470" id="NhJ-HB-heU"/>
+                    </constraints>
+                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="REG-v2-kLC"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="YcA-5M-9gq"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="YOD-rV-wsE" firstAttribute="top" secondItem="9Ti-Kx-fa3" secondAttribute="bottom" id="HKf-L4-ScJ"/>
+                <constraint firstItem="9Ti-Kx-fa3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="41" id="I3K-Wh-w0L"/>
+                <constraint firstItem="NFZ-2M-If7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JEx-bA-CuV"/>
+                <constraint firstItem="NFZ-2M-If7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="SgG-nd-qxw"/>
+                <constraint firstItem="YOD-rV-wsE" firstAttribute="trailing" secondItem="9Ti-Kx-fa3" secondAttribute="trailing" id="ZNa-Jo-RQa"/>
+                <constraint firstItem="YOD-rV-wsE" firstAttribute="top" secondItem="9Ti-Kx-fa3" secondAttribute="bottom" id="ZSD-oV-DGQ"/>
+                <constraint firstAttribute="trailing" secondItem="YOD-rV-wsE" secondAttribute="trailing" constant="24" id="Zce-Gj-6tS"/>
+                <constraint firstItem="YOD-rV-wsE" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="hBE-7h-qRA"/>
+                <constraint firstAttribute="bottom" secondItem="NFZ-2M-If7" secondAttribute="bottom" id="iAi-um-7bx"/>
+                <constraint firstItem="YOD-rV-wsE" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="41" id="oO5-Sc-On1"/>
+                <constraint firstAttribute="trailing" secondItem="NFZ-2M-If7" secondAttribute="trailing" id="v3h-EF-1TE"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="HKf-L4-ScJ"/>
+                    <exclude reference="oO5-Sc-On1"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="lookCell" destination="rC3-qX-oWl" id="0eF-fV-2SR"/>
+                <outlet property="normalCell" destination="zMO-ci-fbr" id="ofv-I3-Dpp"/>
+                <outlet property="quietCell" destination="TXs-Ef-hEU" id="Qmz-pa-SBB"/>
+                <outlet property="setCell" destination="ZId-gu-8jf" id="FSE-cq-LeI"/>
+                <outlet property="tableView" destination="YOD-rV-wsE" id="q36-D0-Sqa"/>
+            </connections>
+            <point key="canvasLocation" x="-400" y="187"/>
+        </view>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="281" id="TXs-Ef-hEU" userLabel="深度">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="281"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TXs-Ef-hEU" id="oLb-VQ-uwH">
+                <frame key="frameInset" width="320" height="280"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rid-HC-ZCL">
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="深度睡眠是睡眠的一部分，只占睡眠时间的25%，深度睡眠也被称为&quot;黄金睡眠&quot;" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pBT-tk-mRq">
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="根据睡眠中的脑电波、肌电波及眼球活动的变化，睡眠周期由非快速眼动周期和快速眼动周期组成。非快速眼动周期又分为浅睡期、轻睡期、中睡期和深睡期4期" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCi-oJ-5bM">
+                                <frame key="frameInset" minX="26" minY="103" width="268" height="95.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="深度睡眠一般是以身体活动减少和感觉灵敏度降低做为衡量的指标" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="81B-FP-8pq">
+                                <frame key="frameInset" minX="26" minY="222" width="268" height="38.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.7843137255" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="81B-FP-8pq" firstAttribute="top" secondItem="nCi-oJ-5bM" secondAttribute="bottom" constant="23" id="AQh-F3-zcl"/>
+                            <constraint firstItem="81B-FP-8pq" firstAttribute="leading" secondItem="nCi-oJ-5bM" secondAttribute="leading" id="EVr-h4-tYz"/>
+                            <constraint firstItem="nCi-oJ-5bM" firstAttribute="trailing" secondItem="pBT-tk-mRq" secondAttribute="trailing" id="Vu5-ZT-sxS"/>
+                            <constraint firstItem="pBT-tk-mRq" firstAttribute="leading" secondItem="rid-HC-ZCL" secondAttribute="leading" constant="26" id="ZoU-Ou-pZB"/>
+                            <constraint firstAttribute="height" constant="73" id="cie-f0-mLO"/>
+                            <constraint firstItem="nCi-oJ-5bM" firstAttribute="leading" secondItem="pBT-tk-mRq" secondAttribute="leading" id="hem-0R-Irg"/>
+                            <constraint firstItem="pBT-tk-mRq" firstAttribute="top" secondItem="rid-HC-ZCL" secondAttribute="top" constant="23" id="k5j-wA-flr"/>
+                            <constraint firstItem="nCi-oJ-5bM" firstAttribute="top" secondItem="pBT-tk-mRq" secondAttribute="bottom" constant="23" id="ndO-RX-J8z"/>
+                            <constraint firstItem="81B-FP-8pq" firstAttribute="trailing" secondItem="nCi-oJ-5bM" secondAttribute="trailing" id="pqX-Ka-YbG"/>
+                            <constraint firstAttribute="trailing" secondItem="pBT-tk-mRq" secondAttribute="trailing" constant="26" id="zuc-EG-1Lj"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="cie-f0-mLO"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="rid-HC-ZCL" secondAttribute="trailing" id="5hC-ha-rPs"/>
+                    <constraint firstItem="rid-HC-ZCL" firstAttribute="leading" secondItem="oLb-VQ-uwH" secondAttribute="leading" id="C7L-tH-Pu5"/>
+                    <constraint firstAttribute="trailing" secondItem="rid-HC-ZCL" secondAttribute="trailing" id="ELc-7b-Vjf"/>
+                    <constraint firstItem="rid-HC-ZCL" firstAttribute="top" secondItem="oLb-VQ-uwH" secondAttribute="top" id="GrY-RT-QtV"/>
+                    <constraint firstItem="rid-HC-ZCL" firstAttribute="top" secondItem="oLb-VQ-uwH" secondAttribute="topMargin" id="bFl-zf-DHl"/>
+                    <constraint firstItem="rid-HC-ZCL" firstAttribute="leading" secondItem="oLb-VQ-uwH" secondAttribute="leadingMargin" id="uzG-2d-RyH"/>
+                    <constraint firstAttribute="bottom" secondItem="rid-HC-ZCL" secondAttribute="bottom" id="v0c-JL-uj7"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="rid-HC-ZCL" secondAttribute="bottom" constant="26.5" id="y91-lE-FQC"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="rid-HC-ZCL" secondAttribute="bottom" id="zlf-aS-0H3"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="5hC-ha-rPs"/>
+                        <exclude reference="bFl-zf-DHl"/>
+                        <exclude reference="uzG-2d-RyH"/>
+                        <exclude reference="y91-lE-FQC"/>
+                        <exclude reference="zlf-aS-0H3"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-417" y="696.5"/>
+        </tableViewCell>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="51" id="zMO-ci-fbr" userLabel="时长">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zMO-ci-fbr" id="hlt-yE-B3X">
+                <frame key="frameInset" width="320" height="114"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtw-d2-ngI">
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="青年人：每天睡眠8个小时左右最佳" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="srf-Dh-SER">
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="青年人：每天睡眠7个小时左右最佳" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eHc-Ot-WVe">
+                                <frame key="frameInset" minX="26" minY="51" width="294" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="老年人：每天适宜睡5.5~7个小时左右" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0SB-Uk-MEJ">
+                                <frame key="frameInset" minX="26" minY="79" width="294" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.7843137255" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="0SB-Uk-MEJ" firstAttribute="trailing" secondItem="srf-Dh-SER" secondAttribute="trailing" id="14A-RU-mZk"/>
+                            <constraint firstItem="0SB-Uk-MEJ" firstAttribute="leading" secondItem="eHc-Ot-WVe" secondAttribute="leading" id="BAY-Iy-kSz"/>
+                            <constraint firstAttribute="trailing" secondItem="eHc-Ot-WVe" secondAttribute="trailing" id="IJl-dm-gVr"/>
+                            <constraint firstItem="0SB-Uk-MEJ" firstAttribute="top" secondItem="eHc-Ot-WVe" secondAttribute="bottom" constant="9" id="KYC-PH-nVd"/>
+                            <constraint firstItem="eHc-Ot-WVe" firstAttribute="top" secondItem="srf-Dh-SER" secondAttribute="bottom" constant="9" id="MvB-9T-z0Q"/>
+                            <constraint firstAttribute="height" constant="137" id="X3I-fr-I0c"/>
+                            <constraint firstItem="srf-Dh-SER" firstAttribute="top" secondItem="dtw-d2-ngI" secondAttribute="top" constant="23" id="cf4-fu-1MA"/>
+                            <constraint firstAttribute="trailing" secondItem="srf-Dh-SER" secondAttribute="trailing" id="kPi-LS-mvn"/>
+                            <constraint firstItem="eHc-Ot-WVe" firstAttribute="leading" secondItem="srf-Dh-SER" secondAttribute="leading" id="q2T-EV-nBm"/>
+                            <constraint firstItem="eHc-Ot-WVe" firstAttribute="trailing" secondItem="srf-Dh-SER" secondAttribute="trailing" id="t20-B7-26r"/>
+                            <constraint firstItem="srf-Dh-SER" firstAttribute="leading" secondItem="dtw-d2-ngI" secondAttribute="leading" constant="26" id="zBI-Qu-d6O"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="X3I-fr-I0c"/>
+                                <exclude reference="IJl-dm-gVr"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="dtw-d2-ngI" secondAttribute="trailing" id="EZl-iR-XRH"/>
+                    <constraint firstItem="dtw-d2-ngI" firstAttribute="top" secondItem="hlt-yE-B3X" secondAttribute="top" id="UDB-sU-gIQ"/>
+                    <constraint firstAttribute="bottom" secondItem="dtw-d2-ngI" secondAttribute="bottom" id="Whe-g7-D4d"/>
+                    <constraint firstItem="dtw-d2-ngI" firstAttribute="leading" secondItem="hlt-yE-B3X" secondAttribute="leading" id="ts6-cH-5tB"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-417" y="969.5"/>
+        </tableViewCell>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="39" id="ZId-gu-8jf" userLabel="因素">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZId-gu-8jf" id="esz-e7-TQB">
+                <frame key="frameInset" width="320" height="102"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x7z-do-2zQ">
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不好的睡具、睡姿，睡前大量饮食，摄入大量的饮料及咖啡，酒精都会影响睡眠质量" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hR6-UB-y0p">
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.7843137255" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="hR6-UB-y0p" firstAttribute="top" secondItem="x7z-do-2zQ" secondAttribute="top" constant="23" id="F8U-Wk-caL"/>
+                            <constraint firstAttribute="trailing" secondItem="hR6-UB-y0p" secondAttribute="trailing" constant="26" id="Mhl-V7-WDo"/>
+                            <constraint firstItem="hR6-UB-y0p" firstAttribute="leading" secondItem="x7z-do-2zQ" secondAttribute="leading" constant="26" id="i0J-PF-TEz"/>
+                            <constraint firstAttribute="height" constant="137" id="lyB-4O-lQt"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="lyB-4O-lQt"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="x7z-do-2zQ" secondAttribute="trailing" id="AJ9-Ap-l7b"/>
+                    <constraint firstItem="x7z-do-2zQ" firstAttribute="top" secondItem="esz-e7-TQB" secondAttribute="top" id="IO9-U5-iUb"/>
+                    <constraint firstAttribute="bottom" secondItem="x7z-do-2zQ" secondAttribute="bottom" id="jgs-s1-hax"/>
+                    <constraint firstItem="x7z-do-2zQ" firstAttribute="leading" secondItem="esz-e7-TQB" secondAttribute="leading" id="y48-ES-XCZ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-417" y="1162.5"/>
+        </tableViewCell>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="411" id="rC3-qX-oWl" userLabel="巡查">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="475"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rC3-qX-oWl" id="oia-Pl-tKX">
+                <frame key="frameInset" width="320" height="474"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QbA-tB-cW8">
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同时可以通过图（2）能一目了然的观察这个月每天的深度睡眠时长和睡眠总时长。能有效的判断你的不同时期的睡眠质量比较" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzI-ce-Hed">
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_help_sleep" translatesAutoresizingMaskIntoConstraints="NO" id="IUV-D8-j2S">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="318" id="BnN-uN-3aF"/>
+                                    <constraint firstAttribute="width" constant="312" id="KWE-la-dOS"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.7843137255" green="0.79215686269999996" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="bzI-ce-Hed" firstAttribute="leading" secondItem="QbA-tB-cW8" secondAttribute="leading" constant="26" id="464-HL-EEs"/>
+                            <constraint firstAttribute="trailing" secondItem="bzI-ce-Hed" secondAttribute="trailing" constant="26" id="CDL-uK-cGQ"/>
+                            <constraint firstItem="IUV-D8-j2S" firstAttribute="top" secondItem="bzI-ce-Hed" secondAttribute="bottom" constant="23" id="CZv-YC-qwL"/>
+                            <constraint firstItem="bzI-ce-Hed" firstAttribute="top" secondItem="QbA-tB-cW8" secondAttribute="top" constant="23" id="VSe-8W-dxi"/>
+                            <constraint firstAttribute="height" constant="137" id="a1p-Zp-akD"/>
+                            <constraint firstItem="IUV-D8-j2S" firstAttribute="centerX" secondItem="bzI-ce-Hed" secondAttribute="centerX" id="heN-y3-JsR"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="a1p-Zp-akD"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="QbA-tB-cW8" secondAttribute="trailing" id="9aS-ch-WG2"/>
+                    <constraint firstItem="QbA-tB-cW8" firstAttribute="top" secondItem="oia-Pl-tKX" secondAttribute="top" id="KQ8-6M-g1a"/>
+                    <constraint firstAttribute="bottom" secondItem="QbA-tB-cW8" secondAttribute="bottom" id="abc-Jx-SsW"/>
+                    <constraint firstItem="QbA-tB-cW8" firstAttribute="leading" secondItem="oia-Pl-tKX" secondAttribute="leading" id="rDS-dk-ZYe"/>
+                </constraints>
+            </tableViewCellContentView>
+            <point key="canvasLocation" x="-417" y="1506.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="img_help_sleep" width="312" height="318"/>
+        <image name="img_homepage_test" width="7" height="7"/>
+    </resources>
+</document>

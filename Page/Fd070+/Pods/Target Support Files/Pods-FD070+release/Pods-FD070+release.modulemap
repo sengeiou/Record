@@ -1,0 +1,6 @@
+framework module Pods_FD070_release {
+  umbrella header "Pods-FD070+release-umbrella.h"
+
+  export *
+  module * { export * }
+}

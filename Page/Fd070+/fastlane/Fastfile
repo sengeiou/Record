@@ -1,0 +1,43 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+# export FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT=120
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+#默认平台
+default_platform(:ios)
+
+platform :ios do
+
+   #所有lane执行之前, 都要执行的动作
+   before_all do
+       #自动签名
+       enable_automatic_code_signing
+    end
+
+   #名字叫archive的lane，命令行里执行fastlane archive 就可 
+   lane :archive do
+      # 调用一些action 
+      build_app(
+	scheme: "FD070+release",     #项目的Scheme
+	clean: true,     #打包是否要Clean，Clean可以减小包体积
+        export_method:"enterprise",     #IPA导出方法，打企业包。
+        workspace: "FD070+.xcworkspace",     #工程的xcworkspace
+	output_directory: "/Users/haiquan/Desktop/Archive/070Plus",     #IPA 导出到的路径
+	output_name:"FD070+release2019-1-11",     #IPA的名字.每次打包都要改个名字比较好区分。
+        include_bitcode: true     #是否要开bitcode
+	)
+
+    end
+    
+
+end

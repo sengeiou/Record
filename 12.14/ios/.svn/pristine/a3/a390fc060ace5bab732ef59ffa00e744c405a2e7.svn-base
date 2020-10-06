@@ -1,0 +1,59 @@
+//
+//  MuseUser.m
+//  Muse
+//
+//  Created by jiangqin on 16/4/16.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import "MuseUser.h"
+#import "MSConstantDefines.h"
+
+@implementation MuseUser
+
++ (MuseUser *)currentUser {
+    static MuseUser *_user = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _user = [[MuseUser alloc] init];
+        _user.user_id = [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultKey_LastUserID];
+        _user.phone = [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultKey_LastUserPhone];
+    });
+    
+    return _user;
+}
+
+- (void)updateUser:(MuseUser *)user {
+    
+    self.phone = user.phone;
+    self.nickname = user.nickname;
+    self.avatar = user.avatar;
+    self.device_token = user.device_token;
+    self.user_id = user.user_id;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setValue:(self.user_id ? : @"")
+                forKey:UserDefaultKey_LastUserID];
+    [defaults setValue:(self.phone ? : @"")
+                forKey:UserDefaultKey_LastUserPhone];
+    
+    
+    
+    [defaults removeObjectForKey:USERAREACODE];
+    [defaults removeObjectForKey:USERLOSTSTATE];
+    [defaults removeObjectForKey:UserDefaultKey_LastCareFriend];
+    [defaults removeObjectForKey:@"LastConnectedDevice"];
+    [defaults removeObjectForKey:UserDefaultKey_BaiduPushChannelKey];
+    [defaults synchronize];
+    
+    
+    
+
+}
+
+- (void)cleanCurrentUser {
+    [self updateUser:nil];
+}
+
+@end

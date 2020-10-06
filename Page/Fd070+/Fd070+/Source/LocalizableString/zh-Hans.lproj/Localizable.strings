@@ -1,0 +1,228 @@
+/* 
+  Localizable.strings
+  FD070+
+
+  Created by HaiQuan on 2019/1/7.
+  Copyright © 2019 WANG DONG. All rights reserved.
+*/
+
+//Public
+"NextStep" = "下一步";
+"Cancel" = "取消";
+"Ok" = "好";
+"Loading" = "加载中...";
+"Uploading" = "上传中...";
+"Deleting" = "删除中...";
+
+"TurnOnSystemBluetooth" = "请打开蓝牙!";
+"Connecting" = "正在连接，\n请稍等！";
+
+//TabbarController
+"Tabbar_today" = "今天";
+"Tabbar_exercise" = "锻炼";
+"Tabbar_history" = "历史";
+"Tabbar_me" = "我的";
+
+
+//My day
+"Myday_BLEConnect_point" = "请链接设备";
+"Myday_BLEConnectState_true" = "已连接";
+"Myday_BLEConnectState_false" = "请链接设备";
+
+"Myday_BLEDataSynchro" = "蓝牙数据同步中...";
+
+"MydayVC_step" = "今天运动总步数";
+"MydayVC_goal" = "目标完成百分比";
+"MydayVC_bloodDSugar" = "空腹血糖";
+"MydayVC_HR" = "静息心率";
+"MydayVC_excerciseTime" = "运动时间";
+"MydayVC_calories" = "消耗卡路里";
+"MydayVC_sleepTime" = "睡眠时间";
+"MydayVC_sleepQuality" = "睡眠质量";
+"MydayVC_excerciseDistance" = "运动距离";
+
+"MydayVC_step_unit" = "步";
+"MydayVC_HR_unit" = "BPM";
+"MydayVC_distance_unitM" = "米";
+"MydayVC_distance_unitKM" = "千米";
+//"MydayVC_time_unit" = "时间";
+//2.22不显示时间单位
+"MydayVC_time_unit" = "";
+"MydayVC_calorie_unit" = "卡";
+"MydayVC_calorie_unitK" = "大卡";
+
+"MydayVC_bloodSugarValue_low" = "偏低";
+"MydayVC_bloodSugarValue_normal" = "正常";
+"MydayVC_bloodSugarValue_high" = "偏高";
+"MydayVC_bloodSugarTest" = "测试血糖";
+
+"MydayVC_appUpgrade_point" = "提示";
+"MydayVC_appUpgrade_message" = "新版本APP需要升级!";
+"MydayVC_appUpgrade_messageOne" = "新版本手环软件";
+"MydayVC_appUpgrade_messageTwo" = "需要升级!";
+
+
+//Blood Sugar Test
+"BloodSugarTestVC_title" = "血糖测试";
+"BloodSugarTestVC_tip" = "确保手环佩戴位置在手腕上两个手指处，松紧适中。";
+"BloodSugarTestVC_message" = "测量过程预计需要5分钟，可退出该界面，当测量结束后，可在首页查看。";
+
+
+"BloodSugarTestVC_low_note" = "血糖低，请定时定量进餐，运动前应增加额外的碳水化合物摄入。";
+"BloodSugarTestVC_normal_note" = "血糖在正常范围，请保持当前健康的生活方式。";
+"BloodSugarTestVC_high_note" = "血糖高，请注意健康的生活方式，维持合理的体重，定期进行血糖的监测。";
+
+"BloodSugarTestVC_startTest" = "开始测试";
+"BloodSugarTestVC_testing" = "测试中";
+"BloodSugarTestVC_point_title" = "提示";
+"BloodSugarTestVC_point_message" = "正在测试中，请稍等!";
+"BloodSugarTestVC_stop_error" = "时间太短无法结束";
+
+
+//Workout
+"WorkoutVC_setTarget" = "设置目标";
+"WorkoutVC_workoutSetTargetVC_title" = "锻炼目标";
+"WorkoutVC_workoutSetTargetVC_description" = "每天运动10000步是健康积极的生活方式";
+"WorkoutVC_workoutSetTargetVC_distance" = "距离";
+"WorkoutVC_workoutSetTargetVC_schedule" = "时间";
+"WorkoutVC_workoutSetTargetVC_distanceUnit" = "千米";
+"WorkoutVC_workoutSetTargetVC_scheduleUnit" = "分钟";
+"WorkoutVC_workoutSetTargetVC_save" = "保存";
+"WorkoutVC_workoutSetTargetVC_saveResult_success" = "保存成功";
+"WorkoutVC_workoutSetTargetVC_saveResult_faile" = "保存失败";
+
+"WorkoutVC_workoutHistory_title" = "锻炼历史";
+"WorkoutVC_workoutHistory_desc" = "总里程";
+
+
+//History
+"HistoryVC_segmentTitle_day" = "日";
+"HistoryVC_segmentTitle_month" = "月";
+"HistoryVC_segmentTitle_year" = "年";
+
+"HistoryVC_deepSleep" = "深睡";
+"HistoryVC_lightSleep" = "浅睡";
+"HistoryVC_awake" = "清醒";
+
+"HistoryVC_NoDataWarn" = "没有更多数据展示了";
+//History Calendar
+"HistoryVC_calendar_weekMon" = "一";
+"HistoryVC_calendar_weekTue" = "二";
+"HistoryVC_calendar_weekWed" = "三";
+"HistoryVC_calendar_weekThu" = "四";
+"HistoryVC_calendar_weekFri" = "五";
+"HistoryVC_calendar_weekSat" = "六";
+"HistoryVC_calendar_weekSun" = "日";
+
+//Personal information
+"UserInformationVC_VCTitle" = "个人信息";
+"UserInformationVC_nameHeadTitle" = "你的名字";
+
+"UserInformationVC_gender" = "性别";
+"UserInformationVC_genderHeadTitle" = "请选择你的性别";
+
+"UserInformationVC_height" = "身高";
+"UserInformationVC_weight" = "体重";
+"UserInformationVC_birthday" = "生日";
+"UserInformationVC_goal" = "目标";
+"UserInformationVC_country" = "国家";
+
+"UserInformationVC_logout" = "登出";
+"UserInformationVC_logout_point" = "确定登出?";
+
+"UserInformationVC_ChangeCountry_point" = "确定更改?";
+
+//Personal information Icon
+"UserInformationVC_uploadPhotos" = "上传照片";
+"UserInforNameVC_takeAPhoto" = "拍照";
+"UserInforNameVC_chooseFromAlbum" = "从相册选择";
+
+
+//Personal information Name
+"UserInforNameVC_description" = "你的名字";
+"UserInforNameVC_firstName" = "姓";
+"UserInforNameVC_lastName" = "名";
+
+//Personal information Gender
+"UserInforGenderVC_description" = "性别";
+"UserInforGenderVC_male" = "男";
+"UserInforGenderVC_female" = "女";
+
+//Personal information Goal
+"UserInforGoalVC_targetSetting" = "目标设置";
+"UserInforGoalVC_targetSettingIgnore" = "暂不设置";
+"UserInforGoalVC_placeholder" = "请输入你的目标步数";
+"UserInforGoalVC_description" = "每天运动10000步是健康积极的生活方式";
+
+//Personal information Country
+"UserInforCountryVC_selectContryMessage" = "选择你当前所属的地区";
+"UserInforCountryVC_china" = "中国";
+"UserInforCountryVC_unitedStates" = "英国";
+
+//Device infor ViewController
+"DeviceVC_title" = "设备详情";
+"DeviceVC_firmware" = "固件版本";
+"DeviceVC_serial" = "序列号";
+"DeviceVC_lastAsyc" = "上次同步";
+"DeviceVC_lastAsyc_just" = "刚刚";
+"DeviceVC_electric" = "手环电量";
+"DeviceVC_dialStyle" = "表盘样式";
+"DeviceVC_configurationDevice" = "配置设备";
+"DeviceVC_customaryUnit" = "惯用单位";
+"DeviceVC_customaryUnit_metric" = "公制";
+"DeviceVC_customaryUnit_british" = "英制"; 
+"DeviceVC_continuousHRTest" = "连续心率测试";
+"DeviceVC_AutomaticSynchronizationAroundTheClock" = "全天候自动同步";
+"DeviceVC_habitualHand" = "惯用手";
+"DeviceVC_habitualHand_right" = "右手";
+"DeviceVC_habitualHand_left" = "左手";
+"DeviceVC_newVersionUpdate" = "版本更新";
+"DeviceVC_reset" = "恢复出厂设置";
+"DeviceVC_reset_warn" = "恢复出厂设置,将会清除当前设置";
+"DeviceVC_help" = "帮助";
+"DeviceVC_hardWareVersion" = "固件版本号";
+"DeviceVC_appWareVersion" = "App版本";
+"DeviceVC_deleteDevice_title" = "删除设备";
+"DeviceVC_deleteDevice_message" = "确定要删除设备吗？删除设备会造成数据丢失，请注意";
+
+"DeviceVC_hasBeenUpdated" = "已最新";
+"DeviceVC_developing" = "开发中";
+
+//Device select ViewController
+"DeviceSelectVC_title" = "选择设备";
+"DeviceSelectVC_connect_message" = "确保设备处非连接状态\n后,点击开始“配对”";
+"DeviceSelectVC_connect_after" = "暂不配对";
+"DeviceSelectVC_connect_start" = "开始配对";
+
+//Device Secrch ViewController
+"DeviceSearchVC_title" = "搜索设备";
+"DeviceSearchVC_noDevice_warning" = "未搜索到可用设备...\n1.请保持手环在开机状态。\n2.确保手环未被连接。\n3.请保持手环贴近手机。";
+"DeviceSearchVC_tip" = "未搜索到可用设备...";
+"DeviceSearchVC_reSearch" = "重新搜索";
+"DeviceSearchVC_pair_success" = "配对成功";
+"DeviceSearchVC_pair_failure" = "配对失败，请重新配对";
+
+"DeviceSearchVC_pair_notNeeded" = "暂不需要";
+
+
+"DeviceSearchVC_connect_success" = "连接成功!";
+"DeviceSearchVC_connect_failure" = "连接失败!";
+
+"DeviceSearchVC_connect_pair_tip" = "正在配对请在手环上确认!";
+"DeviceSearchVC_connect_pair_success" = "配对成功!";
+"DeviceSearchVC_launching" = "马上开始";
+
+//OTA ViewController
+"OTAVC_title" = "固件升级";
+"OTAVC_Loading" = "正在加载";
+"OTAVC_keepBLEConnect" = "保持蓝牙连接正常";
+"OTAVC_firmwareUpgrade" = "固件升级";
+"OTAVC_updateCompleted" = "升级完成";
+"OTAVC_deviceRestartPleaseReconnect" = "设备重启请重连";
+"OTAVC_upgradeFailure" = "升级失败";
+"OTAVC_tryAgain" = "请重试";
+
+//AccountSys ViewController
+"AccountSy_load_failure_tip" = "加载失败";
+"AccountSy_load_failure_message" = "网络链接错误，请重试!";
+

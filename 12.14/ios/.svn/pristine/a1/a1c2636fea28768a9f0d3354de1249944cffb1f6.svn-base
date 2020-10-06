@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
+            <connections>
+                <outlet property="pageControll" destination="qDO-Ge-QIa" id="p6M-9z-FNG"/>
+                <outlet property="scrollView" destination="OQ8-Xe-fnQ" id="SZ1-db-oG0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDO-Ge-QIa" customClass="MusePageControl">
+                    <rect key="frame" x="147.5" y="605" width="80" height="44"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="5BE-2N-jmL"/>
+                        <constraint firstAttribute="height" constant="44" id="K8l-MB-gDl"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="5BE-2N-jmL"/>
+                            <exclude reference="K8l-MB-gDl"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="5BE-2N-jmL"/>
+                            <include reference="K8l-MB-gDl"/>
+                        </mask>
+                    </variation>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OQ8-Xe-fnQ">
+                    <rect key="frame" x="0.0" y="120" width="375" height="547"/>
+                </scrollView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekQ-Ud-bTU" userLabel="Public Button">
+                    <rect key="frame" x="317" y="615" width="21" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Kpd-m7-DS8"/>
+                        <constraint firstAttribute="width" constant="40" id="ffG-PL-0G2"/>
+                    </constraints>
+                    <state key="normal" image="btn_homepage_share"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Kpd-m7-DS8"/>
+                            <exclude reference="ffG-PL-0G2"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="gotoPublic:" destination="-1" eventType="touchUpInside" id="K9s-XN-WFZ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x1e-Ll-8E1" userLabel="Share Button">
+                    <rect key="frame" x="37" y="615" width="21" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="AOl-XF-BbW"/>
+                        <constraint firstAttribute="height" constant="40" id="TcI-rG-jI9"/>
+                    </constraints>
+                    <state key="normal" image="btn_homepage_more"/>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="AOl-XF-BbW"/>
+                            <exclude reference="TcI-rG-jI9"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <action selector="share:" destination="-1" eventType="touchUpInside" id="bAK-hU-f4X"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="ekQ-Ud-bTU" firstAttribute="centerY" secondItem="x1e-Ll-8E1" secondAttribute="centerY" id="6gV-qt-mpx"/>
+                <constraint firstItem="x1e-Ll-8E1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="7a9-U2-xxH">
+                    <variation key="widthClass=compact" constant="37"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="OQ8-Xe-fnQ" secondAttribute="trailing" id="AOi-8M-5hE"/>
+                <constraint firstAttribute="bottom" secondItem="qDO-Ge-QIa" secondAttribute="bottom" constant="10" id="AaX-LO-piw"/>
+                <constraint firstAttribute="bottom" secondItem="x1e-Ll-8E1" secondAttribute="bottom" constant="284" id="Fv7-aH-s2P">
+                    <variation key="widthClass=compact" constant="28"/>
+                </constraint>
+                <constraint firstAttribute="trailing" secondItem="ekQ-Ud-bTU" secondAttribute="trailing" constant="190" id="MDM-cd-gab">
+                    <variation key="widthClass=compact" constant="37"/>
+                </constraint>
+                <constraint firstItem="qDO-Ge-QIa" firstAttribute="centerY" secondItem="ekQ-Ud-bTU" secondAttribute="centerY" id="MeP-5E-2aD"/>
+                <constraint firstItem="qDO-Ge-QIa" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PhQ-ZB-4d6"/>
+                <constraint firstItem="OQ8-Xe-fnQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="iAl-8B-TGE"/>
+                <constraint firstItem="OQ8-Xe-fnQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="rUD-8B-j19">
+                    <variation key="widthClass=compact" constant="120"/>
+                </constraint>
+                <constraint firstAttribute="bottom" secondItem="OQ8-Xe-fnQ" secondAttribute="bottom" id="yfE-Iw-kBb"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="qDO-Ge-QIa"/>
+                    <exclude reference="OQ8-Xe-fnQ"/>
+                    <exclude reference="ekQ-Ud-bTU"/>
+                    <exclude reference="x1e-Ll-8E1"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="7a9-U2-xxH"/>
+                    <exclude reference="Fv7-aH-s2P"/>
+                    <exclude reference="AaX-LO-piw"/>
+                    <exclude reference="MeP-5E-2aD"/>
+                    <exclude reference="PhQ-ZB-4d6"/>
+                    <exclude reference="AOi-8M-5hE"/>
+                    <exclude reference="iAl-8B-TGE"/>
+                    <exclude reference="rUD-8B-j19"/>
+                    <exclude reference="yfE-Iw-kBb"/>
+                    <exclude reference="6gV-qt-mpx"/>
+                    <exclude reference="MDM-cd-gab"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="subviews">
+                    <include reference="qDO-Ge-QIa"/>
+                    <include reference="OQ8-Xe-fnQ"/>
+                    <include reference="ekQ-Ud-bTU"/>
+                    <include reference="x1e-Ll-8E1"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="7a9-U2-xxH"/>
+                    <include reference="Fv7-aH-s2P"/>
+                    <exclude reference="AaX-LO-piw"/>
+                    <include reference="MeP-5E-2aD"/>
+                    <include reference="PhQ-ZB-4d6"/>
+                    <include reference="AOi-8M-5hE"/>
+                    <include reference="iAl-8B-TGE"/>
+                    <include reference="rUD-8B-j19"/>
+                    <include reference="yfE-Iw-kBb"/>
+                    <include reference="6gV-qt-mpx"/>
+                    <include reference="MDM-cd-gab"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="-7" y="-19"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_homepage_more" width="21" height="24"/>
+        <image name="btn_homepage_share" width="21" height="24"/>
+    </resources>
+</document>

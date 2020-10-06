@@ -1,0 +1,40 @@
+//
+//  MSRequestRefreshToken.m
+//  Muse
+//
+//  Created by jiangqin on 16/4/16.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import "MSRequestRefreshToken.h"
+
+@implementation MSRequestRefreshToken
+
+- (instancetype)initWithPhone:(NSString *)phone channelId:(NSString *)channelId {
+    if (self = [super init]) {
+        _phone = phone;
+        _channelId = channelId;
+    }
+    
+    return self;
+}
+
+- (YTKRequestMethod)requestMethod {
+    return YTKRequestMethodGet;
+}
+
+- (NSString *)requestUrl {
+    
+    return @"/user/refreshToken";
+}
+
+- (id)requestArgument {
+    
+    if (!_phone || !_channelId) {
+        return nil;
+    }
+    
+    return @{@"phone":_phone, @"channelId":_channelId, @"current_os":@"ios"};
+}
+
+@end

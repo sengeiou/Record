@@ -1,0 +1,14 @@
+platform :ios, '7.0'
+
+#use_frameworks!个别需要用到它，比如reactiveCocoa
+
+def pods
+pod 'AFNetworking', '~> 3.1'
+pod 'JSONModel'
+pod 'MBProgressHUD', '~> 0.9.2'
+pod 'SDWebImage', '~>3.7'
+end
+
+target 'angou' do
+  pods
+end

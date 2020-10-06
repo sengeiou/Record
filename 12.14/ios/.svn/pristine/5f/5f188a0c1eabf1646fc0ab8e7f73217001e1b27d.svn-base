@@ -1,0 +1,338 @@
+//
+//  FloatingView.m
+//  Muse
+//
+//  Created by jiangqin on 16/4/23.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import "FloatingView.h"
+
+#import "GetUserFriendListRequest.h"
+
+#import "MSGetFriendsDataRequest.h"
+
+#import "MSCareRequest.h"
+
+#import "NSTimer+FastKit.h"
+
+#import "DBManager+Friends.h"
+
+#import "BlueToothHelper.h"
+
+#import "AppDelegate.h"
+
+@interface FloatingView () {
+    
+    //    NSUInteger _currentShowIndex;
+    
+    
+    NSString *HQUserID;
+    
+    NSInteger tryTime;
+}
+
+@property (weak, nonatomic) IBOutlet UIView *dataContainer;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *dataTopConstraint;
+
+@property (weak, nonatomic) NSTimer *dataTimer;
+
+@property (strong, nonatomic) NSDictionary *friendsData;
+
+@property (strong, nonatomic) NSArray *friendIDKeys;
+
+@property (weak, nonatomic) NSTimer *scrollTimer;
+
+@property IBOutlet UILabel *titleLbl;
+@property IBOutlet UILabel *unitLbl;
+
+
+@end
+
+@implementation FloatingView
+
++ (instancetype)sharedView {
+    
+    static FloatingView *_sharedView;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        _sharedView = [[[NSBundle mainBundle] loadNibNamed:@"FloatingView" owner:self options:nil] lastObject];
+        
+        
+    });
+    
+    return _sharedView;
+}
+
+- (void)dealloc {
+    [self.scrollTimer invalidate];
+    
+    self.scrollTimer = nil;
+    
+    [self.dataTimer invalidate];
+    
+    self.dataTimer = nil;
+}
+
+- (void)awakeFromNib {
+    
+    [super awakeFromNib];
+    
+    _rippleView.hidden = YES;
+    
+    [self refreshFriendList];
+    
+    //    self.dataTimer = [NSTimer fk_scheduledTimerWithTimeInterval:60
+    //                                                         target:self
+    //                                                       selector:@selector(refreshFriendList)
+    //                                                       userInfo:nil
+    //                                                        repeats:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriendList) name:Refresh_FriendAskforMessageAgreeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriendList) name:DeletedFriendAskforNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshFriendList) name:Notify_AppBecomeActive object:nil];
+
+    
+    _unitLbl.text = NSLocalizedString(@"Time/Min", nil);
+    _titleLbl.text = NSLocalizedString(@"Heart rate", nil);
+    
+    tryTime = 3;
+}
+
+
+
+- (void)removeFromSuperview {
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [_rippleView stop];
+    });
+    
+    [super removeFromSuperview];
+}
+
+#pragma mark - Private
+
+// 刷新好友列表 失败会重试 3 次
+- (void)refreshFriendList {
+    
+    if ([AppDelegate appDelegate].isBackgroundMode == YES) {
+        return;
+    }
+    
+    [self requestGetFriendList];
+}
+
+// 刷新列表好友信息
+- (void)requestGetFriendList {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    [GetUserFriendListRequest startWithCompletionBlockSuccess:^(NSDictionary *responseObject) {
+        
+        [[DBManager sharedManager] updateUsers:MSResponseData(responseObject)];
+        _friendListArray = responseObject[@"data"];
+        
+        NSLog(@"好友列表数据是: %@", _friendListArray);
+        [weakSelf getData];
+        
+    } failure:^(NSDictionary *responseObject) {
+        
+        // 无数据的话, 原则上什么都不要做
+        if ([responseObject[@"status"] longValue] == 0) {
+            [self getData];
+            return;
+        }
+        
+        if (tryTime == 0) {
+            return ;
+        }
+        tryTime --;
+        [weakSelf requestGetFriendList];
+    }];
+}
+
+// 刷新好友数据 失败会重试 3 次
+- (void)getData {
+    
+    [self requestGetFriendData];
+}
+
+// 刷新好友数据信息
+- (void)requestGetFriendData {
+    __weak typeof(self) weakSelf = self;
+    
+    MSGetFriendsDataRequest *req = [[MSGetFriendsDataRequest alloc] init];
+    
+    [req startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest *request) {
+        
+        NSDictionary *responseData = [NSJSONSerialization JSONObjectWithData:request.responseData options:0 error:nil];
+        
+        if (MSRequestIsSuccess(responseData)) {
+            
+            
+            weakSelf.friendsData = MSResponseData(responseData);
+            
+            MSLog(@"好友数据是: %@",weakSelf.friendsData);
+            
+            if ([weakSelf.delegate respondsToSelector:@selector(didRefreshFriendsData:friendList:)]) {
+                
+                [weakSelf.delegate didRefreshFriendsData:weakSelf.friendsData friendList:_friendListArray];
+                
+            }
+            if (weakSelf.friendsData.count) {
+                
+                weakSelf.friendIDKeys = [weakSelf.friendsData allKeys];
+                
+                // 当前选择的 id, 需在亲友列表里判断, 如果有存储则本地拿
+                
+                if ([[kUserDefaults valueForKey:UserDefaultKey_LastCareFriend] length] > 0) {
+                    _currentCareID = [kUserDefaults valueForKey:UserDefaultKey_LastCareFriend];
+                    if ([weakSelf.friendIDKeys containsObject:_currentCareID]) {
+                        HQUserID = _currentCareID;
+                    } else {
+                        HQUserID = weakSelf.friendIDKeys[0];
+                    }
+                } else if (_currentCareID.length > 0) {
+                    if ([weakSelf.friendIDKeys containsObject:_currentCareID]) {
+                        HQUserID = _currentCareID;
+                    } else {
+                        HQUserID = weakSelf.friendIDKeys[0];
+                    }
+                } else {
+                    HQUserID = weakSelf.friendIDKeys[0];
+                }
+                
+                [self updateDataWithUserID:HQUserID];
+            }
+        } else {
+            
+            if ([weakSelf.delegate respondsToSelector:@selector(didRefreshFriendsData:friendList:)]) {
+                
+                weakSelf.friendsData = nil;
+                _friendListArray = nil;
+                [weakSelf.delegate didRefreshFriendsData:weakSelf.friendsData friendList:_friendListArray];
+                
+                return ;
+            }
+            
+            if (tryTime == 0) {
+                return ;
+            }
+            
+            
+            
+            tryTime --;
+            [weakSelf getData];
+            
+        }
+    } failure:^(__kindof YTKBaseRequest *request) {
+        
+        if (tryTime == 0) {
+            return ;
+        }
+        
+        tryTime --;
+        [weakSelf getData];
+        
+        MSLog(@"失败");
+    }];
+}
+
+- (void)updateDataWithUserID:(NSString *)userID {
+    
+    if (_friendsData.count == 0) {
+        
+        return;
+        
+    }
+    NSArray *friendData = _friendsData[userID];
+    _nameLabel.text = [[DBManager sharedManager] nicknameForUserID:userID];
+    for (NSDictionary *dic in friendData) {
+        if (dic[@"rate"]) {
+            NSString *heartRate = dic[@"rate"];
+            _heartRateLabel.text = heartRate;
+            if ([heartRate floatValue] < 130) {
+                [_statusButton setImage:[UIImage imageNamed:@"ball_follower_health"]
+                               forState:UIControlStateNormal];
+            } else {
+                [_statusButton setImage:[UIImage imageNamed:@"ball_follower_danger"]
+                               forState:UIControlStateNormal];
+            }
+            
+            break;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#pragma mark --<关爱>
+- (IBAction)sendCareMessage:(id)sender {
+    
+    _heartButton.enabled = NO;
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        _heartButton.enabled = YES;
+    });
+    
+    
+    //    if (_currentShowIndex < 1) { // 没有亲友数据
+    //
+    //
+    //        [MBProgressHUD showError:@"没有亲友数据"];
+    //
+    //
+    //        return;
+    //    }
+    
+    //    MSLog(@"%lu",(unsigned long)_currentShowIndex);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _rippleView.hidden = NO;
+        [_rippleView startRipple];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(20 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_rippleView stop];
+            _rippleView.hidden = YES;
+        });
+    });
+    
+    // NSString *userid = _friendIDKeys[_currentShowIndex - 1];
+    NSString *userid = HQUserID;
+    
+    
+    MSCareRequest *req = [[MSCareRequest alloc] initWithCarePersonID:userid];
+    // [MBProgressHUD showSuccess:@"关爱已发送" toView:self];
+    [MBProgressHUD showHUDWithMessageOnly:NSLocalizedString(@"guanaiyifasong", nil)];
+    [req startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest *request) {
+        [[BlueToothHelper sharedInstance] lightingWithColor:LightColorBlue duration:1];
+    } failure:^(__kindof YTKBaseRequest *request) {
+        
+    }];
+}
+- (NSDictionary *)friendsData {
+    
+    if (_friendsData == nil) {
+        _friendsData = [NSDictionary dictionary];
+    }
+    return _friendsData;
+    
+}
+@end

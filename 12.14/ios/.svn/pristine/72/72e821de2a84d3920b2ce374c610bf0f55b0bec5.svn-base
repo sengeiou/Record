@@ -1,0 +1,178 @@
+//
+//  LocationServer.m
+//  Muse
+//
+//  Created by Ken.Jiang on 16/7/31.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import "LocationServer.h"
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>
+
+@interface LocationServer () <BMKLocationServiceDelegate, BMKGeoCodeSearchDelegate, CLLocationManagerDelegate> {
+    BMKMapManager* _mapManager;
+    
+    BMKLocationService *_locServer;
+    BMKGeoCodeSearch *_searcher;
+    
+    
+    CLLocationManager *_locationManager;
+    CLGeocoder *_geocoder;
+    
+    BOOL _loacting;
+}
+
+@property (copy, nonatomic) LocationCompletion locCompletion;
+@property (copy, nonatomic) Location_CL_Completion loc_CL_Completion;
+
+@end
+
+@implementation LocationServer
+
++ (instancetype)sharedServer {
+    static LocationServer *_server;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _server = [[LocationServer alloc] init];
+    });
+    
+    return _server;
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _mapManager = [[BMKMapManager alloc] init];
+        
+        BOOL ret = [_mapManager start:@"584wegVV7sfUNP3SdENkVx4nb2r9zGzj"
+                      generalDelegate:nil];
+        if (ret) {
+            _locServer = [[BMKLocationService alloc] init];
+            _locServer.delegate = self;
+            
+            _searcher = [[BMKGeoCodeSearch alloc]init];
+            _searcher.delegate = self;
+        }
+        
+        
+        
+        
+        _locationManager = [[CLLocationManager alloc] init];
+        _geocoder =[[CLGeocoder alloc] init];
+        
+        
+        if (![CLLocationManager locationServicesEnabled]) {
+            
+        } else {
+            [_locationManager requestAlwaysAuthorization];
+            //设置代理；
+            _locationManager.delegate = self;
+            //设置精度；定位精度越高越耗电；
+            _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            //设置频度，没隔多少米定位一次；
+            CLLocationDistance distance = 10.0;
+            _locationManager.distanceFilter = distance;
+        }
+        
+        
+    
+    }
+    
+    return self;
+}
+
+#pragma mark - BMKLocationServiceDelegate
+
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation {
+    [_locServer stopUserLocationService];
+    
+    if (_loacting) {
+        return;
+    }
+    
+    _loacting = YES;
+    
+    //发起反向地理编码检索
+    CLLocationCoordinate2D pt = userLocation.location.coordinate;
+    BMKReverseGeoCodeOption *reverseGeoCodeSearchOption = [[BMKReverseGeoCodeOption alloc] init];
+    reverseGeoCodeSearchOption.reverseGeoPoint = pt;
+    BOOL flag = [_searcher reverseGeoCode:reverseGeoCodeSearchOption];
+    if(!flag) {
+        _loacting = NO;
+        if (_locCompletion) {
+            _locCompletion(nil);
+            _locCompletion = NULL;
+        }
+    }
+}
+
+#pragma mark - BMKGeoCodeSearchDelegate
+
+//接收反向地理编码结果
+-(void)onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher
+                          result:(BMKReverseGeoCodeResult *)result
+                       errorCode:(BMKSearchErrorCode)error {
+    _loacting = NO;
+    
+    if (!_locCompletion) {
+        return;
+    }
+    
+    if (error == BMK_SEARCH_NO_ERROR) {
+        _locCompletion(result);
+    } else {
+        _locCompletion(nil);
+    }
+    _locCompletion = NULL;
+}
+
+
+#pragma CLLOCATION DELEGATE
+
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    
+    if (_loacting) {
+        return;
+    }
+    
+    _loacting = YES;
+    
+    //从数组中取出一个定位信息；
+    CLLocation *location = [locations lastObject];
+    //从CLlocation中取出坐标；
+    //CLLocationCoordinate2D:经纬度，表示坐标系；
+    CLLocationCoordinate2D coordinate = location.coordinate;
+    NSLog(@"纬度:%f,精度:%f,海拔：%f,行走速度：%f",coordinate.latitude,coordinate.longitude,location.altitude,location.speed);
+    //如果不需要定位服务的时候，即时关闭定位服务；
+    [_locationManager stopUpdatingLocation];
+    
+    
+    [_geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+        
+        _loacting = NO;
+        
+        CLPlacemark *placemark = [placemarks firstObject];
+        NSLog(@"%@",placemark.addressDictionary);
+        if (!error) {
+            _loc_CL_Completion(placemark);
+        } else {
+            _loc_CL_Completion(nil);
+        }
+    }];
+
+}
+
+#pragma mark - Public
+
+- (void)locateWithCompletion:(LocationCompletion)completion {
+    self.locCompletion = completion;
+    [_locServer startUserLocationService];
+}
+
+
+- (void)locate_CL_WithCompletion:(Location_CL_Completion)completion {
+    self.loc_CL_Completion = completion;
+    [_locationManager startUpdatingLocation];
+}
+
+@end

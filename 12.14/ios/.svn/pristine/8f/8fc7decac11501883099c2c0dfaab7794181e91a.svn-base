@@ -1,0 +1,22 @@
+//
+//  FloatingBallWindowViewController.h
+//  Muse
+//
+//  Created by paycloud110 on 16/7/2.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+#import "FloatingView.h"
+
+@interface FloatingBallWindowViewController : UIViewController <FloatingViewFriendsDataRefreshDelegate>
+
+/**  */
+@property (nonatomic, assign) BOOL whetherClicked;
+/**  */
+@property (nonatomic, strong) NSDictionary *friendsData;
+
+
+
+@end

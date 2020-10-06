@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ClockSettingView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6R-3Y-uIu" userLabel="Dismiss Button">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                    <connections>
+                        <action selector="dismiss:" destination="iN0-l3-epB" eventType="touchUpInside" id="Vre-AB-C2d"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcW-jw-5b0">
+                    <rect key="frame" x="24" y="92" width="366" height="470"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" style="plain" separatorStyle="none" rowHeight="226" sectionHeaderHeight="55" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="L4U-uZ-jPQ">
+                            <rect key="frame" x="0.0" y="72" width="366" height="346"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="sectionIndexBackgroundColor" red="0.91764705879999997" green="0.93725490199999995" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <outlet property="dataSource" destination="iN0-l3-epB" id="83k-Ti-Q5L"/>
+                                <outlet property="delegate" destination="iN0-l3-epB" id="jeu-cJ-CDM"/>
+                            </connections>
+                        </tableView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_clocktest_clock" translatesAutoresizingMaskIntoConstraints="NO" id="IDg-Lz-nD0">
+                            <rect key="frame" x="165" y="18" width="36" height="37"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DHo-5N-ccR">
+                            <rect key="frame" x="163" y="424" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="VlF-Vq-wod"/>
+                                <constraint firstAttribute="width" constant="40" id="upO-iT-GN1"/>
+                            </constraints>
+                            <state key="normal" image="btn_clocktest_plus"/>
+                            <state key="highlighted" image="btn_clocktest_plus_press"/>
+                            <connections>
+                                <action selector="addNewClock:" destination="iN0-l3-epB" eventType="touchUpInside" id="07z-ma-0wy"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.91764705882352937" green="0.93725490196078431" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="DHo-5N-ccR" secondAttribute="bottom" constant="6" id="1Vw-Lb-vZv"/>
+                        <constraint firstItem="L4U-uZ-jPQ" firstAttribute="top" secondItem="vcW-jw-5b0" secondAttribute="top" constant="72" id="8ao-4o-W3E"/>
+                        <constraint firstItem="L4U-uZ-jPQ" firstAttribute="leading" secondItem="vcW-jw-5b0" secondAttribute="leading" id="9YG-BY-W2b"/>
+                        <constraint firstItem="IDg-Lz-nD0" firstAttribute="centerX" secondItem="vcW-jw-5b0" secondAttribute="centerX" id="OVM-kp-X8a"/>
+                        <constraint firstItem="DHo-5N-ccR" firstAttribute="centerX" secondItem="vcW-jw-5b0" secondAttribute="centerX" id="Wru-Ha-Ypx"/>
+                        <constraint firstItem="IDg-Lz-nD0" firstAttribute="top" secondItem="vcW-jw-5b0" secondAttribute="top" constant="18" id="bvZ-ZU-hvz"/>
+                        <constraint firstAttribute="trailing" secondItem="L4U-uZ-jPQ" secondAttribute="trailing" id="lJj-pw-ruf"/>
+                        <constraint firstAttribute="bottom" secondItem="L4U-uZ-jPQ" secondAttribute="bottom" constant="52" id="yUZ-wS-FRo"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="vcW-jw-5b0" secondAttribute="trailing" constant="24" id="9XV-Yu-btM"/>
+                <constraint firstItem="o6R-3Y-uIu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="9zU-Zi-YMH"/>
+                <constraint firstItem="vcW-jw-5b0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="24" id="B0n-vu-WIF"/>
+                <constraint firstItem="o6R-3Y-uIu" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="EAd-3C-1tI"/>
+                <constraint firstItem="vcW-jw-5b0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="92" id="WTm-bh-ykc"/>
+                <constraint firstAttribute="bottom" secondItem="vcW-jw-5b0" secondAttribute="bottom" constant="174" id="Zmo-R5-cC6"/>
+                <constraint firstItem="o6R-3Y-uIu" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="bNK-7g-3ts"/>
+                <constraint firstItem="o6R-3Y-uIu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="vo9-qC-njJ"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+            <connections>
+                <outlet property="addClockButton" destination="DHo-5N-ccR" id="qcW-Nh-44H"/>
+                <outlet property="clockIconView" destination="IDg-Lz-nD0" id="5jB-2I-fP3"/>
+                <outlet property="contentBottomConstraint" destination="Zmo-R5-cC6" id="Ftx-la-oTB"/>
+                <outlet property="contentLeadingConstraint" destination="B0n-vu-WIF" id="N5V-Vh-ZML"/>
+                <outlet property="contentTopConstraint" destination="WTm-bh-ykc" id="oQp-0y-PQH"/>
+                <outlet property="contentTrailingConstraint" destination="9XV-Yu-btM" id="1vy-7N-fgL"/>
+                <outlet property="dismissButton" destination="o6R-3Y-uIu" id="vtJ-Dz-py9"/>
+                <outlet property="tableTopConstraint" destination="8ao-4o-W3E" id="eqZ-cp-A2W"/>
+                <outlet property="tableView" destination="L4U-uZ-jPQ" id="R8m-nV-tDP"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn_clocktest_plus" width="24" height="25"/>
+        <image name="btn_clocktest_plus_press" width="24" height="25"/>
+        <image name="icon_clocktest_clock" width="36" height="37"/>
+    </resources>
+</document>

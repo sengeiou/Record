@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NoticeViewController">
+            <connections>
+                <outlet property="noticeSwitch" destination="EmB-fv-v3k" id="T4I-NP-oHT"/>
+                <outlet property="promptLabel" destination="sBM-cV-zQ0" id="Ymp-Gv-yGP"/>
+                <outlet property="titleLbl" destination="CV8-CR-Ih0" id="9Fz-4U-soA"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="block_homepage_setting" translatesAutoresizingMaskIntoConstraints="NO" id="3f5-o2-oyx">
+                    <rect key="frame" x="0.0" y="108" width="375" height="66"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="66" id="yfl-4W-SCB"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sBM-cV-zQ0">
+                    <rect key="frame" x="27" y="184" width="321" height="19"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来电提醒" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CV8-CR-Ih0">
+                    <rect key="frame" x="27" y="130" width="82" height="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EmB-fv-v3k">
+                    <rect key="frame" x="270" y="126" width="67" height="32"/>
+                    <state key="normal" image="btn_clocktest_switch_on"/>
+                    <state key="selected" image="btn_clocktest_switch_on"/>
+                    <connections>
+                        <action selector="switchNotice:" destination="-1" eventType="touchUpInside" id="kC0-FY-0D5"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="EmB-fv-v3k" firstAttribute="centerY" secondItem="CV8-CR-Ih0" secondAttribute="centerY" id="1c6-vU-Ynv"/>
+                <constraint firstItem="sBM-cV-zQ0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="27" id="8C9-jW-2Fz"/>
+                <constraint firstItem="CV8-CR-Ih0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="27" id="L7W-X9-YtT"/>
+                <constraint firstItem="sBM-cV-zQ0" firstAttribute="top" secondItem="3f5-o2-oyx" secondAttribute="bottom" constant="10" id="NOq-5u-X3L"/>
+                <constraint firstItem="CV8-CR-Ih0" firstAttribute="centerY" secondItem="3f5-o2-oyx" secondAttribute="centerY" constant="1" id="Otr-Rv-3II"/>
+                <constraint firstAttribute="trailing" secondItem="sBM-cV-zQ0" secondAttribute="trailing" constant="27" id="Pfy-qD-qO5"/>
+                <constraint firstAttribute="trailing" secondItem="EmB-fv-v3k" secondAttribute="trailing" constant="38" id="VSK-qm-ETe"/>
+                <constraint firstItem="3f5-o2-oyx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="108" id="eX1-Pt-cRX"/>
+                <constraint firstAttribute="trailing" secondItem="3f5-o2-oyx" secondAttribute="trailing" id="k4E-fh-5C1"/>
+                <constraint firstItem="3f5-o2-oyx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="oK6-O0-UZc"/>
+            </constraints>
+            <point key="canvasLocation" x="-124" y="19"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="block_homepage_setting" width="414" height="66"/>
+        <image name="btn_clocktest_switch_on" width="67" height="32"/>
+    </resources>
+</document>

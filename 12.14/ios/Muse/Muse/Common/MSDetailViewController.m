@@ -1,0 +1,162 @@
+//
+//  MSDetailViewController.m
+//  Muse
+//
+//  Created by Ken.Jiang on 31/5/2016.
+//  Copyright © 2016 Muse. All rights reserved.
+//
+
+#import "MSDetailViewController.h"
+
+#import "UIView+FastKit.h"
+#import "UIButton+FastKit.h"
+#import "ShareView.h"
+#import "WXApi.h"
+
+#import "PublicNumberView.h"
+
+#define BottomViewHeight    80
+
+@interface MSDetailViewController () {
+    BOOL _preNavBarHidden;
+}
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailContainerTop;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *detailContainerBottom;
+
+@end
+
+@implementation MSDetailViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (!nibNameOrNil) {
+        nibNameOrNil = @"MSDetailViewController";
+    }
+    
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
+    return self;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    _bottomCenterLbl.text = NSLocalizedString(@"watchHeart", nil);
+    
+    [self setupHeaderView:ControllerHeaderTypeHeart];
+    self.detailProgressView = [[[NSBundle mainBundle] loadNibNamed:@"HeartProgressView" owner:self options:nil] firstObject];
+    
+    [self.detailContainer addSubview:_detailProgressView];
+    
+    
+    CGFloat width = [UIScreen mainScreen].bounds.size.width;
+    CGFloat itemWdith = 270; // 237为cell的高度
+    
+    
+    [_detailProgressView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_detailContainer);
+//        make.centerY.equalTo(@([UIScreen mainScreen].bounds.size.height / 4 - 20));
+        make.top.equalTo(width == 375 ? @74 : @64);
+        make.width.equalTo(@(itemWdith));
+        make.height.equalTo(@(itemWdith));
+    }];
+    
+ 
+   // [self.detailContainer layoutIfNeeded];
+    
+    _detailProgressView.progressView.progressInsert = 0;
+    
+    //5.5 直径254
+//    _detailProgressView.progressWidthConstraint.constant = (width == 414) ? 273 : 196;
+    
+    //以下为5.5订制约束
+    _detailProgressView.bottomLabelConstraint.constant = -80;
+    _detailProgressView.bottomImageConstraint.constant = -52;
+    
+//    _detailProgressView.frame = CGRectMake(0, 0, 196, 196);
+    
+    [self.detailProgressView layoutIfNeeded];
+
+    
+//    [self.detailCenterButton layoutWithType:LXButtonLayoutTypeImageTop subMargin:18];
+    
+    UISwipeGestureRecognizer *swipeUpGes = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showDataView:)];
+    swipeUpGes.direction = UISwipeGestureRecognizerDirectionUp;
+    [self.view addGestureRecognizer:swipeUpGes];
+    
+    UISwipeGestureRecognizer *swipeDownGes = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailView:)];
+    swipeDownGes.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.view addGestureRecognizer:swipeDownGes];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    _preNavBarHidden = self.navigationController.navigationBarHidden;
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    [self.navigationController setNavigationBarHidden:_preNavBarHidden animated:NO];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Public
+
+- (IBAction)backToHome:(UIButton *)sender {
+    
+    [self backToLastController:sender];
+    
+}
+
+- (IBAction)gotoPublic:(UIButton *)sender {
+    
+    [PublicNumberView popShow];
+    
+    MSLog(@"心率界面跳转公众号");
+    
+}
+
+- (IBAction)share:(UIButton *)sender {
+    
+    ShareView *view = [ShareView popShow];
+    
+    view.captureView = self.view;
+}
+//向上
+- (void)showDataView:(id)sender {
+    
+    CGFloat contentHeight = self.view.height - [ControllerHeaderView headViewHeight] - BottomViewHeight;
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.detailContainerTop.constant = [ControllerHeaderView headViewHeight] - contentHeight;
+                         self.detailContainerBottom.constant = contentHeight;
+                         self.detailContainer.alpha = 0;
+                         
+                         [self.view layoutIfNeeded];
+                     }];
+}
+//向下
+- (void)showDetailView:(id)sender {
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         self.detailContainerTop.constant = [ControllerHeaderView headViewHeight];
+                         self.detailContainerBottom.constant = 0;
+                         self.detailContainer.alpha = 1;
+                         
+                         [self.view layoutIfNeeded];
+                     }];
+}
+
+@end

@@ -1,0 +1,727 @@
+//
+//  SettingViewController.m
+//  Muse
+//
+//  Created by paycloud110 on 16/7/17.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import "SettingViewController.h"
+
+#import "WSTableView.h"
+
+#import "SettingTableViewCell.h"
+
+#import "SettingSubTableViewCell.h"
+
+#import "FeedBackIdeaTableViewCell.h"
+
+#import "SettingHeaderBar.h"
+
+#import "AppDelegate.h"
+
+#import "MSLogoutRequest.h"
+
+#import "MSFeedbackRequest.h"
+
+#import "MuseUser.h"
+
+#import "BlueToothHelper.h"
+
+#import "AboutTableViewCell.h"
+
+#define SettingCellA @"SettingCellA"
+#define SettingSubCellA @"SettingSubCellA"
+#define SettingCellB @"SettingCellB"
+
+
+#import "NSFileManager+FastKit.h"
+
+@interface SettingViewController () <WSTableViewDelegate, SettingSubTableViewCellDelegate, FeedBackIdeaTableViewCellDelegate,AboutTableViewCellDelegate, UIAlertViewDelegate>
+{
+    CGFloat _protocolHeight;
+}
+
+@property (nonatomic, strong) WSTableView *tableView;
+
+@property (strong, nonatomic) UITableViewCell *userProtocolCell;
+
+@property (nonatomic, weak) UIView *maskView;
+
+@property (nonatomic, weak) UIView *contentView;
+
+@end
+
+@implementation SettingViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self setupViewController];
+    
+    AppDelegate *app = (AppDelegate *)([UIApplication sharedApplication].delegate);
+    
+    app.messageFloatingWindow.hidden = YES;
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)setupViewController {
+    
+    [SettingHeaderBar addHeaderBarToController:self withType:SettingHeaderBarSettings];
+    
+    [self.tableView registerClass:[SettingTableViewCell class] forCellReuseIdentifier:SettingCellA];
+    [self.tableView registerClass:[SettingSubTableViewCell class] forCellReuseIdentifier:SettingSubCellA];
+    //  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:SettingCellB];
+}
+
+#pragma mark - Getter
+- (CGFloat)height {
+    
+    NSString *path;
+    if ([CURRENTLANGUAGE hasPrefix:@"zh-"]) {
+        path = [[NSBundle mainBundle] pathForResource:@"MuseHeartProtocol" ofType:@"txt"];
+    } else {
+        path = [[NSBundle mainBundle] pathForResource:@"MuseHeartProtocol_en" ofType:@"txt"];
+    }
+    NSString *LabelStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    
+    NSDictionary *attribute = @{NSFontAttributeName:[UIFont systemFontOfSize:16]};
+    
+    CGRect rect =[LabelStr boundingRectWithSize:CGSizeMake(SScreenWidth - 26 * 2, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin   attributes:attribute context:nil];
+    
+    CGFloat height = rect.size.height + 100;
+    
+    _protocolHeight = height;
+    
+    return height;
+    
+}
+- (UITableViewCell *)userProtocolCell {
+    
+    static NSString *subRowCellE = @"subRowCellE";
+     _userProtocolCell = [_tableView dequeueReusableCellWithIdentifier:subRowCellE];
+    if (!_userProtocolCell) {
+        _userProtocolCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:subRowCellE];
+        _userProtocolCell.backgroundColor = UIColorFromRGB(0xefefef);
+       
+        _userProtocolCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        UILabel *titleLabel = [[UILabel alloc] init];
+        titleLabel.font = [UIFont systemFontOfSize:20];
+        titleLabel.textColor = UIColorFromRGBA(0x000000, 0.8);
+        titleLabel.text = NSLocalizedString(@"User Agreement", nil);
+        [titleLabel sizeToFit];
+        [_userProtocolCell.contentView addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_userProtocolCell.contentView.mas_top).offset(20);
+            make.left.equalTo(_userProtocolCell.contentView.mas_left).offset(26);
+            
+           
+        }];
+        
+        UILabel *contentLabel = [[UILabel alloc] init];
+        contentLabel.numberOfLines = 0;
+        contentLabel.font = [UIFont systemFontOfSize:16];
+        contentLabel.textColor = UIColorFromRGBA(0x000000, 0.8);
+        
+        NSArray *languages = [NSLocale preferredLanguages];
+        NSString *currentLanguage = [languages objectAtIndex:0];
+        NSString *path;
+        
+        if ([currentLanguage hasPrefix:@"zh-"]) {
+            path = [[NSBundle mainBundle] pathForResource:@"MuseHeartProtocol" ofType:@"txt"];
+        } else {
+            path = [[NSBundle mainBundle] pathForResource:@"MuseHeartProtocol_en" ofType:@"txt"];
+        }
+        contentLabel.text = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        [_userProtocolCell addSubview:contentLabel];
+        
+
+        [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.top.equalTo(titleLabel.mas_bottom).offset(20);
+            make.left.equalTo(_userProtocolCell.contentView.mas_left).offset(26);
+            make.right.equalTo(_userProtocolCell.contentView.mas_right).offset(-26);
+            }];
+        
+        }
+    
+    return _userProtocolCell;
+}
+
+#pragma mark --<UITableViewDataSource>
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 7;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 6) {
+        
+        return 187.0f;
+    }
+    else{
+        
+        return 67.0f;
+    }
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SettingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:SettingCellA];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    cell.expandable = YES;
+    
+    for (UIView *view in cell.contentView.subviews) {
+        if (view) {
+            [view removeFromSuperview];
+        }
+    }
+    [cell setupChildView];
+    
+    cell.textLabel.textColor = UIColorFromRGB(0x000000);
+    cell.textLabel.font = [UIFont systemFontOfSize:17];
+    if (indexPath.row == 0) {
+        cell.textLabel.text = NSLocalizedString(@"Power saving mode", nil);
+    } else if (indexPath.row == 1) {
+        cell.textLabel.text = NSLocalizedString(@"Turn off vibration", nil);
+    } else if (indexPath.row == 2) {
+        cell.textLabel.text = NSLocalizedString(@"Using help", nil);
+    } else if (indexPath.row == 3) {
+        cell.textLabel.text = NSLocalizedString(@"Feedback Message", nil);
+    } else if (indexPath.row == 4) {
+        cell.textLabel.text = NSLocalizedString(@"User Agreement and Privacy Policy", nil);
+    } else if (indexPath.row == 5) {
+        cell.textLabel.text = NSLocalizedString(@"About MuseHeart", nil);
+        [cell.textLabel sizeToFit];
+        
+        //更新图片位置
+        UIImage *image = [UIImage imageNamed:@"img_about_new"];
+        UIImageView *updateTitleImage = [[UIImageView alloc]initWithImage:image];
+        [cell.contentView addSubview:updateTitleImage];
+        updateTitleImage.hidden=YES;
+        [updateTitleImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(cell.contentView.mas_left).offset(15 + cell.textLabel.width + 12);
+            make.height.equalTo(@(16));
+            make.width.equalTo(@(28));
+            make.centerY.equalTo(cell.contentView.mas_centerY);
+        }];
+    } else if (indexPath.row == 6) {
+        cell.textLabel.text = @"";
+        NOHeightLightButton *button = [NOHeightLightButton buttonWithType:UIButtonTypeCustom];
+        button.backgroundColor = kRGB(241, 82, 81);
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+        [button setTitle:NSLocalizedString(@"quitAccount", nil) forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(exitAccountClicked) forControlEvents:UIControlEventTouchUpInside];
+        [cell.contentView addSubview:button];
+        [button mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(cell.contentView.mas_centerX);
+            make.centerY.equalTo(cell.contentView.mas_centerY).offset(50);
+            make.width.equalTo(@(SScreenWidth - 60));
+            make.height.equalTo(@(53));
+        }];
+        button.layer.cornerRadius = 10;
+        cell.backImageView.hidden = YES;
+        
+        cell.backgroundColor = [UIColor clearColor];
+    }
+    
+    return cell;
+}
+#pragma mark --<点击事件>
+- (void)exitAccountClicked
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"Exit login", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Ok", nil) otherButtonTitles:NSLocalizedString(@"Cancel", nil), nil];
+    alertView.tag = 111;
+    [alertView show];
+}
+
+- (NSInteger)tableView:(WSTableView *)tableView numberOfSubRowsAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == 0) { // 省电
+        return 1;
+    } else if (indexPath.row == 1) { // 振动
+        return 1;
+    } else if (indexPath.row == 2) { // 帮助
+        return 13;
+    } else if (indexPath.row == 3) { // 意见
+        return 1;
+    } else if (indexPath.row == 4) { // 政策
+        return 1;
+    } else if (indexPath.row == 5) { // 关于
+        return 1;
+    }
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForSubRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = nil;
+    if (indexPath.row == 0) { // 省电
+        static NSString *subRowCellA = @"subRowCellA";
+        
+        SettingSubTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:subRowCellA];
+        if (cell == nil) {
+            cell = [[SettingSubTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:subRowCellA];
+        }
+        cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+//        [cell setupChildView:NSLocalizedString(@"Anti lost", nil) buttonState:[[BlueToothHelper sharedInstance] isMuseSettingEnable:BLESettingsDisconnect]];
+        [cell setupChildView:NSLocalizedString(@"Anti lost", nil) buttonState:[[[NSUserDefaults standardUserDefaults] valueForKey:USERLOSTSTATE] boolValue]];
+
+        return cell;
+    } else if (indexPath.row == 1) { // 振动
+        static NSString *subRowCellB = @"subRowCellB";
+        SettingSubTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:subRowCellB];
+        if (cell == nil) {
+            cell = [[SettingSubTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:subRowCellB];
+        }
+        cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell setupChildView:NSLocalizedString(@"Alarming vibration for Health value", nil) buttonState:[[BlueToothHelper sharedInstance] isMuseSettingEnable:BLESettingsOverHeartRate]];
+
+        return cell;
+    } else if (indexPath.row == 2) { // 帮助
+        static NSString *subRowCellC = @"subRowCellC";
+        SettingSubTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:subRowCellC];
+        if (cell == nil) {
+            cell = [[SettingSubTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:subRowCellC];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (indexPath.subRow == 0) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item1_title", nil)];
+        } else if (indexPath.subRow == 1) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item2_title", nil)];
+        } else if (indexPath.subRow == 2) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item3_title", nil)];
+        } else if (indexPath.subRow == 3) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item4_title", nil)];
+        } else if (indexPath.subRow == 4) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item5_title", nil)];
+        } else if (indexPath.subRow == 5) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item6_title", nil)];
+        } else if (indexPath.subRow == 6) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item7_title", nil)];
+        } else if (indexPath.subRow == 7) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item8_title", nil)];
+        } else if (indexPath.subRow == 8) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item9_title", nil)];
+        } else if (indexPath.subRow == 9) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item10_title", nil)];
+        } else if (indexPath.subRow == 10) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item11_title", nil)];
+        } else if (indexPath.subRow == 11) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item12_title", nil)];
+        }else if (indexPath.subRow == 12) {
+            [cell setupChildViewOnlyLeft:NSLocalizedString(@"user_help_item13_title", nil)];
+        }
+
+        return cell;
+    } else if (indexPath.row == 3) { // 意见
+        static NSString *subRowCellD = @"subRowCellD";
+        FeedBackIdeaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:subRowCellD];
+        if (cell == nil) {
+            cell = [[FeedBackIdeaTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:subRowCellD];
+        }
+        cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (indexPath.subRow == 0) {
+            [cell setupChildView];
+        }
+        return cell;
+    } else if (indexPath.row == 4) { // 用户协议
+        cell = self.userProtocolCell;
+    } else if (indexPath.row == 5) { // 关于
+        
+        static NSString *subRowCellF = @"subRowCellF";
+        AboutTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:subRowCellF];
+        if (cell == nil) {
+            cell = [[AboutTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:subRowCellF];
+        }
+        cell.delegate = self;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (indexPath.subRow == 0) {
+            [cell setupChildView];
+        }
+        return cell;
+    }
+    
+    return cell;
+}
+#pragma mark --<aboutTableViewCellDelegate>
+- (void)aboutTableViewCell:(AboutTableViewCell *)cell btn:(UIButton *)btn
+{
+    [btn addTarget:self action:@selector(updateClick:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+#pragma mark -- 弹出升级对话框
+
+- (void)updateClick:(UIButton *)btn {
+    BOOL flag = YES; // 已是最新版本
+    if (flag) {
+        
+    } else {
+        [self setMaskView];
+    }
+}
+
+#pragma mark -- 升级事件监听
+
+- (void)setHeightBackgroundcolor:(UIButton *)btn {
+    
+    btn.backgroundColor = UIColorFromRGB(0xDCDCDC);
+}
+
+- (void)clickNotUpdate:(UIButton *)btn {
+    btn.backgroundColor = UIColorFromRGB(0xFFFFFF);
+    [self.contentView removeFromSuperview];
+    [self.maskView removeFromSuperview];
+    
+}
+- (void)clickUpdate:(UIButton *)btn {
+    btn.backgroundColor = UIColorFromRGB(0xFFFFFF);
+   
+}
+#pragma mark --<UITableViewDelegate>
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row != 6) {
+        [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+}
+
+- (void)tableView:(WSTableView *)tableView didSelectSubRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 2) { // 使用帮助
+        SettingSubTableViewCell *cell = [tableView cellForSubRowAtIndexPath:indexPath];
+        
+        NSString *content;
+        switch (indexPath.subRow) {
+            case 0:
+                content = NSLocalizedString(@"user_help_item1_content", nil);
+                break;
+            case 1:
+                content = NSLocalizedString(@"user_help_item2_content", nil);
+                break;
+            case 2:
+                content = NSLocalizedString(@"user_help_item3_content", nil);
+
+                break;
+            case 3:
+                content = NSLocalizedString(@"user_help_item4_content", nil);
+
+                break;
+            case 4:
+                content = NSLocalizedString(@"user_help_item5_content", nil);
+
+                break;
+            case 5:
+                content = NSLocalizedString(@"user_help_item6_content", nil);
+                break;
+                
+                
+                
+            case 6:
+                content = NSLocalizedString(@"user_help_item7_content", nil);
+
+                break;
+            case 7:
+                content = NSLocalizedString(@"user_help_item8_content", nil);
+                break;
+
+            case 8:
+                content = NSLocalizedString(@"user_help_item9_content", nil);
+                break;
+            case 9:
+                content = NSLocalizedString(@"user_help_item10_content", nil);
+                break;
+            case 10:
+                content = NSLocalizedString(@"user_help_item11_content", nil);
+
+                break;
+            case 11:
+                content = NSLocalizedString(@"user_help_item12_content", nil);
+
+                break;
+            case 12:
+                content = NSLocalizedString(@"user_help_item13_content", nil);
+                break;
+
+                
+            default:
+                break;
+        }
+        
+        BallDisplayView *view = [[BallDisplayView alloc] initWithFrame:CGRectMake((SScreenWidth - 300) / 2, (SScreenHeight - 200) / 2, 300, 200) withTitle:cell.leftLabel.text content:content];
+        [view show];
+    }
+}
+
+
+
+- (CGFloat)tableView:(WSTableView *)tableView heightForSubRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height = 60;
+    
+    switch (indexPath.row) {
+        case 3:
+            height = 500;
+            break;
+        case 4:
+           // [self userProtocolCell];//先计算高度
+           // return _protocolHeight;
+             return  [self height];
+        case 5:
+            height = 350;
+            break;
+            
+        default:
+            break;
+    }
+    
+    return height;
+}
+#warning mark---9.28禁止滑动删除
+//-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return NO;
+//}
+//- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    return NO;
+//}
+//
+//- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//  
+//    return UITableViewCellEditingStyleDelete;
+//    
+//       
+//    
+//}
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//    MSLog(@"%ld",(long)indexPath.row);
+//
+//}
+
+//- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+   // MSLog(@"%@",tableView.gestureRecognizers);
+    
+//    tableView.isDragging = NO;
+//    
+//    UIPanGestureRecognizer *get = tableView.decelerating;
+//    
+//   
+//    
+//    get.enabled = NO;
+    
+//    return nil;
+//}
+
+#pragma mark --<SettingSubTableViewCellDelegate>
+
+- (void)settingSubTableViewCell:(SettingSubTableViewCell *)settingSubTableViewCell withButton:(UIButton *)button {
+    button.selected = !button.selected;
+    
+    NSString *content = settingSubTableViewCell.leftLabel.text;
+    MSLog(@"%@",content);
+    if ([content isEqualToString:NSLocalizedString(@"Anti lost", nil)]) {
+        [[BlueToothHelper sharedInstance] setMuse:BLESettingsDisconnect enable:button.selected];
+        
+        [kUserDefaults setBool:button.selected forKey:USERLOSTSTATE];
+        
+    } else if ([content isEqualToString:NSLocalizedString(@"Alarming vibration for Health value", nil)]) {
+        [[BlueToothHelper sharedInstance] setMuse:BLESettingsOverHeartRate enable:button.selected];
+    }
+}
+
+#pragma mark --<FeedBackIdeaTableViewCellDelegate>
+
+- (void)feedBackIdeaTableViewCell:(FeedBackIdeaTableViewCell *)feedBackIdeaTableViewCell
+                     withFeedback:(NSString *)content
+                          contact:(NSString *)contact {
+    
+    MSFeedbackRequest *req = [[MSFeedbackRequest alloc] initWithFeedback:content contact:contact];
+    [req startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest *request) {
+        NSDictionary *responseData = [NSJSONSerialization JSONObjectWithData:request.responseData options:0 error:nil];
+        if (MSRequestIsSuccess(responseData)) {
+            [MBProgressHUD showHUDWithMessageOnly:NSLocalizedString(@"feedback didsend", nil)];
+        } else {
+            [MBProgressHUD showHUDWithMessageOnly:NSLocalizedString(@"feedback failed", nil)];
+        }
+    } failure:^(__kindof YTKBaseRequest *request) {
+        [MBProgressHUD showHUDWithMessageOnly:NSLocalizedString(@"Network Error", nil)];
+    }];
+}
+
+#pragma mark --<layz>
+
+- (WSTableView *)tableView {
+    if (_tableView == nil) {
+        _tableView = [[WSTableView alloc] init];
+        _tableView.WSTableViewDelegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.shouldExpandOnlyOneCell = YES; // 控制是否有扩展功能
+        
+        [self.view addSubview:_tableView];
+        
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(@108);
+            make.leading.equalTo(@0);
+            make.trailing.equalTo(@0);
+            make.bottom.equalTo(@0);
+        }];
+    }
+    return _tableView;
+}
+- (void)setMaskView
+{
+    UIView *maskView = [[UIView alloc]init];
+    [self.view addSubview:maskView];
+    maskView.backgroundColor = UIColorFromRGB(0x000000);
+    maskView.alpha = 0.5;
+    //[self.view setMaskView:maskView];
+    maskView.frame = [UIScreen mainScreen].bounds;
+    _maskView = maskView;
+    
+    
+    UIView *contentView = [[UIView alloc]init];
+    _contentView = contentView;
+    [self.view addSubview:contentView];
+    contentView.bounds = CGRectMake(0, 0, 1040 / 3, 770 / 3);
+    contentView.center = self.view.center;
+    contentView.backgroundColor = UIColorFromRGB(0xFFFFFF);
+    
+    CGFloat contentViewW = contentView.bounds.size.width;
+    
+    UILabel *titleLable = [[UILabel alloc]init];
+    [contentView addSubview:titleLable];
+//    titleLable.text = @"MuseHeart v1.2.0";
+     titleLable.text = @"MuseHeart v2.0.0";
+    titleLable.frame = CGRectMake(0, 0, contentViewW, 181 / 3);
+    titleLable.textAlignment = NSTextAlignmentCenter;
+    titleLable.textColor = UIColorFromRGB(0x282828);
+    titleLable.font = [UIFont systemFontOfSize:20];
+    
+    UIView *seperatorLine = [[UIView alloc]init];
+    [contentView addSubview:seperatorLine];
+    seperatorLine.frame = CGRectMake( 0, 181 / 3 , contentViewW, 1);
+    seperatorLine.backgroundColor = UIColorFromRGB(0xc8c8c8);
+    
+    UILabel *firstLable = [[UILabel alloc]init];
+    [contentView addSubview:firstLable];
+    firstLable.text = @"1. 修正了部分Bug，";
+    firstLable.font = [UIFont systemFontOfSize:16];
+    [firstLable sizeToFit];
+    firstLable.frame = CGRectMake(80 / 3 , (181 + 50) / 3 + 1 , contentViewW, firstLable.frame.size.height);
+    firstLable.textColor = UIColorFromRGB(0x282828);
+    
+    
+    UILabel *secondLable = [[UILabel alloc]init];
+    [contentView addSubview:secondLable];
+    secondLable.text = @"2. 优化了测试心率功能，";
+    secondLable.font = [UIFont systemFontOfSize:16];
+    [secondLable sizeToFit];
+    secondLable.frame = CGRectMake(80 / 3 , CGRectGetMaxY(firstLable.frame) + 26 / 3, contentViewW, secondLable.frame.size.height);
+    secondLable.textColor = UIColorFromRGB(0x282828);
+    
+    
+    UILabel *thirdLable = [[UILabel alloc]init];
+    [contentView addSubview:thirdLable];
+    thirdLable.text = @"3. 更改了测试睡眠的检测算法。";
+    thirdLable.font = [UIFont systemFontOfSize:16];
+    [thirdLable sizeToFit];
+    thirdLable.frame = CGRectMake(80 / 3 , CGRectGetMaxY(secondLable.frame) + 26 / 3, contentViewW, thirdLable.frame.size.height);
+    thirdLable.textColor = UIColorFromRGB(0x282828);
+    
+    UIView *secondSeperatorLine = [[UIView alloc]init];
+    [contentView addSubview:secondSeperatorLine];
+    secondSeperatorLine.frame = CGRectMake( 0, contentView.frame.size.height - 170 / 3 - 1 , contentViewW, 1);
+    secondSeperatorLine.backgroundColor = UIColorFromRGB(0xc8c8c8);
+    
+    UIButton *firstBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [contentView addSubview:firstBtn];
+    firstBtn.frame = CGRectMake(0, contentView.frame.size.height - 170 / 3, 520 / 3, 170 / 3);
+    [firstBtn setTitle:@"暂不升级" forState:UIControlStateNormal];
+    [firstBtn setTitleColor:UIColorFromRGB(0x282828) forState:UIControlStateNormal];
+    [firstBtn setTitleColor:UIColorFromRGB(0x969696) forState:UIControlStateSelected];
+    firstBtn.titleLabel.font = [UIFont systemFontOfSize:20 weight:2];
+    [firstBtn addTarget:self action:@selector(clickNotUpdate:) forControlEvents:UIControlEventTouchUpInside];
+    [firstBtn addTarget:self action:@selector(setHeightBackgroundcolor:) forControlEvents:UIControlEventTouchDown];
+    firstBtn.tag = 1;
+    
+    UIButton *secondBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [contentView addSubview:secondBtn];
+    secondBtn.frame = CGRectMake(520 / 3, contentView.frame.size.height - 170 / 3, 520 / 3, 170 / 3);
+    [secondBtn setTitle:@"马上升级" forState:UIControlStateNormal];
+    [secondBtn setTitleColor:UIColorFromRGB(0x282828) forState:UIControlStateNormal];
+    [secondBtn setTitleColor:UIColorFromRGB(0x969696) forState:UIControlStateSelected];
+    secondBtn.titleLabel.font = [UIFont systemFontOfSize:20 weight:3];
+    [secondBtn addTarget:self action:@selector(clickUpdate:) forControlEvents:UIControlEventTouchUpInside];
+    [secondBtn addTarget:self action:@selector(setHeightBackgroundcolor:) forControlEvents:UIControlEventTouchDown];
+    secondBtn.tag = 2;
+    
+}
+#pragma mark --<UIAlertViewDelegate>
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag == 111) {
+        if (buttonIndex == 0) { // 确定退出
+            
+            [BPush unbindChannelWithCompleteHandler:^(id result, NSError *error) {
+                
+            }];
+            
+            [MBProgressHUD showMessage:NSLocalizedString(@"quiting", nil) toView:self.view hideAfterDelay:2];
+            // 删除当前自动连接的设备
+            [BlueToothHelper sharedInstance].isSaveAutoConnect = NO;
+            [[BabyBluetooth shareBabyBluetooth] AutoReconnectCancel:[BlueToothHelper sharedInstance].connectedPeripheral];
+            [[BabyBluetooth shareBabyBluetooth] cancelAllPeripheralsConnection];
+            [[BabyBluetooth shareBabyBluetooth] cancelScan];
+            
+            MqttModel *mqt = [MqttModel sharedInstance];
+            [mqt disConnect];
+            mqt = nil;
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+             
+                
+                AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                // 退出帐号
+                MSLogoutRequest *req = [[MSLogoutRequest alloc] init];
+                [req startWithCompletionBlockWithSuccess:nil failure:nil];
+                // 清除缓存
+                [[MuseUser currentUser] cleanCurrentUser];
+                [BlueToothHelper killBlueToothHelper];
+                
+                // 显示登录界面
+                [delegate relogin];
+            });
+      
+            [NSFileManager deleteFile:SecretTalkContacts fromDirectory:FSDirectoryTypeDocuments];
+            [NSFileManager deleteFile:EmergencyContacts fromDirectory:FSDirectoryTypeDocuments];
+            [NSFileManager deleteFile:MorseContacts fromDirectory:FSDirectoryTypeDocuments];
+
+            
+        }else {
+            
+        }
+    }
+}
+@end

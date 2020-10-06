@@ -1,0 +1,71 @@
+//
+//  AboutTableViewCell.m
+//  Muse
+//
+//  Created by songbaoqiang on 16/8/19.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import "AboutTableViewCell.h"
+
+@implementation AboutTableViewCell {
+    BOOL _setuped;
+}
+
+- (void)setupChildView {
+    if (_setuped) {
+        return;
+    }
+    _setuped = YES;
+    
+    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"img_logo_museheart" ]];
+    [self.contentView addSubview:imageV];
+    
+    imageV.center = CGPointMake([UIScreen mainScreen].bounds.size.width / 2, 170 / 3 + 45 );
+    imageV.bounds = CGRectMake(0, 0, 90, 90);
+    
+    UILabel *title_Lable = [[UILabel alloc]init];
+    title_Lable.text = @"MuseHeart";
+    [self.contentView addSubview:title_Lable];
+    title_Lable.textAlignment = NSTextAlignmentCenter;
+    title_Lable.textColor = UIColorFromRGB(0x000000);
+    title_Lable.font = [UIFont systemFontOfSize:30 weight:UIFontWeightMedium];
+    [title_Lable sizeToFit];
+    title_Lable.frame = CGRectMake(0, CGRectGetMaxY(imageV.frame) + 11, SScreenWidth, title_Lable.size.height);
+    
+    UILabel *versonLable = [[UILabel alloc]init];
+     versonLable.text = [NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%@1.0", NSLocalizedString(@"Ver", nil)]];
+    [self.contentView addSubview:versonLable];
+    versonLable.textAlignment = NSTextAlignmentCenter;
+    versonLable.textColor = UIColorFromRGB(0x787878);
+    versonLable.font = [UIFont systemFontOfSize:16];
+    [versonLable sizeToFit];
+    versonLable.frame = CGRectMake(0, CGRectGetMaxY(title_Lable.frame) + 64 / 3, SScreenWidth, versonLable.size.height);
+    
+    UILabel *ringLable = [[UILabel alloc] init];
+    ringLable.text = [NSString stringWithFormat:@"%@", [NSString stringWithFormat:@"%@1.0", NSLocalizedString(@"RingVer", nil)]];
+    [self.contentView addSubview:ringLable];
+    ringLable.textAlignment = NSTextAlignmentCenter;
+    ringLable.textColor = UIColorFromRGB(0x787878);
+    ringLable.font = [UIFont systemFontOfSize:16];
+    [ringLable sizeToFit];
+    ringLable.frame = CGRectMake(0, CGRectGetMaxY(versonLable.frame) + 6 , SScreenWidth, ringLable.size.height);
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setBackgroundImage:[UIImage imageNamed:@"btn_about_upgraded"] forState:UIControlStateNormal];
+    [btn setBackgroundImage:[UIImage imageNamed:@"btn_about_upgraded_press"] forState:UIControlStateHighlighted];
+    [btn setTitle:@"更新" forState:UIControlStateNormal];
+    [btn setTitleColor:UIColorFromRGB(0x000000) forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16 ];
+    [self.contentView addSubview:btn];
+    
+    btn.center = CGPointMake(SScreenWidth / 2, CGRectGetMaxY(ringLable.frame) + 164 / 3);
+    btn.bounds = CGRectMake(0, 0, 554 / 3, 114 / 3);
+
+   // [btn addTarget:self action:self forControlEvents:UIControlEventTouchUpInside];
+    if ([self.delegate respondsToSelector:@selector(aboutTableViewCell:btn:)]) {
+        [self.delegate aboutTableViewCell:self btn: btn];
+    }
+    btn.hidden = YES;
+}
+@end

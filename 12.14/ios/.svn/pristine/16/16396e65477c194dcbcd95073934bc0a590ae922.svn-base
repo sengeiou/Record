@@ -1,0 +1,65 @@
+//
+//  mqttModel.h
+//  Jizi
+//
+//  Created by apple on 15/8/29.
+//  Copyright (c) 2015年 JiZi. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+typedef void (^MqttBlackBlock)(NSInteger whetherSuccess);
+
+typedef NS_ENUM(NSUInteger, MqttModelMessageType) {
+    /** 关爱 */
+    MqttModelMessageTypeLove = 1, //
+    /** 申请配对（亲友请求类型） */
+    MqttModelMessageTypeReceiveFriendAskfor = 2, //
+    /** 同意配对 （亲友请求 同意 */
+    MqttModelMessageTypeFriendAskforMessageAgree = 3, //
+    /** 不同意配对 （亲友请求 拒绝） */
+    MqttModelMessageTypeFriendAskforMessageUnagree = 4, //
+    /** 蜜语 */
+    MqttModelMessageTypeMiYuAcceptedToCurrentUser = 5, //
+    /** 获取亲友删除信息 */
+    MqttModelMessageTypeDeletedFriendAskfor = 6, //
+    /** 发送SOS到设备 */
+    MqttModelMessageTypeSOSToDevice = 100,
+    /** 发送MiYu到设备 */
+    MqttModelMessageTypeMiYuToDevice = 101,
+    /** 发送HeartOverTake到设备 */
+    MqttModelMessageTypeHeartOverTakeToDevice = 102,
+    /** 刷新亲友状态 */
+    MqttModelMessageTypeRefreshFriendState = 1111,
+    
+    /** 摩斯码-我爱你 */
+    MqttModelMessageTypeMorseCodeLove = 300,
+    /** 摩斯码-单身 */
+    MqttModelMessageTypeMorseCodeSingle = 301,
+    /** 摩斯码-约会 */
+    MqttModelMessageTypeMorseCodeCome = 302,
+    /** 摩斯码-嗨 */
+    MqttModelMessageTypeMorseCodeHigh = 303,
+};
+
+@interface MqttModel : NSObject
+
++ (MqttModel *)sharedInstance;
+
+//- (NSDictionary *)sendText:(NSString *)content toTarget:(NSString *)target;
+- (void)sendText:(NSString *)content toTarget:(NSString *)target backBlock:(MqttBlackBlock)balckBlock;
+
+- (void)sendHeartAlertText:(NSString *)content toTarget:(NSString *)target backBlock:(MqttBlackBlock)balckBlock;
+
+
+- (void)sendMorseText:(NSString *)content toTarget:(NSString *)target type:(NSInteger)type;
+
+- (void)disConnect;
+- (void)reconnect;
+
+- (void)settingReceiveMessage;
+
+- (void)setMyTopic;
+- (void)cancelMyTopic;
+
+@end

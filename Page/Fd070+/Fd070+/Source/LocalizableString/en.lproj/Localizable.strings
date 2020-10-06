@@ -1,0 +1,230 @@
+/* 
+  Localizable.strings
+  FD070+
+
+  Created by HaiQuan on 2019/1/7.
+  Copyright © 2019 WANG DONG. All rights reserved.
+*/
+
+//Public
+"NextStep" = "Next step";
+"Cancel" = "Cancel";
+"Ok" = "Ok";
+"Loading" = "Loading...";
+"Uploading" = "Uploading...";
+"Deleting" = "Deleting...";
+"Connecting" = "Connecting,\n please wait!";
+
+
+
+"TurnOnSystemBluetooth" = "Turn on system Bluetooth!";
+
+//TabbarController
+"Tabbar_today" = "Today";
+"Tabbar_exercise" = "Exercise";
+"Tabbar_history" = "History";
+"Tabbar_me" = "Me";
+
+//Myday
+"Myday_BLEConnect_point" = "Not connected.";
+"Myday_BLEConnectState_true" = "Connected";
+"Myday_BLEConnectState_false" = "Disconnect";
+
+"Myday_BLEDataSynchro" = "BLE Data Synchro...";
+
+"MydayVC_step" = "Total steps";
+"MydayVC_goal" = "Target percentage";
+"MydayVC_bloodDSugar" = "Blood glucose";
+"MydayVC_HR" = "Resting heart rate";
+"MydayVC_excerciseTime" = "Excercise time";
+"MydayVC_calories" = "Calories";
+"MydayVC_sleepTime" = "Sleep duration";
+"MydayVC_sleepQuality" = "Sleep quality";
+"MydayVC_excerciseDistance" = "Excercise distance";
+
+
+"MydayVC_step_unit" = "Steps";
+"MydayVC_HR_unit" = "BPM";
+"MydayVC_distance_unitM" = "M";
+"MydayVC_distance_unitKM" = "KM";
+//2.22不显示时间单位
+"MydayVC_time_unit" = "";
+"MydayVC_calorie_unit" = "cal";
+"MydayVC_calorie_unitK" = "kcal";
+
+"MydayVC_bloodSugarValue_low" = "Low";
+"MydayVC_bloodSugarValue_normal" = "Normal";
+"MydayVC_bloodSugarValue_high" = "High";
+"MydayVC_bloodSugarTest" = "Test blood sugar";
+
+"MydayVC_appUpgrade_point" = "Point";
+"MydayVC_appUpgrade_message" = "New version of APP needs to be upgraded!";
+"MydayVC_appUpgrade_messageOne" = "New version of the bracelet software";
+"MydayVC_appUpgrade_messageTwo" = "Need to upgrade!";
+
+
+//Blood Sugar Test
+"BloodSugarTestVC_title" = "Blood sugar test";
+"BloodSugarTestVC_tip" = "Make sure that the bracelet is placed between the two fingers on the wrist, and that it is moderately loose.";
+"BloodSugarTestVC_message" = "The test process is expected to take 5 minutes to exit the interface, and when the test is over, you can view it on the home page.";
+
+
+
+"BloodSugarTestVC_low_note" = "Low blood sugar, please regular meals, increase extra carbohydrate intake before exercise.";
+"BloodSugarTestVC_normal_note" = "Blood sugar is in the normal range, please keep your current healthy lifestyle.";
+"BloodSugarTestVC_high_note" = "High blood sugar: pay attention to a healthy lifestyle, maintain a reasonable weight, and regularly monitor blood sugar.";
+
+"BloodSugarTestVC_startTest" = "Start testing";
+"BloodSugarTestVC_testing" = "Testing";
+
+"BloodSugarTestVC_point_title" = "Tip";
+"BloodSugarTestVC_point_message" = "Being tested, please wait!";
+"BloodSugarTestVC_stop_error" = "Time is too short to end";
+
+//Workout
+"WorkoutVC_setTarget" = "Set target";
+"WorkoutVC_workoutSetTargetVC_title" = "Moving target";
+"WorkoutVC_workoutSetTargetVC_description" = "Exercise 10,000 steps a day is a healthy and active lifestyle";
+"WorkoutVC_workoutSetTargetVC_distance" = "Distance";
+"WorkoutVC_workoutSetTargetVC_schedule" = "Schedule";
+"WorkoutVC_workoutSetTargetVC_distanceUnit" = "KM";
+"WorkoutVC_workoutSetTargetVC_scheduleUnit" = "MINUTE";
+"WorkoutVC_workoutSetTargetVC_save" = "Save";
+"WorkoutVC_workoutSetTargetVC_saveResult_success" = "Save successfully";
+"WorkoutVC_workoutSetTargetVC_saveResult_faile" = "Save failed";
+
+"WorkoutVC_workoutHistory_title" = "Exercise history";
+"WorkoutVC_workoutHistory_desc" = "Total mileage";
+
+//History
+"HistoryVC_segmentTitle_day" = "Day";
+"HistoryVC_segmentTitle_month" = "Month";
+"HistoryVC_segmentTitle_year" = "Year";
+
+"HistoryVC_deepSleep" = "Deep sleep";
+"HistoryVC_lightSleep" = "Light sleep";
+"HistoryVC_awake" = "Awake";
+"HistoryVC_NoDataWarn" = "No more date to show";
+
+//History Calenar
+"HistoryVC_calendar_weekMon" = "MON";
+"HistoryVC_calendar_weekTue" = "TUE";
+"HistoryVC_calendar_weekWed" = "WED";
+"HistoryVC_calendar_weekThu" = "THU";
+"HistoryVC_calendar_weekFri" = "FRI";
+"HistoryVC_calendar_weekSat" = "SAT";
+"HistoryVC_calendar_weekSun" = "SUN";
+
+//Personal information
+"UserInformationVC_VCTitle" = "User Information";
+"UserInformationVC_nameHeadTitle" = "You name";
+"UserInformationVC_gender" = "Gender";
+"UserInformationVC_genderHeadTitle" = "Please choose you gener";
+"UserInformationVC_height" = "Height";
+"UserInformationVC_weight" = "Weight";
+"UserInformationVC_birthday" = "Birthday";
+"UserInformationVC_goal" = "Goal";
+"UserInformationVC_country" = "Country";
+
+"UserInformationVC_logout" = "Log out";
+"UserInformationVC_logout_point" = "Are you sure to quit?";
+"UserInformationVC_ChangeCountry_point" = "Confirm change?";
+
+//Personal information Icon
+"UserInformationVC_uploadPhotos" = "Upload photos";
+"UserInforNameVC_takeAPhoto" = "Take photo";
+"UserInforNameVC_chooseFromAlbum" = "Choose from Album";
+
+
+//Personal information Name
+"UserInforNameVC_description" = "You name";
+"UserInforNameVC_firstName" = "Jackie";
+"UserInforNameVC_lastName" = "Ben";
+
+//Personal information Gender
+"UserInforGenderVC_description" = "Gender";
+"UserInforGenderVC_male" = "Male";
+"UserInforGenderVC_female" = "Female";
+
+//Personal information Goal
+"UserInforGoalVC_targetSetting" = "Target Setting";
+"UserInforGoalVC_targetSettingIgnore" = "Setting Ignore";
+"UserInforGoalVC_placeholder" = "Please enter your target steps";
+"UserInforGoalVC_description" = "10,000 steps a day is a healthy and active lifestyle.";
+
+//Personal information Country
+"UserInforCountryVC_selectContryMessage" = "Choose your current location";
+"UserInforCountryVC_china" = "China";
+"UserInforCountryVC_unitedStates" = "United States";
+
+//Device ViewController
+"DeviceVC_title" = "Device details";
+"DeviceVC_firmware" = "Firmware";
+"DeviceVC_serial" = "Serial";
+"DeviceVC_lastAsyc" = "Latest synchro";
+"DeviceVC_lastAsyc_just" = "Just";
+"DeviceVC_electric" = "Electric";
+"DeviceVC_dialStyle" = "Dial style";
+"DeviceVC_configurationDevice" = "Configuration device";
+"DeviceVC_customaryUnit" = "Customary unit";
+"DeviceVC_customaryUnit_metric" = "British system";
+"DeviceVC_customaryUnit_british" = "British system"; 
+"DeviceVC_continuousHRTest" = "Continuous heart rate test";
+"DeviceVC_AutomaticSynchronizationAroundTheClock" = "Automatic synchronization";
+"DeviceVC_habitualHand" = "Habitual hand";
+"DeviceVC_habitualHand_right" = "Right hand";
+"DeviceVC_habitualHand_left" = "left hand";
+"DeviceVC_newVersionUpdate" = "New version update";
+"DeviceVC_reset" = "Reset";
+"DeviceVC_reset_warn" = "Restoring the factory settings will clear the current settings";
+"DeviceVC_help" = "Help";
+"DeviceVC_hardWareVersion" = "Hardware version";
+"DeviceVC_appWareVersion" = "App version";
+"DeviceVC_deleteDevice_title" = "Delete device";
+"DeviceVC_deleteDevice_message" = "Are you sure you want to delete the device? Deleting a device will result in data loss. Please note";
+
+
+"DeviceVC_hasBeenUpdated" = "Updated";
+"DeviceVC_developing" = "Developing";
+
+//Device select ViewController
+"DeviceSelectVC_title" = "Select device";
+"DeviceSelectVC_connect_message" = "Ensure that the device is not connected \n,Click to start“pair”";
+"DeviceSelectVC_connect_after" = "Not pairing";
+"DeviceSelectVC_connect_start" = "Start pairing";
+
+
+//Device Secrch ViewController
+"DeviceSearchVC_title" = "Search device";
+"DeviceSearchVC_noDevice_warning" = "No available devices found...\n1.Please keep the bracelet on.\n2.Make sure the bracelet is not connected.\n3.Please keep the bracelet close to the phone.";
+"DeviceSearchVC_tip" = "No available devices found...";
+"DeviceSearchVC_reSearch" = "Search again";
+"DeviceSearchVC_pair_success" = "Pairing success";
+"DeviceSearchVC_pair_failure" = "Pairing failed, please re-pair";
+
+"DeviceSearchVC_pair_notNeeded" = "Not needed";
+
+
+"DeviceSearchVC_connect_success" = "Connection succeeded!";
+"DeviceSearchVC_connect_failure" = "Connection failed!";
+
+"DeviceSearchVC_connect_pair_tip" = "Begin paired, please confirm on the bracelet!";
+"DeviceSearchVC_connect_pair_success" = "Pairing success!";
+"DeviceSearchVC_launching" = "Start immediately";
+
+
+//OTA ViewController
+"OTAVC_title" = "Firmware upgrade";
+"OTAVC_Loading" = "Loading";
+"OTAVC_keepBLEConnect" = "Keep Bluetooth Normal connection";
+"OTAVC_firmwareUpgrade" = "Firmware upgrade";
+"OTAVC_updateCompleted" = "update completed";
+"OTAVC_deviceRestartPleaseReconnect" = "Device restart Please reconnect";
+"OTAVC_upgradeFailure" = "upgrade unsuccessful";
+"OTAVC_tryAgain" = "Please try again";
+
+
+
+//AccountSys ViewController
+"AccountSy_load_failure_tip" = "Failed to load";
+"AccountSy_load_failure_message" = "Network link error, please try again!";

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/CryptoSwift/Sources/CryptoSwift/Updatable.swift"
+            timestampString = "568718379.762082"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "update(withBytes:isLast:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(extension in CryptoSwift):CryptoSwift.Updatable.finish() throws -&gt; Swift.Array&lt;Swift.UInt8&gt;"
+                  moduleName = "CryptoSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wangdong/Documents/PROJECT/ProjectGit/FD070+/IOS/SRC/FD070+Swift/Fd070+/Pods/CryptoSwift/Sources/CryptoSwift/Updatable.swift"
+                  timestampString = "578894006.0538141"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(extension in CryptoSwift):CryptoSwift.Updatable.update(withBytes: Swift.Array&lt;Swift.UInt8&gt;, isLast: Swift.Bool) throws -&gt; Swift.Array&lt;Swift.UInt8&gt;"
+                  moduleName = "CryptoSwift"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/wangdong/Documents/PROJECT/ProjectGit/FD070+/IOS/SRC/FD070+Swift/Fd070+/Pods/CryptoSwift/Sources/CryptoSwift/Updatable.swift"
+                  timestampString = "578894006.055959"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "80"
+                  endingLineNumber = "80"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

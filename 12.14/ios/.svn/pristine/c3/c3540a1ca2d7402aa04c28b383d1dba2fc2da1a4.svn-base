@@ -1,0 +1,71 @@
+//
+//  DBManager+HeartRate.h
+//  Muse
+//
+//  Created by Ken.Jiang on 6/7/2016.
+//  Copyright © 2016 Muse. All rights reserved.
+//
+
+#import "DBManager.h"
+
+@interface HeartRateData : NSObject
+
+@property (assign, nonatomic) NSTimeInterval time;
+@property (strong, nonatomic) NSString *heartRate;
+
+@end
+
+@interface DBManager (HeartRate)
+
++ (NSString *)heartRateTableName;
+
+- (void)setupHeartRateTable;
+
+/**
+ *  添加一条心率记录
+ *
+ *  @param heartRate 心率
+ *  @param time      时间，NSNumber 包装的 NSTimeInterval（取整）
+ */
+- (void)addHeartRateRecord:(NSUInteger)heartRate atTime:(NSNumber *)time;
+- (void)addHeartRateRecords:(NSArray<HeartRateData *> *)datas;
+
+/**
+ *  从最后一次记录开始，读取 倒数偏移量 的记录
+ *
+ *  @param offset 倒数偏移量
+ *
+ *  @return 心率数据
+ */
+- (HeartRateData *)heartRateRecordLastWithOffset:(NSUInteger)offset;
+
+/**
+ *  查询某月份是否有记录
+ *
+ *  @param year  年份
+ *  @param month 月份
+ *
+ *  @return 是否存在数据
+ */
+- (BOOL)hasHeartRateRecordsAtYear:(NSInteger)year month:(NSInteger)month;
+
+/**
+ *  获取某月内每天的平均心率值 (返回的数组个数固定31，没记录的HeartRateData.heartRate 为 @"0")
+ *
+ *  @param year  年份
+ *  @param month 月份
+ *
+ *  @return 日平均心率数据数组
+ */
+- (NSArray<HeartRateData *> *)averageHeartRateAtYear:(NSInteger)year
+                                               month:(NSInteger)month;
+
+/**
+ *  插入某个月份的数据值为0
+ *
+ *  @param year  年份
+ *  @param month 月份
+ */
+- (void)addZoreHeartRateDatasToYear:(NSInteger)year month:(NSInteger)month;
+
+@end

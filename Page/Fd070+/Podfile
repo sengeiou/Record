@@ -1,0 +1,49 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '8.0'
+
+# ruby语法
+# target数组 如果有新的target直接加入该数组
+targetsArray = ['FD070+',
+                'FD070+release',
+                'FD070+beta']
+
+targetsArray.each do |t|
+    target t do
+
+        # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+        use_frameworks!
+
+        #Rx
+        pod 'RxSwift',    '~> 4.1.2'
+        pod 'RxCocoa',    '~> 4.1.2'
+
+        #Layout
+        pod 'SnapKit', '~> 4.0.0'
+
+        #BLE
+        pod 'FendaBLESwiftLib', '~> 0.2.5'
+
+        #DFU  nRF
+        pod 'iOSDFULibrary', '~>4.2.2'
+
+        #SQLite
+        pod 'SQLite.swift','~>0.11.5'
+        pod 'SQLiteMigrationManager.swift','~> 0.1.0'
+        #AES
+        pod 'CryptoSwift','~> 0.9.0'
+        pod 'NVActivityIndicatorView', '~>4.4.0'
+
+        #Network
+        pod 'Alamofire', '~> 4.7'
+        pod 'SwiftyJSON', '~> 4.0'
+        pod 'Kingfisher', '~> 4.8.0'
+
+        #Firebase
+        pod 'Firebase/Core', '~> 5.20.1'
+        pod 'Firebase/Messaging', '~> 3.5.0'
+        #...
+
+    end
+
+end
+

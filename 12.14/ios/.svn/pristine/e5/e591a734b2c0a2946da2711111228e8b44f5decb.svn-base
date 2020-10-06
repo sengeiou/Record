@@ -1,0 +1,345 @@
+//
+//  mqttModel.m
+//  Jizi
+//
+//  Created by apple on 15/8/29.
+//  Copyright (c) 2015年 JiZi. All rights reserved.
+//
+
+#import "MqttModel.h"
+#import "MQTTKit.h"
+#import "AppDelegate.h"
+#import "BluetoothHelper.h"
+#import "HeartTestManager.h"
+
+//#define MqttPort @"1983"
+//#define kMQTTServerHost @"115.28.80.31"
+#define kMQTTServerHost @"120.77.61.117"
+#define kMQTTServerHost_HK @"119.28.63.177"
+
+
+@interface MqttModel ()
+
+@property (nonatomic, strong) MQTTClient *client;
+@property (nonatomic, strong) NSTimer *soundTimer;
+/**  */
+@property (nonatomic, strong) NSMutableArray *partishipArray;
+
+/**  */
+@property (nonatomic, copy) MqttBlackBlock balckBlock;
+
+@end
+
+@implementation MqttModel
+
++ (MqttModel *)sharedInstance
+{
+    static MqttModel *_singletion;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        _singletion=[[self alloc] init];
+    });
+    return _singletion;
+}
+- (instancetype)init
+{
+    if (self = [super init]) {
+        
+        [self setBaseData];
+    }
+    return self;
+}
+- (void)setBaseData
+{
+    NSString *clientID = [NSString stringWithFormat:@"muse-%@-ios", [MuseUser currentUser].user_id];
+    NSLog(@"当前MQT用户登录的 ID 是 %@", [MuseUser currentUser].user_id);
+    //初始化
+    self.client = [[MQTTClient alloc] initWithClientId:clientID];
+    
+    //建立连接
+    
+    if ([[[[[NSUserDefaults standardUserDefaults] valueForKey:USERAREACODE] componentsSeparatedByString:@"+"] lastObject] isEqualToString:@"86"]) {
+        [self.client connectToHost:kMQTTServerHost completionHandler:^(MQTTConnectionReturnCode code) {
+            if (code == ConnectionAccepted) {
+                // 接受消息
+                [self settingReceiveMessage];
+                // 订阅主题
+                [self setMyTopic];
+            }
+        }];
+    } else {
+        [self.client connectToHost:kMQTTServerHost_HK completionHandler:^(MQTTConnectionReturnCode code) {
+            if (code == ConnectionAccepted) {
+                // 接受消息
+                [self settingReceiveMessage];
+                // 订阅主题
+                [self setMyTopic];
+            }
+        }];
+    }
+    
+  
+}
+- (void)disConnect
+{
+    [self cancelMyTopic];
+    [self.client disconnectWithCompletionHandler:^(NSUInteger code) {
+        MSLog(@"disConnect--MQTT client is disconnected");
+    }];
+}
+- (void)reconnect
+{
+    [self.client connectToHost:kMQTTServerHost completionHandler:^(MQTTConnectionReturnCode code) {
+        if (code == ConnectionAccepted) {
+            [self settingReceiveMessage];
+            [self setMyTopic];
+            MSLog(@"reconnect--client is connected with %@", _client);
+        }
+    }];
+}
+/** 订阅主题 */
+- (void)setMyTopic
+{
+//     = [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultKey_LastUserID];
+    if ([MuseUser currentUser].phone) {
+        [self.client subscribe:[self getTopicByTel:[MuseUser currentUser].user_id]
+         withCompletionHandler:^(NSArray *grantedQos) {
+          //   MSLog(@"setMyTopic--%@--%@", grantedQos, [[NSUserDefaults standardUserDefaults] objectForKey:UserDefaultKey_LastUserID]);
+         }];
+    }
+}
+/** 删除主题 */
+- (void)cancelMyTopic
+{
+    [self.client unsubscribe:[self getTopicByTel:[MuseUser currentUser].user_id]
+       withCompletionHandler:nil];
+}
+#pragma mark --<接受消息>
+- (void)settingReceiveMessage
+{
+    SSWeakSelf();
+    [self.client setMessageHandler:^(MQTTMessage *message) {
+        
+        if ([AppDelegate appDelegate].isBackgroundMode == YES) {
+            return ;
+        }
+        
+        
+        NSString *text = [message payloadString];
+       MSLog(@"mqtt received message %@", text);
+        
+        NSData *jsonData = [text dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *err;
+        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&err];
+        if (result) {
+            
+//            [AppDelegate registerLocalNotification:0 alertContent:result[@"message"]];
+            
+            NSInteger type = [result[@"type"] integerValue];
+            switch (type) {
+                case MqttModelMessageTypeLove: { //关爱
+                    [[HeartTestManager sharedInstance] setIsCare:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:LoveOtherNotification object:nil userInfo:@{@"message":result}];
+                }
+                    break;
+                case MqttModelMessageTypeReceiveFriendAskfor: //申请配对（亲友请求类型）： 已废弃使用http请求
+                    [weakSelf saveFriendListPartiship:result];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:ReceiveFriendAskforNotification object:nil userInfo:@{@"message":result}];
+                    break;
+                case MqttModelMessageTypeFriendAskforMessageAgree: //同意配对 （亲友请求 同意）： 已废弃使用http请求
+                    [[NSUserDefaults standardUserDefaults] setObject:result forKey:FriendAskforMessageAgreeKey];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:FriendAskforMessageAgreeNotification object:nil userInfo:@{@"message":result}];
+                    [kNotificationCenter postNotificationName:Refresh_FriendAskforMessageAgreeNotification object:nil];
+                    break;
+                case MqttModelMessageTypeFriendAskforMessageUnagree: //不同意配对 （亲友请求 拒绝）： 已废弃使用http请求
+                    [[NSUserDefaults standardUserDefaults] setObject:result forKey:FriendAskforMessageUnagreeKey];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:FriendAskforMessageunagreeNotification object:nil userInfo:@{@"message":result}];
+                    break;
+                case MqttModelMessageTypeMiYuAcceptedToCurrentUser: // 蜜语
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:MiYuAcceptedToCurrentUserKey];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:MiYuNotification object:nil userInfo:@{@"message":result}];
+                    break;
+                case MqttModelMessageTypeDeletedFriendAskfor: // 获取亲友删除信息
+                    [[NSNotificationCenter defaultCenter] postNotificationName:DeletedFriendAskforNotification object:nil userInfo:@{@"message":result}];
+                    break;
+                case MqttModelMessageTypeSOSToDevice: // sos to device
+                    [[NSNotificationCenter defaultCenter] postNotificationName:SOSToDeviceNotification object:nil userInfo:@{@"message":result}];
+                    break;
+                case MqttModelMessageTypeMiYuToDevice: // 密语 to device
+                    [[NSNotificationCenter defaultCenter] postNotificationName:MiYuToDeviceNotification object:nil userInfo:@{@"message":result}];
+                    break;
+                case MqttModelMessageTypeHeartOverTakeToDevice: // 超标 to device
+                    [[NSNotificationCenter defaultCenter] postNotificationName:HeartOverTakeToDeviceNotification object:nil userInfo:@{@"message":result}];
+                    break;
+                
+                case MqttModelMessageTypeRefreshFriendState: // 刷新亲友状态 1111
+                    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshFriendStateNotification object:nil userInfo:nil];
+                    break;
+                
+                case MqttModelMessageTypeMorseCodeLove:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_MorseReceive object:nil userInfo:@{@"message":result}];
+                    [[BlueToothHelper sharedInstance] sendMorseCode:MorseCodeTypeLove withCompletion:nil];
+                    
+                    break;
+                case MqttModelMessageTypeMorseCodeSingle:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_MorseReceive object:nil userInfo:@{@"message":result}];
+                    [[BlueToothHelper sharedInstance] sendMorseCode:MorseCodeTypeSingle withCompletion:nil];
+                    
+                    break;
+                case MqttModelMessageTypeMorseCodeCome:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_MorseReceive object:nil userInfo:@{@"message":result}];
+                    
+                    [[BlueToothHelper sharedInstance] sendMorseCode:MorseCodeTypeDate withCompletion:nil];
+                    break;
+                case MqttModelMessageTypeMorseCodeHigh:
+                    [[NSNotificationCenter defaultCenter] postNotificationName:Notification_MorseReceive object:nil userInfo:@{@"message":result}];
+                    
+                    [[BlueToothHelper sharedInstance] sendMorseCode:MorseCodeTypeHigh withCompletion:nil];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    }];
+}
+#pragma mark --<发送消息>
+- (void)sendText:(NSString *)content toTarget:(NSString *)target backBlock:(MqttBlackBlock)balckBlock
+{
+    self.balckBlock = balckBlock;
+   [self sendText:content toTarget:target];
+    
+   // MSLog(@"%@",dict);
+}
+
+- (void)sendHeartAlertText:(NSString *)content toTarget:(NSString *)target backBlock:(MqttBlackBlock)balckBlock {
+    self.balckBlock = balckBlock;
+    [self sendHeartText:content toTarget:target];
+}
+
+
+- (NSDictionary *)sendHeartText:(NSString *)content toTarget:(NSString *)target
+{
+    //    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //    [dict setObject:@([[NSDate date] timeIntervalSince1970]) forKey:@"time"];
+    //    [dict setObject:content forKey:@"content"];
+    //    [dict setObject:@(0) forKey:@"type"];
+    //    [dict setObject:[MuseUser currentUser].phone forKey:@"from"];
+    //    [dict setObject:target forKey:@"to"];
+    //    [self sendMessage:dict];
+    //    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:dict];
+    //    [result setObject:[MuseUser currentUser].user_id forKey:@"topic"];
+    //    return result;
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:[MuseUser currentUser].user_id forKey:@"from_id"];
+    [dict setObject:[MuseUser currentUser].phone forKey:@"from_phone"];
+    [dict setObject:target forKey:@"to_id"];
+    [dict setObject:content forKey:@"message"];
+    [dict setObject:@([[NSDate date] timeIntervalSince1970]) forKey:@"time"];
+    [dict setObject:@(102) forKey:@"type"];
+    
+    [self sendMessage:dict];
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:dict];
+    [result setObject:[MuseUser currentUser].user_id forKey:@"topic"];
+    return result;
+    
+    
+}
+
+- (NSDictionary *)sendText:(NSString *)content toTarget:(NSString *)target
+{
+//    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//    [dict setObject:@([[NSDate date] timeIntervalSince1970]) forKey:@"time"];
+//    [dict setObject:content forKey:@"content"];
+//    [dict setObject:@(0) forKey:@"type"];
+//    [dict setObject:[MuseUser currentUser].phone forKey:@"from"];
+//    [dict setObject:target forKey:@"to"];
+//    [self sendMessage:dict];
+//    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:dict];
+//    [result setObject:[MuseUser currentUser].user_id forKey:@"topic"];
+//    return result;
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:[MuseUser currentUser].user_id forKey:@"from_id"];
+    [dict setObject:[MuseUser currentUser].phone forKey:@"from_phone"];
+    [dict setObject:target forKey:@"to_id"];
+    [dict setObject:content forKey:@"message"];
+    [dict setObject:@([[NSDate date] timeIntervalSince1970]) forKey:@"time"];
+    [dict setObject:@(0) forKey:@"type"];
+    
+    [self sendMessage:dict];
+    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:dict];
+    [result setObject:[MuseUser currentUser].user_id forKey:@"topic"];
+    return result;
+
+}
+
+#pragma mark - 摩斯码发送
+- (void)sendMorseText:(NSString *)content toTarget:(NSString *)target type:(NSInteger)type
+{
+    //    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    //    [dict setObject:@([[NSDate date] timeIntervalSince1970]) forKey:@"time"];
+    //    [dict setObject:content forKey:@"content"];
+    //    [dict setObject:@(0) forKey:@"type"];
+    //    [dict setObject:[MuseUser currentUser].phone forKey:@"from"];
+    //    [dict setObject:target forKey:@"to"];
+    //    [self sendMessage:dict];
+    //    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithDictionary:dict];
+    //    [result setObject:[MuseUser currentUser].user_id forKey:@"topic"];
+    //    return result;
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    [dict setObject:[MuseUser currentUser].user_id forKey:@"from_id"];
+    [dict setObject:[MuseUser currentUser].phone forKey:@"from_phone"];
+    [dict setObject:target forKey:@"to_id"];
+    [dict setObject:content forKey:@"message"];
+    [dict setObject:@([[NSDate date] timeIntervalSince1970]) forKey:@"time"];
+    [dict setObject:@(type) forKey:@"type"];
+    
+    [self sendMessage:dict];
+}
+
+
+
+- (void)sendMessage:(NSDictionary *)dict
+{
+    NSError *parseError = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&parseError];
+    
+    NSString *message = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    NSString *topic = [self getTopicByTel:dict[@"to_id"]];
+    //100SOS 101密语  102心率超
+  //  MSLog(@"%@",message);
+    
+    [self.client publishString:message toTopic:topic withQos:ExactlyOnce retain:NO completionHandler:^(int mid) {
+        if (self.balckBlock) {
+            self.balckBlock(mid);
+            self.balckBlock = nil;
+        }
+         MSLog(@"message has been delivered");
+    }];
+}
+- (NSString *)getTopicByTel:(NSString *)topic
+{
+    NSString *result = [NSString stringWithFormat:@"muse/%@/peer", topic];
+    return result;
+}
+#pragma mark --<功能>
+- (void)saveFriendListPartiship:(NSDictionary *)dict
+{
+    self.partishipArray = [[[NSUserDefaults standardUserDefaults] objectForKey:FriendListPartishipKey] mutableCopy];
+    [self.partishipArray addObject:dict];
+    [[NSUserDefaults standardUserDefaults] setObject:self.partishipArray forKey:FriendListPartishipKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (NSMutableArray *)partishipArray
+{
+    if (_partishipArray == nil) {
+        _partishipArray = [[NSMutableArray alloc] init];
+    }
+    return _partishipArray;
+}
+
+@end

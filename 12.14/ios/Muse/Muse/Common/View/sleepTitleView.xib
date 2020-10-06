@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="sleepTitleView">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清醒5:20—5:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N6a-lb-xh8">
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" red="0.59607843140000005" green="0.59607843140000005" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="浅睡时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Llg-iO-Ezu">
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" red="0.59607843140000005" green="0.59607843140000005" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="深睡时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcq-CG-7VW">
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" red="0.59607843140000005" green="0.59607843140000005" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清醒时间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksd-jb-7Uo">
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" red="0.59607843140000005" green="0.59607843140000005" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYi-Zw-lkJ">
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" red="0.59607843140000005" green="0.59607843140000005" blue="0.64313725489999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UWC-mR-3d5">
+                    <color key="backgroundColor" red="0.12941176470588234" green="0.16862745098039217" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Ksd-jb-7Uo" firstAttribute="top" secondItem="UWC-mR-3d5" secondAttribute="bottom" constant="10" id="45Q-Tg-JaD"/>
+                <constraint firstAttribute="trailing" secondItem="N6a-lb-xh8" secondAttribute="trailing" constant="20" id="6SL-EA-Aj0"/>
+                <constraint firstAttribute="trailing" secondItem="UWC-mR-3d5" secondAttribute="trailing" constant="10" id="7TB-bm-HmY"/>
+                <constraint firstAttribute="bottom" secondItem="Llg-iO-Ezu" secondAttribute="bottom" constant="8" id="KNC-OZ-Q1w"/>
+                <constraint firstAttribute="trailing" secondItem="jYi-Zw-lkJ" secondAttribute="trailing" constant="8" id="WRe-xt-6WQ"/>
+                <constraint firstItem="UWC-mR-3d5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="YBU-1n-XB9"/>
+                <constraint firstItem="Llg-iO-Ezu" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="YqL-DB-PlV"/>
+                <constraint firstItem="Ksd-jb-7Uo" firstAttribute="leading" secondItem="gcq-CG-7VW" secondAttribute="trailing" constant="10" id="gDo-iK-k8G"/>
+                <constraint firstAttribute="bottom" secondItem="gcq-CG-7VW" secondAttribute="bottom" constant="8" id="h0I-6w-1ru"/>
+                <constraint firstAttribute="bottom" secondItem="Ksd-jb-7Uo" secondAttribute="bottom" constant="8" id="ihz-G6-2Zy"/>
+                <constraint firstItem="gcq-CG-7VW" firstAttribute="leading" secondItem="Llg-iO-Ezu" secondAttribute="trailing" constant="10" id="mId-pg-xe2"/>
+                <constraint firstItem="N6a-lb-xh8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="ogB-CS-LXS"/>
+                <constraint firstAttribute="bottom" secondItem="jYi-Zw-lkJ" secondAttribute="bottom" constant="8" id="uRL-6z-ptQ"/>
+                <constraint firstItem="UWC-mR-3d5" firstAttribute="top" secondItem="N6a-lb-xh8" secondAttribute="bottom" constant="10" id="vPc-bG-Rmb"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="N6a-lb-xh8"/>
+                    <exclude reference="Llg-iO-Ezu"/>
+                    <exclude reference="gcq-CG-7VW"/>
+                    <exclude reference="Ksd-jb-7Uo"/>
+                    <exclude reference="jYi-Zw-lkJ"/>
+                    <exclude reference="UWC-mR-3d5"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="45Q-Tg-JaD"/>
+                    <exclude reference="gDo-iK-k8G"/>
+                    <exclude reference="ihz-G6-2Zy"/>
+                    <exclude reference="KNC-OZ-Q1w"/>
+                    <exclude reference="YqL-DB-PlV"/>
+                    <exclude reference="6SL-EA-Aj0"/>
+                    <exclude reference="ogB-CS-LXS"/>
+                    <exclude reference="h0I-6w-1ru"/>
+                    <exclude reference="mId-pg-xe2"/>
+                    <exclude reference="WRe-xt-6WQ"/>
+                    <exclude reference="uRL-6z-ptQ"/>
+                    <exclude reference="7TB-bm-HmY"/>
+                    <exclude reference="YBU-1n-XB9"/>
+                    <exclude reference="vPc-bG-Rmb"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="subviews">
+                    <include reference="N6a-lb-xh8"/>
+                    <include reference="Llg-iO-Ezu"/>
+                    <include reference="gcq-CG-7VW"/>
+                    <include reference="Ksd-jb-7Uo"/>
+                    <include reference="jYi-Zw-lkJ"/>
+                    <include reference="UWC-mR-3d5"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="45Q-Tg-JaD"/>
+                    <include reference="gDo-iK-k8G"/>
+                    <include reference="ihz-G6-2Zy"/>
+                    <include reference="KNC-OZ-Q1w"/>
+                    <include reference="YqL-DB-PlV"/>
+                    <include reference="6SL-EA-Aj0"/>
+                    <include reference="ogB-CS-LXS"/>
+                    <include reference="h0I-6w-1ru"/>
+                    <include reference="mId-pg-xe2"/>
+                    <include reference="WRe-xt-6WQ"/>
+                    <include reference="uRL-6z-ptQ"/>
+                    <include reference="7TB-bm-HmY"/>
+                    <include reference="YBU-1n-XB9"/>
+                    <include reference="vPc-bG-Rmb"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="bgView" destination="UWC-mR-3d5" id="zdm-fJ-HZ9"/>
+                <outlet property="deepSleepLB" destination="gcq-CG-7VW" id="UMG-Br-RCp"/>
+                <outlet property="lightSleepLB" destination="Llg-iO-Ezu" id="Rux-rz-A9b"/>
+                <outlet property="rightTopLB" destination="N6a-lb-xh8" id="Xe8-v5-p4b"/>
+                <outlet property="timeLB" destination="jYi-Zw-lkJ" id="u5h-Lq-nKp"/>
+                <outlet property="weakUpLB" destination="Ksd-jb-7Uo" id="AT0-E1-49R"/>
+            </connections>
+        </view>
+    </objects>
+</document>

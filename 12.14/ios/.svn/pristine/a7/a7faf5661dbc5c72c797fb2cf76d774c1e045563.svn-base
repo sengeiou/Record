@@ -1,0 +1,109 @@
+
+//
+//  DBManager+Contacts.m
+//  Muse
+//
+//  Created by Ken.Jiang on 16/7/25.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import "DBManager+Contacts.h"
+#import "AddressBookManager.h"
+
+@implementation DBManager (Contacts)
+
++ (NSString *)contactsTableName {
+    return @"ContactsTable";
+}
+
++ (NSDictionary<NSString *, NSString *> *)contactsTableInfo {
+    return @{@"phone":@"Text",
+             @"initial":@"Text",
+             @"name":@"Text",
+             @"isMuseUser":@"Text"};
+}
+
+#pragma mark - Public
+
+- (void)setupContactsTable {
+    [self setupTable:[DBManager contactsTableName]
+       withTableInfo:[DBManager contactsTableInfo]];
+}
+
+#pragma mark - Update
+
+- (void)addPerson:(AddressPerson *)person {
+    if (!person.phone) {
+        return;
+    }
+    NSMutableDictionary *personInfo = [NSMutableDictionary dictionary];
+    personInfo[@"phone"] = person.phone;
+    
+    if (person.initial) {
+        personInfo[@"initial"] = person.initial;
+    }
+    if (person.name) {
+        personInfo[@"name"] = person.name;
+    }
+    if (person.isMuseUser) {
+        personInfo[@"isMuseUser"] = person.isMuseUser ? @"1" : @"0";
+    }
+    
+//    [self addRecord:personInfo toTable:[DBManager contactsTableName]];
+    //
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        [db setShouldCacheStatements:YES];
+        NSString *sql = @"REPLACE INTO ContactsTable (phone, initial, name, isMuseUser) VALUES (?, ?, ?, ?) INDEX BY ContactsTableIndex";
+        
+        [db beginTransaction];
+        if (person.phone) {
+            [db executeUpdate:sql, person.phone, person.initial, person.name, person.isMuseUser ? @"1" : @"0"];
+        }
+        [db commit];
+    }];
+
+}
+
+/*
+
+ */
+
+
+
+//- (void)addPersons:(NSArray<AddressPerson *> *)persons {
+//    [_dbQueue inDatabase:^(FMDatabase *db) {
+//        [db setShouldCacheStatements:YES];
+//        NSString *sql = @"REPLACE INTO ContactsTable (phone, initial, name, isMuseUser) VALUES (?, ?, ?, ?)";
+//        
+//        [db beginTransaction];
+//        for (AddressPerson *person in persons) {
+//            if (person.phone) {
+//                [db executeUpdate:sql, person.phone, person.initial, person.name, person.isMuseUser ? @"1" : @"0"];
+//            }
+//        }
+//        [db commit];
+//    }];
+//}
+
+#pragma mark - Query
+
+- (NSString *)nameForPhone:(NSString *)phone {
+    if (!phone) {
+        return nil;
+    }
+    
+    __block NSString *name;
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT name FROM ContactsTable WHERE phone = %@", phone];
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        if ([rs next]) {
+            name = [rs stringForColumn:@"name"];
+        }
+        [rs close];
+    }];
+    
+    return name;
+}
+
+@end

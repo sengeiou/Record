@@ -1,0 +1,102 @@
+//
+//  NewsNoticeCell.m
+//  Muse
+//
+//  Created by songbaoqiang on 16/8/14.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import "NewsNoticeCell.h"
+
+
+
+@implementation NewsNoticeCell
+
+- (void)setupChildView:(NSString *)time content:(NSString *)content height:(CGFloat)height
+{
+    if (self.bottomLineView || self.topLineView) {
+        return;
+    }
+    UILabel *leftTimeLabel = [[UILabel alloc] init];
+    leftTimeLabel.font = [UIFont systemFontOfSize:11];
+    leftTimeLabel.numberOfLines = 0;
+    leftTimeLabel.text = [NSString stringWithFormat:@"%@\n%@", [[time componentsSeparatedByString:@"/"] firstObject], [[time componentsSeparatedByString:@"/"] lastObject]];
+    leftTimeLabel.textColor = UIColorFromRGB(0x969696);
+    [leftTimeLabel sizeToFit];
+    [self.contentView addSubview:leftTimeLabel];
+    
+    [leftTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.left.equalTo(self.contentView.mas_left).offset(16);
+        make.width.equalTo(@(65));
+        make.height.equalTo(@(leftTimeLabel.height));
+    }];
+    
+    
+    
+    UIView *topLineView = [[UIView alloc]init];
+    self.topLineView = topLineView;
+    topLineView.backgroundColor = UIColorFromRGB(0x969696);
+    [self.contentView addSubview:topLineView];
+    
+    
+
+    
+    
+    //圆点
+    int diameter = 6;
+    UIView *middleV = [[UIView alloc]init];
+    middleV.backgroundColor = UIColorFromRGB(0x969696);
+    [self.contentView addSubview:middleV];
+    [middleV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.centerX.equalTo(topLineView.mas_centerX);
+        make.width.equalTo(@(diameter));
+        make.height.equalTo(@(diameter));
+    }];
+    middleV.layer.cornerRadius = diameter / 2;
+    middleV.layer.masksToBounds = YES;
+    
+    //下竖线
+    UIView *bottomLineView = [[UIView alloc] init];
+    self.bottomLineView = bottomLineView;
+    bottomLineView.backgroundColor = UIColorFromRGB(0x969696);
+    [self.contentView addSubview:bottomLineView];
+
+    
+    //右侧lable
+    UILabel *rightTimeLabel = [[UILabel alloc] init];
+//    self.rightTimeLabel = rightTimeLabel;
+    rightTimeLabel.font = [UIFont systemFontOfSize:15];
+    rightTimeLabel.text = content;
+    rightTimeLabel.textColor = UIColorFromRGB(0x282828);
+    rightTimeLabel.width = SScreenWidth - (leftTimeLabel.width + 16 + 9 + 11 + 11);
+    rightTimeLabel.height = rightTimeLabel.height;
+    rightTimeLabel.numberOfLines = 0;
+//    self.rightLabelHeight = rightTimeLabel.height;
+//    self.rightTimeLabel  = rightTimeLabel;
+    [self.contentView addSubview:rightTimeLabel];
+    
+    [rightTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(topLineView.mas_right).offset(11);
+        make.centerY.equalTo(self.contentView.mas_centerY);
+        make.width.equalTo(@(SScreenWidth - (65 + 16 + 9 + 11 + 11)));
+        make.height.equalTo(@(height + 10));
+    }];
+//    [rightTimeLabel sizeToFit];
+
+    [topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView.mas_top);
+        make.left.equalTo(leftTimeLabel.mas_right).offset(9);
+        make.bottom.equalTo(self.contentView.mas_centerY);
+        make.width.equalTo(@1);
+    }];
+    [bottomLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(topLineView.mas_left);
+        make.right.equalTo(topLineView.mas_right);
+        make.top.equalTo(@(-80));
+        make.bottom.equalTo(@80);
+    }];
+}
+
+@end

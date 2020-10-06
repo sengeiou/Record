@@ -1,0 +1,361 @@
+//
+//  SearchDeviceViewController.m
+//  Muse
+//
+//  Created by jiangqin on 16/4/14.
+//  Copyright © 2016年 Muse. All rights reserved.
+//
+
+#import "SearchDeviceViewController.h"
+#import "AddressBookController.h"
+//#import "PairViewController.h"
+#import "DeviceSelectionViewController.h"
+
+#import "AppDelegate.h"
+#import "BlueToothHelper.h"
+
+#import "DoubleProgressView.h"
+#import "UIColor+FastKit.h"
+
+
+@interface SearchDeviceViewController () {
+    UIView *_searchingContainer;
+    UIView *_successedContainer;
+    UIView *_failedContainer;
+    
+    NSUInteger _searchTryTimes;
+    
+    BOOL isGotoHome;
+    
+    DoubleProgressView *progressView;
+}
+
+@property NSTimer *circleAnimatedTimer;
+
+@property float animatedCount;
+
+@end
+
+@implementation SearchDeviceViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self startSearchDevice];
+    self.animatedCount = 0.f;
+    self.circleAnimatedTimer = [NSTimer scheduledTimerWithTimeInterval:0.005 target:self selector:@selector(playAnimated) userInfo:nil repeats:YES];
+}
+
+- (void)startSearchDevice {
+    _searchTryTimes = 5;
+    [self searchDevice];
+    
+    [self setStartSearchStep];
+}
+
+- (void)searchDevice {
+    _searchTryTimes--;
+    if (_searchTryTimes == 0) {
+        [self setSearchFailedStep];
+        return;
+    }
+    
+    BlueToothHelper *bt = [BlueToothHelper sharedInstance];
+    
+    bt.needPop = true;
+    
+    [bt _setupBabyDelegate];
+    
+    [bt startScanWithCompletion:^(NSArray<CBPeripheral *> * _Nonnull scanedPeripherals) {
+        
+        MSLog(@"搜索页搜索完毕");
+        
+        if (scanedPeripherals.count) {
+            if (scanedPeripherals.count == 1) {
+                [bt connectPeripheral:[scanedPeripherals firstObject]
+                          deviceQurey:NO
+                           completion:^(BOOL successed) {
+                    if (successed) {
+                        [self setSearchSuccessedStep];
+                    } else {
+                        [self setSearchFailedStep];
+                    }
+                }];
+            } else {
+                DeviceSelectionViewController *vc = [[DeviceSelectionViewController alloc] init];
+                vc.peripherals = scanedPeripherals;
+                [vc setCompletionBlock:^(CBPeripheral *selectedPeripheral) {
+                    [bt connectPeripheral:selectedPeripheral
+                              deviceQurey:NO
+                               completion:^(BOOL successed) {
+                        if (successed) {
+                            [self setSearchSuccessedStep];
+                        } else {
+                            [self setSearchFailedStep];
+                        }
+                    }];
+                }];
+                
+                [self presentViewController:vc animated:YES completion:nil];
+            }
+        } else {
+            [self searchDevice];
+        }
+    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Privates
+
+- (void)cleanView:(UIView *)view {
+    [view removeFromSuperview];
+    view = nil;
+}
+
+#pragma mark - Steps
+
+- (void)setStartSearchStep {
+    if (_successedContainer) {
+        [self cleanView:_successedContainer];
+    }
+    if (_failedContainer) {
+        [self cleanView:_failedContainer];
+    }
+    if (self.headerView) {
+        [self cleanView:self.headerView];
+    }
+    
+    _searchingContainer = [[UIView alloc] init];
+    [self.view addSubview:_searchingContainer];
+    
+    [_searchingContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(@0);
+    }];
+    
+    
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"block_disk_2"]];
+    [_searchingContainer addSubview:titleImageView];
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_searchingContainer.mas_centerX);
+        make.top.equalTo(@(81 + 20));
+    }];
+    
+    progressView = [[DoubleProgressView alloc] init];
+    [_searchingContainer addSubview:progressView];
+    [progressView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(titleImageView);
+        make.width.equalTo(titleImageView.mas_width);
+        make.height.equalTo(titleImageView.mas_height);
+    }];
+    [progressView setOuterProgress:0.6667f animated:YES];
+    
+    UIImageView *animationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cartoon_loading_bluetooth_1"]];
+    [_searchingContainer addSubview:animationView];
+    [animationView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(titleImageView.mas_centerX);
+        make.bottom.equalTo(@-40);
+    }];
+    animationView.animationImages = @[[UIImage imageNamed:@"cartoon_loading_bluetooth_1"],
+                                      [UIImage imageNamed:@"cartoon_loading_bluetooth_2"],
+                                      [UIImage imageNamed:@"cartoon_loading_bluetooth_3"],
+                                      [UIImage imageNamed:@"cartoon_loading_bluetooth_4"]];
+    animationView.animationDuration = 2;
+    [animationView startAnimating];
+    
+    UILabel *promptLabel = [[UILabel alloc] init];
+    [_searchingContainer addSubview:promptLabel];
+    [promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(_searchingContainer.mas_width);
+        make.bottom.equalTo(@-178);
+    }];
+    promptLabel.numberOfLines = 2;
+    promptLabel.textAlignment = NSTextAlignmentCenter;
+    promptLabel.textColor = [UIColor colorWithHex:0xc9caca];
+    promptLabel.font = [UIFont systemFontOfSize:16];
+   // promptLabel.text = @"请将首饰靠近手机";
+      promptLabel.text = NSLocalizedString(@"device_connect_tip2", nil);
+    
+    UILabel *prompt2Label = [[UILabel alloc] init];
+    [_searchingContainer addSubview:prompt2Label];
+    [prompt2Label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(_searchingContainer.mas_width);
+        make.bottom.equalTo(@-156);
+    }];
+    prompt2Label.numberOfLines = 2;
+    prompt2Label.textAlignment = NSTextAlignmentCenter;
+    prompt2Label.textColor = [UIColor colorWithHex:0xc9caca];
+    prompt2Label.font = [UIFont systemFontOfSize:16];
+//    prompt2Label.text = @"等待连接...";
+     prompt2Label.text = NSLocalizedString(@"device_connect_tip3", nil);
+    
+    UIImageView *line = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"line_secondarypage_under"]];
+    [_searchingContainer addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(@-208);
+        make.leading.equalTo(@40);
+        make.trailing.equalTo(@-40);
+    }];
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    [_searchingContainer addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(_searchingContainer.mas_width);
+        make.bottom.equalTo(@-218);
+    }];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.textColor = [UIColor colorWithHex:0xc9caca];
+    titleLabel.font = [UIFont systemFontOfSize:20];
+//    titleLabel.text = @"搜索信号";
+ titleLabel.text = NSLocalizedString(@"device_connect_tip1", nil);
+    
+
+}
+
+- (void)playAnimated {
+    if (self.animatedCount > 1) {
+        self.animatedCount = 0;
+    }
+    self.animatedCount += 0.001;
+    [progressView setOuterProgress:self.animatedCount animated:YES];
+    
+}
+
+- (void)setSearchSuccessedStep {
+    if (_searchingContainer) {
+        [self cleanView:_searchingContainer];
+    }
+    if (_failedContainer) {
+        [self cleanView:_failedContainer];
+    }
+    if (self.headerView) {
+        [self cleanView:self.headerView];
+    }
+    
+    [self setupHeaderView:ControllerHeaderTypeBluetooth];
+    if (!_successedContainer) {
+        _successedContainer = [[UIView alloc] init];
+        [self.view addSubview:_successedContainer];
+        
+        [_successedContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(@0);
+        }];
+        
+        UIImageView *animationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_loading_on"]];
+        [_successedContainer addSubview:animationView];
+        [animationView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(_successedContainer.mas_centerX);
+            make.bottom.equalTo(@-315);
+        }];
+        
+        UILabel *successLB = [[UILabel alloc]initWithFrame:CGRectZero];
+       // successLB.text = @"设备连接成功";
+         successLB.text = NSLocalizedString(@"device_connected_success", nil);
+        successLB.font = [UIFont systemFontOfSize:16];
+        successLB.textColor = [UIColor colorWithHex:0xc9caca];
+        [_successedContainer addSubview:successLB];
+        [successLB mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(_successedContainer.mas_centerX);
+            make.bottom.equalTo(@-281);
+        }];
+        
+    }
+    [self performSelector:@selector(toPairController) withObject:nil afterDelay:0.5];
+}
+
+- (void)setSearchFailedStep {
+    [[BlueToothHelper sharedInstance] cancelScan];
+    if (_successedContainer) {
+        [self cleanView:_successedContainer];
+    }
+    if (_searchingContainer) {
+        [self cleanView:_searchingContainer];
+    }
+    
+    [self setupHeaderView:ControllerHeaderTypeBluetooth];
+    
+    _failedContainer = [[UIView alloc] init];
+    [self.view addSubview:_failedContainer];
+    
+    [_failedContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(@0);
+    }];
+    
+    UIImageView *animationView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_loading_off"]];
+    [_failedContainer addSubview:animationView];
+    [animationView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_failedContainer.mas_centerX);
+        make.bottom.equalTo(@-349);
+    }];
+    
+    UILabel *successLB = [[UILabel alloc]initWithFrame:CGRectZero];
+//    successLB.text = @"设备连接失败";
+     successLB.text = NSLocalizedString(@"device_connected_failed", nil);
+    successLB.font = [UIFont systemFontOfSize:16];
+    successLB.textColor = [UIColor colorWithHex:0xc9caca];
+    [_failedContainer addSubview:successLB];
+    [successLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_failedContainer.mas_centerX);
+        make.bottom.equalTo(@-315);
+    }];
+    
+    UIButton *jumpBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+    [jumpBtn setBackgroundImage:[UIImage imageNamed:@"btn_loading_1"] forState:UIControlStateNormal];
+//    [jumpBtn setTitle:@"跳过" forState:UIControlStateNormal];
+     [jumpBtn setTitle:NSLocalizedString(@"device_connected_skip", nil) forState:UIControlStateNormal];
+    [jumpBtn setTitleColor:[UIColor colorWithHex:0xc9caca] forState:UIControlStateNormal];
+    jumpBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [_failedContainer addSubview:jumpBtn];
+    [jumpBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_failedContainer.mas_centerX);
+        make.bottom.equalTo(@-78);
+    }];
+    [jumpBtn addTarget:self action:@selector(toPairController) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *reconnectBtn = [[UIButton alloc]initWithFrame:CGRectZero];
+    [reconnectBtn setBackgroundImage:[UIImage imageNamed:@"btn_loading_1"] forState:UIControlStateNormal];
+//    [reconnectBtn setTitle:@"重新连接" forState:UIControlStateNormal];
+      [reconnectBtn setTitle:NSLocalizedString(@"device_connected_reconnect", nil)  forState:UIControlStateNormal];
+    [reconnectBtn setTitleColor:[UIColor colorWithHex:0xc9caca] forState:UIControlStateNormal];
+    reconnectBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [_failedContainer addSubview:reconnectBtn];
+    [reconnectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(_failedContainer.mas_centerX);
+        make.bottom.equalTo(jumpBtn.mas_top).with.offset(-13);
+    }];
+    
+    [reconnectBtn addTarget:self action:@selector(startSearchDevice) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)toPairController {
+    if (isGotoHome == YES) {
+        return;
+    }
+    
+    isGotoHome = NO;
+//    PairViewController *vc = [[PairViewController alloc]initWithNibName:@"PairViewController" bundle:nil];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    HomeViewController *vc = [[HomeViewController alloc] initWithNibName:@"HomeViewController"
+                                                                  bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+@end

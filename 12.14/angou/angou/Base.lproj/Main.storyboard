@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="dCJ-4A-3Xg">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Main Nav View Controller-->
+        <scene sceneID="AIQ-wE-Z3P">
+            <objects>
+                <navigationController id="dCJ-4A-3Xg" customClass="MainNavViewController" customModule="angou" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="oQ5-Ve-D5H">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="w7k-FD-6od" kind="relationship" relationship="rootViewController" id="SIC-Q0-qYt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R0Q-39-cdt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-937" y="611"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="778-VP-Z4V">
+            <objects>
+                <viewController id="w7k-FD-6od" customClass="MainViewController" customModule="angou" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6VA-I5-nlV"/>
+                        <viewControllerLayoutGuide type="bottom" id="rXH-RF-QfF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RnW-yw-cKf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 ：34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NO-DQ-D2d">
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euG-ke-0ZC">
+                                <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.88990261130000003" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="euG-ke-0ZC" secondAttribute="height" multiplier="125:125" id="TeA-9B-Oyr"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2S0-Nm-9Vx">
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expand.png" translatesAutoresizingMaskIntoConstraints="NO" id="wwH-P0-Faw">
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="3ra-MX-4ZF"/>
+                                            <constraint firstAttribute="width" constant="40" id="KYo-At-Ki0"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.88990261130000003" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="wwH-P0-Faw" firstAttribute="centerY" secondItem="2S0-Nm-9Vx" secondAttribute="centerY" id="6QS-Fi-K2R"/>
+                                    <constraint firstAttribute="height" constant="70" id="DrL-zZ-kg7"/>
+                                    <constraint firstItem="wwH-P0-Faw" firstAttribute="centerX" secondItem="2S0-Nm-9Vx" secondAttribute="centerX" id="O7c-r7-njr"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="0.88990261130000003" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="euG-ke-0ZC" firstAttribute="leading" secondItem="RnW-yw-cKf" secondAttribute="leading" id="205-2J-QNK"/>
+                            <constraint firstAttribute="trailing" secondItem="2S0-Nm-9Vx" secondAttribute="trailing" id="7IC-9P-rXL"/>
+                            <constraint firstItem="rXH-RF-QfF" firstAttribute="top" secondItem="2S0-Nm-9Vx" secondAttribute="bottom" id="GVq-6Z-8Pm"/>
+                            <constraint firstItem="euG-ke-0ZC" firstAttribute="top" secondItem="5NO-DQ-D2d" secondAttribute="bottom" constant="32" id="J3r-ju-RJa"/>
+                            <constraint firstItem="5NO-DQ-D2d" firstAttribute="centerX" secondItem="RnW-yw-cKf" secondAttribute="centerX" id="PP8-pa-ggo"/>
+                            <constraint firstItem="2S0-Nm-9Vx" firstAttribute="leading" secondItem="RnW-yw-cKf" secondAttribute="leading" id="WkY-3N-Jgp"/>
+                            <constraint firstAttribute="trailing" secondItem="euG-ke-0ZC" secondAttribute="trailing" id="r7Q-WG-Xxx"/>
+                            <constraint firstItem="5NO-DQ-D2d" firstAttribute="top" secondItem="6VA-I5-nlV" secondAttribute="bottom" constant="26" id="yBa-WH-O4A"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="IvX-2s-nfT">
+                        <barButtonItem key="leftBarButtonItem" systemItem="camera" id="4eb-OR-wB1"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="4og-5h-ZE1"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="expandButton" destination="wwH-P0-Faw" id="hAS-8a-aa6"/>
+                        <outlet property="expandButtonContainer" destination="2S0-Nm-9Vx" id="Bwm-ko-77O"/>
+                        <outlet property="plateContainerView" destination="euG-ke-0ZC" id="rR2-5W-QOT"/>
+                        <outlet property="timeLabel" destination="5NO-DQ-D2d" id="a0y-ng-zUf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i43-Ai-L8Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-119.2" y="609.44527736131943"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="expand.png" width="45" height="45"/>
+    </resources>
+</document>

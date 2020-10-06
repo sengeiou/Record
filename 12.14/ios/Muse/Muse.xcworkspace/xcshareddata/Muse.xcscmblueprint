@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3c66fe38-05e9-48c3-ba4b-52602a1b75e6++433",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "3c66fe38-05e9-48c3-ba4b-52602a1b75e6++433" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "3c66fe38-05e9-48c3-ba4b-52602a1b75e6++433" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D9BB2517-2AEE-463E-87DA-E8C2ACD9C6CE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "3c66fe38-05e9-48c3-ba4b-52602a1b75e6++433" : "ios\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Muse",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Muse\/Muse.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/tmpcc.gicp.net:1989",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3c66fe38-05e9-48c3-ba4b-52602a1b75e6++433"
+    }
+  ]
+}

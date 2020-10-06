@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HeartDataView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="445"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史数据" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h3R-2C-TAH">
+                    <rect key="frame" x="174.5" y="79" width="65.5" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blcok_-roulette-_heartrate" translatesAutoresizingMaskIntoConstraints="NO" id="tge-qh-76u">
+                    <rect key="frame" x="14.5" y="128.5" width="385" height="132"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C0F-XB-9dZ" customClass="iCarousel">
+                    <rect key="frame" x="0.0" y="260.5" width="414" height="184.5"/>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_secondarypage_left_small2" translatesAutoresizingMaskIntoConstraints="NO" id="FTI-pR-rAf">
+                    <rect key="frame" x="10" y="388" width="5" height="30"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btn_secondarypage_left_small2" translatesAutoresizingMaskIntoConstraints="NO" id="CKf-CA-y6I">
+                    <rect key="frame" x="399" y="388" width="5" height="30"/>
+                </imageView>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C6x-ls-kYJ">
+                    <rect key="frame" x="14.5" y="128.5" width="385" height="70"/>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="CKf-CA-y6I" secondAttribute="bottom" constant="48" id="19u-Zf-YCS"/>
+                <constraint firstItem="h3R-2C-TAH" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="79" id="5I9-1e-Oxy"/>
+                <constraint firstItem="C6x-ls-kYJ" firstAttribute="centerX" secondItem="tge-qh-76u" secondAttribute="centerX" id="Dmp-Fi-gwr"/>
+                <constraint firstAttribute="bottom" secondItem="C0F-XB-9dZ" secondAttribute="bottom" id="FNj-V9-wGP"/>
+                <constraint firstItem="C6x-ls-kYJ" firstAttribute="width" secondItem="tge-qh-76u" secondAttribute="width" id="HPd-GO-9di"/>
+                <constraint firstItem="CKf-CA-y6I" firstAttribute="centerY" secondItem="FTI-pR-rAf" secondAttribute="centerY" id="HQ2-Nj-fYb"/>
+                <constraint firstAttribute="bottom" secondItem="FTI-pR-rAf" secondAttribute="bottom" constant="27" id="MdF-Mv-tG2"/>
+                <constraint firstAttribute="trailing" secondItem="CKf-CA-y6I" secondAttribute="trailing" constant="10" id="Mzo-zR-gLv"/>
+                <constraint firstItem="C6x-ls-kYJ" firstAttribute="height" secondItem="tge-qh-76u" secondAttribute="height" id="NaY-HV-ArV"/>
+                <constraint firstItem="C6x-ls-kYJ" firstAttribute="height" secondItem="tge-qh-76u" secondAttribute="height" multiplier="70:132" id="Osw-Zw-TfU"/>
+                <constraint firstItem="C6x-ls-kYJ" firstAttribute="top" secondItem="tge-qh-76u" secondAttribute="top" id="PEJ-DR-DWF"/>
+                <constraint firstItem="FTI-pR-rAf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Qq4-fV-dyV"/>
+                <constraint firstItem="tge-qh-76u" firstAttribute="centerX" secondItem="h3R-2C-TAH" secondAttribute="centerX" id="RMV-m9-GQz"/>
+                <constraint firstItem="C0F-XB-9dZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="VDF-tI-uql"/>
+                <constraint firstItem="C6x-ls-kYJ" firstAttribute="top" secondItem="tge-qh-76u" secondAttribute="top" id="dOW-E7-sAn"/>
+                <constraint firstItem="C6x-ls-kYJ" firstAttribute="centerY" secondItem="tge-qh-76u" secondAttribute="centerY" id="fFu-eS-Mcy"/>
+                <constraint firstItem="tge-qh-76u" firstAttribute="top" secondItem="h3R-2C-TAH" secondAttribute="bottom" constant="30" id="oHu-SO-8jS"/>
+                <constraint firstAttribute="trailing" secondItem="C0F-XB-9dZ" secondAttribute="trailing" id="q9s-4e-Xk1"/>
+                <constraint firstItem="C0F-XB-9dZ" firstAttribute="top" secondItem="tge-qh-76u" secondAttribute="bottom" id="sOR-a4-X0r"/>
+                <constraint firstItem="h3R-2C-TAH" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="ywN-hk-UJV"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="NaY-HV-ArV"/>
+                    <exclude reference="dOW-E7-sAn"/>
+                    <exclude reference="fFu-eS-Mcy"/>
+                    <exclude reference="19u-Zf-YCS"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="chartContainer" destination="C0F-XB-9dZ" id="C1r-Cb-ePB"/>
+                <outlet property="singleDataViewContainer" destination="C6x-ls-kYJ" id="Czx-n3-oj7"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="blcok_-roulette-_heartrate" width="385" height="132"/>
+        <image name="btn_secondarypage_left_small2" width="5" height="30"/>
+    </resources>
+</document>

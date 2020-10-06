@@ -1,0 +1,168 @@
+//
+//  DBManager+HeartRate.m
+//  Muse
+//
+//  Created by Ken.Jiang on 6/7/2016.
+//  Copyright © 2016 Muse. All rights reserved.
+//
+
+#import "DBManager+HeartRate.h"
+#import "NSDate+FastKit.h"
+
+@implementation HeartRateData
+
+@end
+
+@implementation DBManager (HeartRate)
+
++ (NSString *)heartRateTableName {
+    return @"HeartRateTable";
+}
+
++ (NSDictionary<NSString *, NSString *> *)heartRateTableInfo {
+    return @{@"RecordDate":@"INTEGER Unique",// OR timestamp？
+             @"HeartRate":@"Text",
+             @"isAuto":@"Text"};
+}
+
+#pragma mark - Public
+
+- (void)setupHeartRateTable {
+    [self setupTable:[DBManager heartRateTableName]
+       withTableInfo:[DBManager heartRateTableInfo]];
+}
+
+#pragma mark - Update
+
+- (void)addHeartRateRecord:(NSUInteger)heartRate atTime:(NSNumber *)time isAuto:(NSString *)isAuto  {
+    NSDictionary *record = @{@"RecordDate":time, @"HeartRate":@(heartRate), @"isAuto":isAuto};
+
+    [self addRecord:record toTable:[DBManager heartRateTableName]];
+}
+
+- (void)addHeartRateRecords:(NSArray<HeartRateData *> *)datas {
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        [db setShouldCacheStatements:YES];
+        NSString *sql = @"REPLACE INTO HeartRateTable (RecordDate, HeartRate, isAuto) VALUES (?, ?, ?)";
+        
+        [db beginTransaction];
+        for (HeartRateData *data in datas) {
+            [db executeUpdate:sql, @(data.time), data.heartRate, data.isAuto];
+        }
+        [db commit];
+    }];
+}
+
+- (void)addZoreHeartRateDatasToYear:(NSInteger)year month:(NSInteger)month {
+    NSInteger nowTime = [[NSDate date] timeIntervalSince1970];
+    NSDate *date = [NSDate dateWithString:[NSString stringWithFormat:@"%04ld-%02ld-01", (long)year, (long)month] format:@"yyyy-MM-dd"];
+    NSInteger endTime = [[date endOfMonth] timeIntervalSince1970];
+    
+    if (nowTime < endTime) { //如果要插入的数据时间大于现在，当月数据不做插0处理
+        return;
+    }
+    
+    NSInteger startTime = [[date beginningOfMonth] timeIntervalSince1970];
+    NSInteger daySecs = 24 * 3600;
+    
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        [db setShouldCacheStatements:YES];
+        
+        NSString *sql = @"REPLACE INTO HeartRateTable (RecordDate, HeartRate, isAuto) VALUES (?, ?, ?)";
+        
+        [db beginTransaction];
+        
+        for (NSInteger time = startTime; time <= endTime; time += daySecs) {
+            if (time >= nowTime) {
+                break;
+            }
+            
+            [db executeUpdate:sql, @(time), @"0", @"NO"];
+        }
+        
+        [db commit];
+    }];
+}
+
+#pragma mark - Query
+
+- (HeartRateData *)heartRateRecordLastWithOffset:(NSUInteger)offset {
+    __block HeartRateData *data = nil;
+    
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        NSString *sql = [NSString stringWithFormat:@"SELECT * FROM HeartRateTable ORDER BY RecordDate DESC LIMIT %@, 1", @(offset)];
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        if ([rs next]) {
+            data = [[HeartRateData alloc] init];
+            
+            data.time = [rs longLongIntForColumn:@"RecordDate"];
+            data.heartRate = [rs stringForColumn:@"HeartRate"];
+            data.isAuto = [rs stringForColumn:@"isAuto"];
+        }
+        [rs close];
+    }];
+    
+    return data;
+}
+
+- (BOOL)hasHeartRateRecordsAtYear:(NSInteger)year month:(NSInteger)month {
+    if (month < 1 || month > 12) {
+        return NO;
+    }
+    
+    __block BOOL hasRecords = NO;
+    
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        NSDate *date = [NSDate dateWithString:[NSString stringWithFormat:@"%04ld-%02ld-01", (long)year, (long)month]
+                                       format:@"yyyy-MM-dd"];
+        NSInteger beginningTime = [[date beginningOfMonth] timeIntervalSince1970];
+        NSInteger endTime = [[date endOfMonth] timeIntervalSince1970];
+        
+        NSString *sql = [NSString stringWithFormat:@"SELECT COUNT(HeartRate) AS Count FROM HeartRateTable WHERE RecordDate >= '%ld' AND RecordDate <= '%ld'", (long)beginningTime, (long)endTime];
+        FMResultSet *rs = [db executeQuery:sql];
+        if ([rs next]) {
+            hasRecords = [rs intForColumn:@"Count"] > 0;
+        }
+        [rs close];
+    }];
+    
+    return hasRecords;
+}
+
+- (NSArray<HeartRateData *> *)averageHeartRateAtYear:(NSInteger)year
+                                               month:(NSInteger)month {
+    if (month < 1 || month > 12) {
+        return nil;
+    }
+    
+    __block NSMutableArray *result = [NSMutableArray array];
+    
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        NSDate *date = [NSDate dateWithString:[NSString stringWithFormat:@"%04ld-%02ld-01", (long)year, (long)month]
+                                       format:@"yyyy-MM-dd"];
+        NSInteger beginningTime = [[date beginningOfMonth] timeIntervalSince1970];
+        NSInteger endTime = [[date endOfMonth] timeIntervalSince1970];
+        NSInteger daySecs = 24 * 3600;
+        
+        for (NSInteger time = beginningTime; time <= endTime; time += daySecs) {
+            NSString *sql = [NSString stringWithFormat:@"SELECT AVG(HeartRate) AS HeartRate FROM HeartRateTable WHERE RecordDate >= '%ld' AND RecordDate <= '%ld'", (long)time, (long)(time + daySecs)];
+            
+            HeartRateData *data = [[HeartRateData alloc] init];
+            data.time = time;
+            FMResultSet *rs = [db executeQuery:sql];
+            if ([rs next]) {
+                data.heartRate = [rs stringForColumn:@"HeartRate"];
+                data.isAuto = [rs stringForColumn:@"isAuto"];
+            } else {
+                data.heartRate = @"0";
+            }
+            [rs close];
+            [result addObject:data];
+        }
+    }];
+    
+    return result;
+}
+
+@end

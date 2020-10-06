@@ -1,0 +1,160 @@
+//
+//  HeartRateDataManager.m
+//  Muse
+//
+//  Created by Ken.Jiang on 7/7/2016.
+//  Copyright © 2016 Muse. All rights reserved.
+//
+
+#import "HeartRateDataManager.h"
+#import "NSDate+FastKit.h"
+#import "MSUploadHeartRateRequest.h"
+#import "MSGetHeartRateMonthData.h"
+#import "BlueToothHelper.h"
+#import "AppDelegate.h"
+
+@interface HeartRateDataManager ()
+
+@property (weak, nonatomic) DBManager *dbManager;
+
+@property (strong, nonatomic) NSMutableDictionary <NSString *, NSArray *> *monthRecords;
+
+@end
+
+@implementation HeartRateDataManager
+
++ (NSString *)alertHeartRate {
+    
+    NSString *rate = [[NSUserDefaults standardUserDefaults] objectForKey:@"AlertHeartRate"];
+    
+    return rate ? rate : @"160";
+}
+
++ (void)saveAlertHeartRate:(NSString *)heartRate {
+    
+    if (!heartRate || ![heartRate isKindOfClass:NSString.class]
+        || [heartRate isKindOfClass:NSNumber.class]) {
+        return;
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:heartRate forKey:@"AlertHeartRate"];
+    [kUserDefaults synchronize];
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+        _dbManager = [DBManager sharedManager];
+        _monthRecords = [NSMutableDictionary dictionary];
+    }
+    
+    return self;
+}
+
+#pragma mark - Public
+
+- (void)addANewHeartRate:(NSUInteger)heartRate isAuto:(BOOL)isAuto {
+    NSDate *date = [NSDate date];
+    NSNumber *time = @((long long)[date timeIntervalSince1970]);
+//    [_dbManager addHeartRateRecord:heartRate atTime:time isAuto:isAuto == YES ? @"YES" : @"NO"];
+    
+    NSString *timeStr = [NSString stringWithFormat:@"%lld", (long long)time];
+    
+    NSString *bluetooth = [BlueToothHelper sharedInstance].connectedPeripheral.identifier.UUIDString;
+    if (!bluetooth) {
+        bluetooth = @"iOS";
+    }
+    MSUploadHeartRateRequest *req = [[MSUploadHeartRateRequest alloc] initWithDatas:@[@{@"bluetooth":bluetooth, @"rate":@(heartRate), @"time":timeStr, @"auto":isAuto ? @"1" : @"0"}]];
+    [req startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest *request) {
+        NSDictionary *responseData = [NSJSONSerialization JSONObjectWithData:request.responseData options:0 error:nil];
+        if (MSRequestIsSuccess(responseData)) {
+            //            <#statements#>
+            MSLog(@"succeed upload rate");
+            if (![AppDelegate appDelegate].isBackgroundMode) {
+                [kNotificationCenter postNotificationName:Notify_UploadHeartRateSucceed object:nil];
+            }
+        } else {
+            MSLog(@"failed upload rate");
+        }
+    } failure:^(__kindof YTKBaseRequest *request) {
+        MSLog(@"failed upload rate");
+    }];
+}
+
+- (NSDictionary<NSString *, NSString *> *)heartRateRecordLastWithOffset:(NSUInteger)offset {
+    HeartRateData *data = [_dbManager heartRateRecordLastWithOffset:offset];
+    if (data) {
+        // @"MM-dd HH:mm"
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:data.time];
+        return @{@"Date":[date stringWithFormat:@"MM-dd HH:mm"], @"HeartRate":data.heartRate, @"isAuto":data.isAuto};
+    }
+    
+    return nil;
+}
+
+- (NSArray<HeartRateData *> *)rateDataForYear:(NSInteger)year month:(NSInteger)month {
+    
+    if (month < 1 || month > 12) {
+        return nil;
+    }
+    
+    NSString *time = [NSString stringWithFormat:@"%04ld-%02ld", (long)year, (long)month];
+    NSArray *result = _monthRecords[time];
+    
+    if (result) {
+        if ([result isEqual:[NSNull null]]) {
+            return nil;
+        }
+    } else {
+        if ([_dbManager hasHeartRateRecordsAtYear:year month:month]) {
+            result = [_dbManager averageHeartRateAtYear:year month:month];
+            _monthRecords[time] = result;
+        } else {
+            _monthRecords[time] = (id)[NSNull null];
+            __weak typeof(self) weakSelf = self;
+            
+            MSGetHeartRateMonthData *req = [[MSGetHeartRateMonthData alloc] init];
+            req.dateMonth = time;
+            
+            [req startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest *request) {
+                NSDictionary *responseData = [NSJSONSerialization JSONObjectWithData:request.responseData options:0 error:nil];
+                if (!MSRequestIsSuccess(responseData)) {
+                    return;
+                }
+                
+                NSDictionary *data = MSResponseData(responseData);
+                if ([data isKindOfClass:[NSDictionary class]]) {
+                    NSArray *keys = data.allKeys;
+                    NSMutableArray<HeartRateData *> *records = [NSMutableArray array];
+                    for (NSString *key in keys) {
+                        NSDictionary *rateDataDic = data[key];
+                        
+                        HeartRateData *rateData = [[HeartRateData alloc] init];
+                        rateData.time = [key integerValue];
+                        rateData.heartRate = rateDataDic[@"ava"];
+                        rateData.isAuto = @"NO";
+                        [records addObject:rateData];
+                    }
+                    
+                    if (records.count) {
+//                        [[DBManager sharedManager] addHeartRateRecords:records];
+                    } else { //没有插入空数据
+                        [[DBManager sharedManager] addZoreHeartRateDatasToYear:year month:month];
+                    }
+                    weakSelf.monthRecords[time] = [weakSelf.dbManager averageHeartRateAtYear:year month:month];
+                    
+                    if ([weakSelf.delegate respondsToSelector:@selector(dataManagerDidFecthDatas)]) {
+                        [weakSelf.delegate dataManagerDidFecthDatas];
+                    }
+                } else {//没有插入空数据
+                    [[DBManager sharedManager] addZoreHeartRateDatasToYear:year month:month];
+                    weakSelf.monthRecords[time] = [weakSelf.dbManager averageHeartRateAtYear:year month:month];
+                }
+                
+            } failure:nil];
+        }
+    }
+    
+    return result;
+}
+
+@end

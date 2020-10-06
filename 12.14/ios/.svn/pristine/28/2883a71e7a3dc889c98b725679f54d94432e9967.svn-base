@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MusePickerView">
+            <rect key="frame" x="0.0" y="0.0" width="186" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <pickerView contentMode="scaleToFill" horizontalCompressionResistancePriority="749" showsSelectionIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRV-bh-Gmb">
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="K94-hB-5bc"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="OgT-4u-ZX8"/>
+                    </connections>
+                </pickerView>
+                <pickerView contentMode="scaleToFill" showsSelectionIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eXS-Cy-ABZ">
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="NZx-EY-Nhz"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="35h-8V-Rfc"/>
+                    </connections>
+                </pickerView>
+                <pickerView contentMode="scaleToFill" showsSelectionIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1oh-2H-bkF">
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="m1h-E6-hIb"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="S94-4l-vym"/>
+                    </connections>
+                </pickerView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=":" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UjY-nx-vad">
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="1oh-2H-bkF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2J9-yO-97b"/>
+                <constraint firstItem="eXS-Cy-ABZ" firstAttribute="leading" secondItem="UjY-nx-vad" secondAttribute="trailing" constant="5" id="3fV-oX-vPp"/>
+                <constraint firstAttribute="bottom" secondItem="1oh-2H-bkF" secondAttribute="bottom" id="4As-JB-kff"/>
+                <constraint firstItem="UjY-nx-vad" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="65H-Ej-st5"/>
+                <constraint firstItem="eXS-Cy-ABZ" firstAttribute="leading" secondItem="WRV-bh-Gmb" secondAttribute="trailing" constant="5" id="6Lg-Tv-Dhf"/>
+                <constraint firstAttribute="trailing" secondItem="1oh-2H-bkF" secondAttribute="trailing" id="6um-8b-eqE"/>
+                <constraint firstItem="UjY-nx-vad" firstAttribute="leading" secondItem="WRV-bh-Gmb" secondAttribute="trailing" constant="5" id="9K2-4B-Zoi"/>
+                <constraint firstAttribute="bottom" secondItem="WRV-bh-Gmb" secondAttribute="bottom" id="Cq3-YG-gdw"/>
+                <constraint firstAttribute="trailing" secondItem="eXS-Cy-ABZ" secondAttribute="trailing" id="VQL-dQ-7Gq"/>
+                <constraint firstItem="WRV-bh-Gmb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="aGg-4Y-0vV"/>
+                <constraint firstItem="WRV-bh-Gmb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="lWG-Ai-23P"/>
+                <constraint firstItem="1oh-2H-bkF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="mPT-KB-MEt"/>
+                <constraint firstItem="eXS-Cy-ABZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="pGo-DK-uf1"/>
+                <constraint firstAttribute="bottom" secondItem="eXS-Cy-ABZ" secondAttribute="bottom" id="qxZ-Ig-W3s"/>
+                <constraint firstItem="UjY-nx-vad" firstAttribute="leading" secondItem="WRV-bh-Gmb" secondAttribute="trailing" constant="5" id="sxj-k6-Xeb"/>
+                <constraint firstItem="UjY-nx-vad" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wG9-h3-BEZ"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="9K2-4B-Zoi"/>
+                    <exclude reference="6Lg-Tv-Dhf"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="leftPicker" destination="WRV-bh-Gmb" id="bDx-8U-NDE"/>
+                <outlet property="middleLB" destination="UjY-nx-vad" id="DUs-yx-z23"/>
+                <outlet property="middlePicker" destination="1oh-2H-bkF" id="4ZI-OB-Lsu"/>
+                <outlet property="rightPicker" destination="eXS-Cy-ABZ" id="a3I-ti-SgE"/>
+            </connections>
+            <point key="canvasLocation" x="170" y="40"/>
+        </view>
+    </objects>
+</document>

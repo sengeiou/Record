@@ -1,0 +1,50 @@
+{
+  "images" : [
+    {
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "scale" : "2x",
+      "idiom" : "universal",
+      "filename" : "block_clocktest_1@2x.png",
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "right" : 366,
+          "top" : 62,
+          "left" : 366,
+          "bottom" : 63
+        }
+      }
+    },
+    {
+      "scale" : "3x",
+      "idiom" : "universal",
+      "filename" : "block_clocktest_1@3x.png",
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 1
+        },
+        "cap-insets" : {
+          "right" : 550,
+          "top" : 94,
+          "left" : 549,
+          "bottom" : 95
+        }
+      }
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}
